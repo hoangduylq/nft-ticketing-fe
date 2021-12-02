@@ -1,20 +1,80 @@
 .Container {
-  position: absolute;
-  background-color: aliceblue;
-  height: 50rem;
-  width: 50rem;
-  left: 35rem;
-  border-radius: 15px;
-  h1 {
-    position: relative;
-    text-align: center;
-    font-weight: 300px;
-    font-size: 4rem;
-    top: 4rem;
+  position: relative;
+  background-color: white;
+  width: 1290px;
+  height: 900px;
+  &__adv {
+    position: absolute;
+    background: rgb(3, 107, 121);
+    height: 723px;
+    width: 573px;
+    left: 573px;
+    top: 62px;
+    p {
+      position: absolute;
+      color: white;
+      text-transform: uppercase;
+      top: 120px;
+      left: 100px;
+      font-size: 7rem;
+    }
   }
-  form {
-    position: relative;
-    padding: 10rem;
-    align-items: center;
+  &__login {
+    position: absolute;
+    background-color: rgb(220, 230, 220);
+    height: 723px;
+    width: 573px;
+    top: 62px;
+    .button__login {
+      position: relative;
+      left: 70px;
+      top: 90px;
+      background-color: rgb(17, 47, 148);
+    }
+    .button__register {
+      position: relative;
+      left: 140px;
+      top: 90px;
+      background-color: rgb(17, 47, 148);
+    }
+    h1 {
+      position: relative;
+      text-align: center;
+      top: 74px;
+      color: darkblue;
+    }
+    .form {
+      position: relative;
+      align-items: center;
+      left: 100px;
+      top: 150px;
+      &__email {
+        width: 370px;
+        height: 70px;
+        top: 0px;
+        border-radius: 10px;
+      }
+      &__password {
+        width: 370px;
+        height: 70px;
+        top: 60px;
+        border-radius: 10px;
+      }
+      &__box {
+        position: relative;
+        left: 0;
+        width: 370px;
+        height: 70px;
+        top: 100px;
+      }
+      &__facebook {
+        position: relative;
+        border-radius: 10px;
+        width: 190px;
+        height: 50px;
+        left: -100px;
+        top: 160px;
+      }
+    }
   }
 }
