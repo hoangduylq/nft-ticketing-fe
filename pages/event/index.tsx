@@ -1,6 +1,6 @@
-// import { NextPage } from 'next';
-// const Login: NextPage = () => {
-//   return <div className={'Container'}></div>;
-// };
+import { NextPage } from 'next';
+const EventsPage: NextPage = () => {
+  return <div className={'Container'}></div>;
+};
 
-// export default Login;
+export default EventsPage;
