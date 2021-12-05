@@ -1,49 +1,57 @@
-.Container {
-  position: relative;
+#Main {
+  position: absolute;
   background-color: white;
-  width: 1290px;
-  height: 900px;
-  &__adv {
-    position: absolute;
-    background: rgb(3, 107, 121);
-    height: 723px;
-    width: 573px;
-    left: 573px;
-    top: 62px;
-    p {
-      position: absolute;
-      color: white;
-      text-transform: uppercase;
-      top: 120px;
-      left: 100px;
-      font-size: 7rem;
-    }
+  width: 1920px;
+  height: 800px;
+  &__header {
+    background: rgba(1, 8, 6, 0.5);
+    height: 150px;
   }
-  &__login {
+  &__content {
     position: absolute;
-    background-color: rgb(220, 230, 220);
-    height: 723px;
-    width: 573px;
-    top: 62px;
-    .button__login {
-      position: relative;
-      left: 70px;
-      top: 90px;
-      background-color: rgb(17, 47, 148);
+    height: 100%;
+    width: 60%;
+    left: 400px;
+    &__adv {
+      position: absolute;
+      background: rgb(3, 107, 121);
+      height: 85%;
+      width: 50%;
+      left: 570px;
+      p {
+        position: absolute;
+        color: white;
+        text-transform: uppercase;
+        top: 120px;
+        left: 100px;
+        font-size: 7rem;
+      }
     }
-    .button__register {
-      position: relative;
-      left: 140px;
-      top: 90px;
-      background-color: rgb(17, 47, 148);
+    &__login {
+      position: absolute;
+      background-color: rgb(220, 230, 220);
+      height: 85%;
+      width: 50%;
+      #button__login {
+        position: relative;
+        left: 70px;
+        top: 90px;
+        background-color: rgb(17, 47, 148);
+      }
+      #button__register {
+        position: relative;
+        left: 140px;
+        top: 90px;
+        background-color: rgb(17, 47, 148);
+      }
+      h1 {
+        position: relative;
+        text-align: center;
+        top: 74px;
+        color: darkblue;
+      }
     }
-    h1 {
-      position: relative;
-      text-align: center;
-      top: 74px;
-      color: darkblue;
-    }
-    .form {
+    #form {
       position: relative;
       align-items: center;
       left: 100px;
