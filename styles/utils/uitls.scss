@@ -1,0 +1,38 @@
+.mr-5 {
+  margin-right: 0.5rem;
+}
+
+.mt-10 {
+  margin-top: 1rem;
+}
+
+.box {
+  background-color: #c6d8e8;
+  margin: 10rem auto;
+  border-radius: 15px;
+  padding: 4rem 2rem;
+  width: 60rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.heading {
+  font-size: 5.6rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  &__item {
+    width: 100%;
+  }
+
+  &__button {
+    text-align: center;
+    border: 20%;
+  }
+}
