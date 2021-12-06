@@ -1,10 +1,10 @@
 import { SignupPayload } from '@/models/sigup.interface';
-import { FacebookFilled } from '@ant-design/icons';
-import { Input, Button, Form, Radio, Row, Col } from 'antd';
+import { Input, Button, Form, Row, Col, Select } from 'antd';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import * as api from '../api-client/index';
 import AlertMessage, { TypeAlertEnum } from './alert';
+import Link from 'next/link';
 
 const Signup: React.FC = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
     try {
       const result = await api.authApi.signup(values);
       if (result) {
-        setAlertMessage({ message: 'Đăng ký thành công', title: TypeAlertEnum.Success });
+        setAlertMessage({ message: 'Sign Up Successfully!', title: TypeAlertEnum.Success });
         return router.push('/');
       }
     } catch (error: any) {
@@ -36,11 +36,12 @@ const Signup: React.FC = () => {
       </Col>
       <Col span="24">
         <section className="box">
-          <h1 className="heading"> Đăng ký</h1>
+          <h1 className="heading"> Snake Ticket Online</h1>
+          <h3 className="heading--secondary">New here?</h3>
+          <p className="heading--sub mb-24">Signing up is easy. It only takes a few steps</p>
           <Form
             name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 14 }}
+            wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             autoComplete="off"
@@ -48,73 +49,73 @@ const Signup: React.FC = () => {
             scrollToFirstError={true}
           >
             <Form.Item
-              label="Họ và tên"
               name="name"
-              rules={[{ required: true, message: 'Vui lòng nhập họ và tên' }]}
+              rules={[{ required: true, message: 'Please enter full name!' }]}
               className="form__item"
             >
-              <Input />
+              <Input placeholder="Full name" size="large" />
             </Form.Item>
 
             <Form.Item
-              label="Email"
               name="email"
-              rules={[{ required: true, message: 'Vui lòng nhập email', type: 'email' }]}
+              rules={[{ required: true, message: 'Please enter email!', type: 'email' }]}
               className="form__item"
             >
-              <Input />
+              <Input placeholder="Email" size="large" />
             </Form.Item>
 
             <Form.Item
-              label="Password"
               name="password"
               rules={[
                 {
                   type: 'string',
                   required: true,
-                  message: 'Vui lòng nhập mật khẩu!',
+                  message: 'Please enter password!',
                 },
                 {
                   pattern: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-                  message: 'Mật khẩu phải bao gồm chữ hoa, thường và số',
+                  message: 'Password must include uppercase, lowercase and number!',
                 },
                 {
                   min: 8,
-                  message: 'Mật khẩu tối thiểu 8 ký tự',
+                  message: 'Password minimum 8 characters!',
                 },
               ]}
               className="form__item"
             >
-              <Input.Password />
+              <Input.Password placeholder="Password" size="large" />
             </Form.Item>
 
             <Form.Item
-              label="Giới tính"
+              // label="Giới tính"
               name="gender"
-              rules={[{ required: true, message: 'Vui lòng chọn giới tính' }]}
+              rules={[{ required: true, message: 'Please select gender!' }]}
               className="form__item"
             >
-              <Radio.Group>
+              {/* <Radio.Group>
                 <Radio value="Female">Nữ</Radio>
                 <Radio value="Male">Nam</Radio>
                 <Radio value="Other">Khác</Radio>
-              </Radio.Group>
+              </Radio.Group> */}
+              <Select size="large" placeholder="Gender">
+                <Select.Option value="Female">Female</Select.Option>
+                <Select.Option value="Male">Male</Select.Option>
+                <Select.Option value="Other">Other</Select.Option>
+              </Select>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button mt-10">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
-                Đăng ký
+            <Form.Item wrapperCol={{ span: 24 }} className="form__item  mt-10">
+              <Button type="default" htmlType="submit" size="large" className="form__button">
+                <span className="form__button-label">Sign up</span>
               </Button>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
-                <span className="mr-5">
-                  <FacebookFilled />
-                </span>
-                <span> Đăng ký bằng Facebook</span>
-              </Button>
-            </Form.Item>
+            <p className="form__redirect">
+              Already have an account?
+              <span className="form__redirect-link ml-5">
+                <Link href="/login">Login</Link>
+              </span>
+            </p>
           </Form>
         </section>
       </Col>
