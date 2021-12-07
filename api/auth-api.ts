@@ -1,5 +1,4 @@
-import { SignupPayload } from './../models/sigup.interface';
-
+import { SignupPayload } from '../models/sigup.interface';
 import axiosClient from './axios-client';
 import { LoginPayload } from '@/models/auth.interface';
 

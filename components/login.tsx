@@ -4,11 +4,14 @@ import { Input, Button, Form, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import React, { useState } from 'react';
 import AlertMessage, { TypeAlertEnum } from './alert';
-import * as api from '../api-client/index';
+import * as api from '../api/index';
 import { LoginPayload } from '@/models/auth.interface';
 import { useRouter } from 'next/dist/client/router';
 import { useCookies } from 'react-cookie';
 import FacebookLogin from 'react-facebook-login';
+
+import { useAppDispatch } from './../app/hooks';
+import { login } from './../app/user/userSlice';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -16,6 +19,7 @@ const Login: React.FC = () => {
   const [cookies, setCookie] = useCookies(['token']);
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
@@ -26,6 +30,7 @@ const Login: React.FC = () => {
       const result: any = await api.authApi.login(values);
       if (result) {
         setCookie('token', result.accessToken);
+        dispatch(login(result.data));
         setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
         return router.push('/');
       }
@@ -34,11 +39,19 @@ const Login: React.FC = () => {
     }
   };
 
-  const responseFacebook = (response: any) => {
-    console.log(response.accessToken);
-    const user = api.authApi.loginFacebook(response.accessToken);
-    console.log('user:', user);
-  }
+  const responseFacebook = async (response: any) => {
+    try {
+      const result: any = await api.authApi.loginFacebook(response.accessToken);
+      if (result) {
+        setCookie('token', result.accessToken);
+        dispatch(login(result.data));
+        setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
+        return router.push('/');
+      }
+    } catch (error: any) {
+      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+    }
+  };
 
   return (
     <Row>
@@ -93,7 +106,10 @@ const Login: React.FC = () => {
               <span>Or</span>
             </div>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button__login_facebook">
+            <Form.Item
+              wrapperCol={{ span: 24 }}
+              className="form__item form__button__login_facebook"
+            >
               <FacebookLogin
                 appId="579184876518634"
                 autoLoad={false}

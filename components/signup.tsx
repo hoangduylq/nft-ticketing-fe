@@ -2,7 +2,7 @@ import { SignupPayload } from '@/models/sigup.interface';
 import { Input, Button, Form, Row, Col, Select } from 'antd';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
-import * as api from '../api-client/index';
+import * as api from '../api/index';
 import AlertMessage, { TypeAlertEnum } from './alert';
 import Link from 'next/link';
 
@@ -101,12 +101,14 @@ const Signup: React.FC = () => {
                     if (!value || getFieldValue('password') === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    return Promise.reject(
+                      new Error('The two passwords that you entered do not match!')
+                    );
                   },
                 }),
               ]}
             >
-              <Input.Password placeholder="Confirm Password" size="large"/>
+              <Input.Password placeholder="Confirm Password" size="large" />
             </Form.Item>
 
             <Form.Item

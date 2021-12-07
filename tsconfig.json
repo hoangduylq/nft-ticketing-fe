@@ -21,7 +21,7 @@
       "@/constants/*": ["./constants/*"],
       "@/hooks/*": ["./hooks/*"],
       "@/models/*": ["./models/*"],
-      "@/api/*": ["./api-client/*"],
+      "@/api/*": ["api/*"],
       "@/utils/*": ["./utils/*"]
     },
   },
