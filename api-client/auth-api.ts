@@ -12,6 +12,10 @@ export const authApi = {
     return axiosClient.post('/auth/login', payload);
   },
 
+  loginFacebook(accessToken: string) {
+    return axiosClient.get(`auth/facebook?access_token=${accessToken}`);
+  },
+
   logout() {
     return axiosClient.post('/logout');
   },

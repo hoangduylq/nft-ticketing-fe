@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { FacebookFilled } from '@ant-design/icons';
+import Link from 'next/link';
 import { Input, Button, Form, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import React, { useState } from 'react';
@@ -8,6 +8,7 @@ import * as api from '../api-client/index';
 import { LoginPayload } from '@/models/auth.interface';
 import { useRouter } from 'next/dist/client/router';
 import { useCookies } from 'react-cookie';
+import FacebookLogin from 'react-facebook-login';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -33,6 +34,12 @@ const Login: React.FC = () => {
     }
   };
 
+  const responseFacebook = (response: any) => {
+    console.log(response.accessToken);
+    const user = api.authApi.loginFacebook(response.accessToken);
+    console.log('user:', user);
+  }
+
   return (
     <Row>
       <Col offset="16" span="8">
@@ -41,56 +48,70 @@ const Login: React.FC = () => {
         )}
       </Col>
       <Col span="24">
-        <p>{isDisplayAlert}</p>
-
         <section className="box">
-          <h1 className="heading"> Đăng nhập</h1>
+          <h1 className="heading"> Snake Ticket Online</h1>
+          <h3 className="heading--secondary">Hello! let&apos;s get started</h3>
+          <p className="heading--sub mb-24">Sign in to continue.</p>
           <Form
             name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 14 }}
+            wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             autoComplete="off"
             className="form"
+            scrollToFirstError={true}
           >
             <Form.Item
-              label="Email"
               name="email"
-              rules={[{ required: true, message: 'Vui lòng nhập email', type: 'email' }]}
+              rules={[{ required: true, message: 'Please enter email!', type: 'email' }]}
               className="form__item"
             >
-              <Input />
+              <Input placeholder="Email" size="large" />
             </Form.Item>
 
             <Form.Item
-              label="Password"
               name="password"
               rules={[
                 {
+                  type: 'string',
                   required: true,
-                  message: 'Vui lòng nhập mật khẩu!',
+                  message: 'Please enter password!',
                 },
               ]}
               className="form__item"
             >
-              <Input.Password />
+              <Input.Password placeholder="Password" size="large" />
             </Form.Item>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button mt-10">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
-                Đăng nhập
+            <Form.Item wrapperCol={{ span: 24 }} className="form__item  mt-10">
+              <Button type="default" htmlType="submit" size="large" className="form__button">
+                <span className="form__button-label">Login</span>
               </Button>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
-                <span className="mr-5">
-                  <FacebookFilled />
-                </span>
-                <span> Đăng nhập bằng Facebook</span>
-              </Button>
+            <div className="space_login">
+              <span>Or</span>
+            </div>
+
+            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button__login_facebook">
+              <FacebookLogin
+                appId="579184876518634"
+                autoLoad={false}
+                fields="name,email,picture"
+                // onClick={hanldeLoginFacebook}
+                size="small"
+                callback={responseFacebook}
+                cssClass="my-facebook-button-class"
+                icon="fa-facebook"
+              />
             </Form.Item>
+
+            <p className="form__redirect">
+              Don&apos;t have an account?
+              <span className="form__redirect-link ml-5">
+                <Link href="/signup">Sign up</Link>
+              </span>
+            </p>
           </Form>
         </section>
       </Col>
