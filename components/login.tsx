@@ -44,7 +44,9 @@ const Login: React.FC = () => {
         <p>{isDisplayAlert}</p>
 
         <section className="box">
-          <h1 className="heading"> Đăng nhập</h1>
+          <h1 className="heading"> Snake Ticket Online</h1>
+          <h3 className="heading--secondary">Hello! lets get started</h3>
+          <p className="heading--sub mb-24">Sign in to continue.</p>
           <Form
             name="basic"
             labelCol={{ span: 6 }}
@@ -55,16 +57,14 @@ const Login: React.FC = () => {
             className="form"
           >
             <Form.Item
-              label="Email"
               name="email"
-              rules={[{ required: true, message: 'Vui lòng nhập email', type: 'email' }]}
+              rules={[{ required: true, message: 'Please enter email!', type: 'email' }]}
               className="form__item"
             >
-              <Input />
+              <Input placeholder="Email" size="large" className="form__item__ip" />
             </Form.Item>
 
             <Form.Item
-              label="Password"
               name="password"
               rules={[
                 {
@@ -74,21 +74,25 @@ const Login: React.FC = () => {
               ]}
               className="form__item"
             >
-              <Input.Password />
+              <Input.Password placeholder="Password" size="large" className="form__item__ip" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button mt-10">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
-                Đăng nhập
+              <Button type="default" htmlType="submit" size="large" className="form__button">
+                <span className="form__button--label">Sign in</span>
               </Button>
             </Form.Item>
+            <h4>
+              ----------------------------------------------------------
+              OR------------------------------------------------------------
+            </h4>
 
             <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button">
-              <Button type="primary" htmlType="submit" size="large" shape="round">
+              <Button type="default" htmlType="submit" size="large" className="form__button">
                 <span className="mr-5">
                   <FacebookFilled />
                 </span>
-                <span> Đăng nhập bằng Facebook</span>
+                <span className="form__button--fb"> Login with Facebook</span>
               </Button>
             </Form.Item>
           </Form>
