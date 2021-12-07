@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Button, Input, Layout, Menu } from 'antd';
+import { Input, Layout, Menu } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/dist/client/router';
 export default function Header() {
@@ -25,15 +27,15 @@ export default function Header() {
           />
           <Search placeholder="Nhập từ khóa" enterButton className="header__search" />
 
-          <Menu theme="dark" mode="horizontal" className="header__navigation">
+          <Menu mode="horizontal" className="header__navigation">
             <Menu.Item key="1">
               <ShoppingCartOutlined className="header__icon" />
             </Menu.Item>
-            <Menu.Item key="2" onClick={registerHandler} className="header__register">
-              <span className="header__register">Sign up</span>
+            <Menu.Item key="2" onClick={registerHandler}>
+              <span>Sign up</span>
             </Menu.Item>
-            <Menu.Item key="3" onClick={loginHandler} className="header__register">
-              <span className="header__login">Sign in</span>
+            <Menu.Item key="3" onClick={loginHandler}>
+              <span>Sign in</span>
             </Menu.Item>
           </Menu>
         </div>

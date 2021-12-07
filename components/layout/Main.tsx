@@ -12,8 +12,8 @@ export function MainLayout({ children }: LayoutProps) {
   return (
     <Layout>
       <Header />
-      <Footer />
       <Layout>{children}</Layout>
+      <Footer />
     </Layout>
   );
 }
