@@ -38,7 +38,7 @@ const Login: React.FC = () => {
     console.log(response.accessToken);
     const user = api.authApi.loginFacebook(response.accessToken);
     console.log('user:', user);
-  }
+  };
 
   return (
     <Row>
@@ -88,12 +88,19 @@ const Login: React.FC = () => {
                 <span className="form__button-label">Login</span>
               </Button>
             </Form.Item>
+            <h4>
+              ----------------------------------------------------------
+              OR------------------------------------------------------------
+            </h4>
 
             <div className="space_login">
               <span>Or</span>
             </div>
 
-            <Form.Item wrapperCol={{ span: 24 }} className="form__item form__button__login_facebook">
+            <Form.Item
+              wrapperCol={{ span: 24 }}
+              className="form__item form__button__login_facebook"
+            >
               <FacebookLogin
                 appId="579184876518634"
                 autoLoad={false}

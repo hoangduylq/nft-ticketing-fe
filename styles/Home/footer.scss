@@ -1,0 +1,33 @@
+@import '.././utils/_variable.scss';
+.footer {
+  background-color: $color-primary;
+  color: $color-white;
+}
+.form__title {
+  list-style: none;
+  margin-top: 1rem;
+  color: $color-white;
+  font-weight: 700;
+  font-size: 20px;
+}
+.form__content {
+  margin-top: 2rem;
+  line-height: 25px;
+  color: $color-white;
+  font-size: 12px;
+}
+.box__app {
+  height: 5.7rem;
+  border-width: 0.5px;
+  width: 18rem;
+  color: $color-white;
+  background-color: $color-primary;
+  a {
+    text-transform: uppercase;
+    color: $color-white;
+  }
+}
+.icon__style {
+  width: 3rem;
+  height: 3rem;
+}
