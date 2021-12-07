@@ -1,21 +1,24 @@
+@import '.././utils/_variable.scss';
+
 .container {
   max-width: 144rem;
 }
 
 .header {
   width: 100vw;
+  background: $color-white;
 
   &-box {
     display: flex;
     align-items: center;
     gap: 4rem;
+    background-color: $color-white;
   }
 
   &__logo {
     /* height: 31px; */
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 3.2rem;
+    width: 50px;
+    height: 40px;
     margin: 0;
   }
 
@@ -27,12 +30,21 @@
   &__navigation {
     justify-content: end;
     flex-grow: 1;
+    background-color: $color-white;
+  }
+  &__login {
+    background-color: $color-primary;
+  }
+  &__register {
+    margin-left: 0.5rem;
+    background-color: $color-primary;
   }
 
   &__icon svg {
     font-size: 2.4rem;
     font-weight: bold;
     text-align: center;
+    color: $color-primary;
   }
 }
 
@@ -43,4 +55,15 @@
 
 .site-layout-background {
   background: #fff;
+}
+.ant-menu.ant-menu-dark {
+  background: $color-white;
+}
+.ant-btn-primary {
+  color: #fff;
+  border-color: $color-primary;
+  background-color: $color-primary;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }
