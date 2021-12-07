@@ -39,27 +39,11 @@ h6 {
 
 .box {
   background-color: $color-primary-light-2;
-  margin: 10rem auto 0 auto;
+  margin: 5rem auto 0 auto;
   border-radius: 5px;
   padding: 4rem 6rem;
   width: 45rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-  .form {
-    padding-top: 1rem !important;
-    &__item {
-      &__ip {
-        margin-bottom: 1.5rem;
-        border: 1px solid #ebedf2;
-        width: 54rem;
-        height: 5.08rem;
-      }
-    }
-    &__button {
-      width: 54rem;
-      height: 5.08rem;
-      background: #564d94;
-    }
-  }
 }
 
 .heading {

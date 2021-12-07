@@ -88,11 +88,6 @@ const Login: React.FC = () => {
                 <span className="form__button-label">Login</span>
               </Button>
             </Form.Item>
-            <h4>
-              ----------------------------------------------------------
-              OR------------------------------------------------------------
-            </h4>
-
             <div className="space_login">
               <span>Or</span>
             </div>
