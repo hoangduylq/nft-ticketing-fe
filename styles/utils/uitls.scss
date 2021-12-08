@@ -8,11 +8,20 @@
 
 .mt-10 {
   margin-top: 1rem;
+  background-color: #564d94;
 }
 
 .row {
   display: flex;
   flex-direction: column;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 .mb-24 {
@@ -30,7 +39,7 @@ h6 {
 
 .box {
   background-color: $color-primary-light-2;
-  margin: 10rem auto 0 auto;
+  margin: 5rem auto 0 auto;
   border-radius: 5px;
   padding: 4rem 6rem;
   width: 45rem;

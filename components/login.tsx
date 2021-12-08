@@ -101,7 +101,6 @@ const Login: React.FC = () => {
                 <span className="form__button-label">Login</span>
               </Button>
             </Form.Item>
-
             <div className="space_login">
               <span>Or</span>
             </div>

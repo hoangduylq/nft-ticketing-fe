@@ -1,5 +1,6 @@
 .header {
   width: 100vw;
+  background: $color-primary;
 
   &-box {
     display: flex;
@@ -9,26 +10,52 @@
 
   &__logo {
     /* height: 31px; */
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 3.2rem;
+    width: 50px;
+    height: 40px;
     margin: 0;
   }
 
   &__search {
     display: inline-block;
     width: 30%;
+
+    & button,
+    & button:visited {
+      background-color: $color-primary-dark-1;
+      outline: none;
+      border: none;
+    }
+
+    & button:hover,
+    & button:active,
+    & button:focus {
+      background-color: $color-primary-dark-2;
+      outline: none;
+      border: none;
+    }
   }
 
   &__navigation {
     justify-content: end;
     flex-grow: 1;
+    background-color: $color-primary;
+    color: $color-white;
+    font-size: 2rem;
+    border: none;
+
+    & li:hover {
+      color: $color-primary-light-2;
+      outline: none;
+      border: none;
+    }
   }
 
   &__icon svg {
     font-size: 2.4rem;
     font-weight: bold;
     text-align: center;
+    color: $color-white;
+    transform: translateY(3px);
   }
 }
 
@@ -37,6 +64,11 @@
   margin: 16px 0 16px 24px;
 }
 
-.site-layout-background {
-  background: #fff;
+.ant-btn-primary {
+  color: #fff;
+  border-color: $color-primary;
+  background-color: $color-primary;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }
