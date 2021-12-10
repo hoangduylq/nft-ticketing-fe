@@ -1,6 +1,7 @@
+import EventDetail from '@/components/Events/EventDetail';
 import { NextPage } from 'next';
 const EventDetailPage: NextPage = () => {
-  return <div className={'Container'}></div>;
+  return <EventDetail />;
 };
 
 export default EventDetailPage;
