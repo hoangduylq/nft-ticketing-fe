@@ -1,0 +1,39 @@
+@import './../utils/variable';
+
+.carousel-wrap {
+  &__item {
+    height: 400px;
+    color: $color-primary;
+    text-align: center;
+    background-color: $color-primary;
+    overflow: hidden;
+
+    div {
+      width: 100%;
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .slick-active {
+      color: $color-primary;
+    }
+  }
+}
+
+.event-list {
+  margin-top: 50px;
+
+  .event-list-row {
+    margin-top: 50px;
+  }
+
+  &__item {
+    width: 100%;
+  }
+
+  .see-more {
+    margin-top: 50px;
+  }
+}

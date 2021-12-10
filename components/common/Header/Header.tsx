@@ -22,7 +22,7 @@ export default function Header() {
       <div className="container">
         <div className="header-box">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrQzayB114rbLtLkwpie4Dx7h-0wq0Z42wl4i_AHo70akMm60P9xEwlHsVV-4nSzakP60&usqp=CAU"
+            src="https://zodinet.com/wp-content/uploads/2021/09/logo-footer.png"
             className="header__logo"
           />
           <Search placeholder="Nhập từ khóa" enterButton className="header__search" />

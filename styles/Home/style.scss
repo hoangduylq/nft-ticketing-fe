@@ -9,16 +9,11 @@
     gap: 4rem;
   }
 
-  &__logo {
-    /* height: 31px; */
-    width: 50px;
-    height: 40px;
-    margin: 0;
-  }
-
   &__search {
     display: inline-block;
     width: 30%;
+    outline: none;
+    border: none;
 
     & button,
     & button:visited {
