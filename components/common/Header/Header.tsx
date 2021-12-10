@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Input, Layout, Menu } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/dist/client/router';
+import { Button, Input, Layout, Menu } from 'antd';
+import { useRouter } from 'next/router';
 export default function Header() {
   const { Header } = Layout;
   const { Search } = Input;
@@ -15,6 +14,10 @@ export default function Header() {
 
   const registerHandler = () => {
     router.push('/signup');
+  };
+
+  const createEventHandler = () => {
+    router.push('/events/create');
   };
 
   return (
@@ -29,7 +32,15 @@ export default function Header() {
 
           <Menu mode="horizontal" className="header__navigation">
             <Menu.Item key="1">
-              <ShoppingCartOutlined className="header__icon" />
+              <Button
+                type="default"
+                shape="round"
+                size="large"
+                className="header__btn-create"
+                onClick={createEventHandler}
+              >
+                Create event
+              </Button>
             </Menu.Item>
             <Menu.Item key="2" onClick={registerHandler}>
               <span>Sign up</span>

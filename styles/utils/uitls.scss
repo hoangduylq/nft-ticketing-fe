@@ -64,3 +64,10 @@ h6 {
     font-weight: 300;
   }
 }
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover {
+  color: inherit;
+}
+
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
+  border: none;
+}

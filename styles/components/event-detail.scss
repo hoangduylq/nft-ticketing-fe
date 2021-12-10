@@ -1,0 +1,21 @@
+@import '../utils/variable';
+.event-detail {
+  &__content {
+    max-width: 144rem;
+    background-color: $color-white;
+    margin: 5rem auto;
+    border-radius: 5px;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+  }
+
+  &__heading {
+    font-size: 4.2rem;
+    font-weight: bold;
+    color: #564d94;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2.2px;
+    text-shadow: 0 0.5rem 1rem #cccadf;
+    margin: 3rem auto;
+  }
+}

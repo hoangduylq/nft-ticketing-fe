@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 const EventsPage: NextPage = () => {
-  return <div className={'Container'}></div>;
+  return <></>;
 };
 
 export default EventsPage;

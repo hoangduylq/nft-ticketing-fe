@@ -3,10 +3,15 @@
 
 //Component
 @import './Home/style.scss';
+
 @import './components/form.scss';
 @import './components/login.scss';
+@import './components/modal.scss';
+@import './components/event-detail.scss';
+
 @import './utils/uitls.scss';
 @import './utils/variable.scss';
+
 @import './Home/footer.scss';
 
 * {

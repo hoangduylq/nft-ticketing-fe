@@ -16,6 +16,29 @@
     margin: 0;
   }
 
+  &__btn-create {
+    background-color: #fff;
+    color: #2ec275;
+    font-size: 2rem;
+    border: 1px solid #2ec275;
+    text-align: center;
+
+    &:visited {
+      background-color: $color-white;
+      outline: none;
+      border: 1px solid #2ec275;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: #259b5e;
+      background-color: $color-white;
+      outline: none;
+      border: 1px solid #2ec275;
+    }
+  }
+
   &__search {
     display: inline-block;
     width: 30%;
