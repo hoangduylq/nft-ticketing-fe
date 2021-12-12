@@ -9,8 +9,40 @@ const EventListComponent: React.FC = () => {
     <div className="event-list">
       <Divider orientation="left">Movies</Divider>
 
-      <Row gutter={[16, 24]} justify="space-between" className="event-list-row">
-        <Col span={6}>
+      <Row gutter={[24, 24]} justify="space-between" className="event-list-row">
+        <Col sm={24} md={12} xl={8}>
+          <Card
+            className="event-list__item"
+            cover={
+              <Image
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                preview={false}
+              />
+            }
+            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
+          >
+            <Meta title={process.env.BASE_URL} description="This is the description" />
+          </Card>
+        </Col>
+
+        <Col sm={24} md={12} xl={8}>
+          <Card
+            className="event-list__item"
+            cover={
+              <Image
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                preview={false}
+              />
+            }
+            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
+          >
+            <Meta title={process.env.BASE_URL} description="This is the description" />
+          </Card>
+        </Col>
+
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -26,7 +58,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -42,7 +74,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -58,7 +90,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -74,7 +106,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -90,7 +122,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={
@@ -106,23 +138,7 @@ const EventListComponent: React.FC = () => {
           </Card>
         </Col>
 
-        <Col span={6}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                preview={false}
-              />
-            }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
-          >
-            <Meta title="Card title" description="This is the description" />
-          </Card>
-        </Col>
-
-        <Col span={6}>
+        <Col sm={24} md={12} xl={8}>
           <Card
             className="event-list__item"
             cover={

@@ -3,39 +3,26 @@
   width: 100vw;
   background: $color-primary;
 
+  .header__logo {
+    cursor: pointer;
+    width: 150px;
+  }
+
   &-box {
     display: flex;
     align-items: center;
     gap: 4rem;
   }
 
-  &__logo {
-    /* height: 31px; */
-    width: 50px;
-    height: 40px;
-    margin: 0;
-  }
-
   &__btn-create {
     background-color: #fff;
-    color: #2ec275;
+    color: $color-primary;
     font-size: 2rem;
-    border: 1px solid #2ec275;
     text-align: center;
 
-    &:visited {
-      background-color: $color-white;
-      outline: none;
-      border: 1px solid #2ec275;
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: #259b5e;
-      background-color: $color-white;
-      outline: none;
-      border: 1px solid #2ec275;
+    &:hover {
+      color: $color-primary;
+      opacity: 0.8;
     }
   }
 
@@ -44,6 +31,7 @@
     width: 30%;
     outline: none;
     border: none;
+    padding: 10px 10px;
 
     & button,
     & button:visited {
@@ -63,7 +51,7 @@
 
   &__navigation {
     justify-content: end;
-    flex-grow: 1;
+    flex: 1;
     background-color: $color-primary;
     color: $color-white;
     font-size: 2rem;

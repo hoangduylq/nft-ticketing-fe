@@ -28,7 +28,7 @@ export default function Header() {
             src="https://zodinet.com/wp-content/uploads/2021/09/logo-footer.png"
             className="header__logo"
           />
-          <Search placeholder="Nhập từ khóa" enterButton className="header__search" />
+          <Search placeholder="Search" enterButton className="header__search" />
 
           <Menu mode="horizontal" className="header__navigation">
             <Menu.Item key="1">

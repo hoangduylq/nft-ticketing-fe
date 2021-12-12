@@ -25,7 +25,15 @@ import React from 'react';
 const CategoryList: React.FC = ({ children }: LayoutProps) => {
   return (
     <Layout>
-      <Sider width={300} className="site-layout-background">
+      <Sider
+        width={300}
+        className="site-layout-background"
+        // style={{
+        //   overflow: 'auto',
+        //   position: 'fixed',
+        //   left: 0,
+        // }}
+      >
         <Menu
           mode="inline"
           defaultSelectedKeys={['1']}
