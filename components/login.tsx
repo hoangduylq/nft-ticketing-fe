@@ -110,7 +110,7 @@ const Login: React.FC = () => {
               className="form__item form__button__login_facebook"
             >
               <FacebookLogin
-                appId="579184876518634"
+                appId={process.env.FB_APP_ID || ''}
                 autoLoad={false}
                 fields="name,email,picture"
                 // onClick={hanldeLoginFacebook}
