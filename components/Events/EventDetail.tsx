@@ -165,12 +165,18 @@ const EventDetail: React.FC = () => {
                     </Form.Item>
                   </Col>
                 </Row>
+                <Row>
+                  <Col offset={20} span={4} className="event-detail__control">
+                    <Button size="large" className="btn btn--cancel  mr-5">
+                      Cancel
+                    </Button>
+                    <Button size="large" className="btn btn--submit">
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
               </TabPane>
             </Tabs>
-          </Col>
-          <Col offset={20} span={4} className="event-detail__control">
-            <Button size="large">Submit</Button>
-            <Button size="large">Cancel</Button>
           </Col>
         </Row>
       </Form>

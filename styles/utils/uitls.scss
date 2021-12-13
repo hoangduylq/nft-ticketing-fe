@@ -71,3 +71,30 @@ h6 {
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
   border: none;
 }
+
+.btn {
+  color: $color-white;
+  border: none;
+
+  &--submit {
+    background-color: $color-primary;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $color-primary-dark-1;
+      color: $color-white;
+    }
+  }
+
+  &--cancel {
+    background-color: red;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #cc0000;
+      color: $color-white;
+    }
+  }
+}
