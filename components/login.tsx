@@ -10,8 +10,8 @@ import { useRouter } from 'next/dist/client/router';
 import { useCookies } from 'react-cookie';
 import FacebookLogin from 'react-facebook-login';
 
-import { useAppDispatch, useAppSelector } from './../app/hooks';
-import { login, selectorUser } from './../app/user/userSlice';
+import { useAppDispatch } from './../app/hooks';
+import { login } from './../app/user/userSlice';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -20,8 +20,6 @@ const Login: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectorUser);
-  console.log(user);
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);

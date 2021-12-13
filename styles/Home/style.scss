@@ -1,11 +1,17 @@
 @import './../utils/variable';
 .header {
-  width: 100vw;
+  width: 100%;
   background: $color-primary;
 
   .header__logo {
     cursor: pointer;
     width: 150px;
+  }
+
+  .header__user {
+    .ant-avatar {
+      margin-right: 10px;
+    }
   }
 
   &-box {
@@ -51,7 +57,7 @@
 
   &__navigation {
     justify-content: end;
-    flex: 1;
+    flex-grow: 1;
     background-color: $color-primary;
     color: $color-white;
     font-size: 2rem;
@@ -71,6 +77,18 @@
     color: $color-white;
     transform: translateY(3px);
   }
+
+  .ant-menu-item {
+    color: $color-white !important;
+
+    &:hover {
+      opacity: 0.8 !important;
+    }
+
+    &:after {
+      border: none !important;
+    }
+  }
 }
 
 .ant-row-rtl .logo {
@@ -85,4 +103,8 @@
   text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
   -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
   box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+
+.button__logout {
+  cursor: pointer;
 }
