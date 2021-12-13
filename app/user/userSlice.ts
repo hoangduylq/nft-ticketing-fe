@@ -7,7 +7,6 @@ export interface IUserState {
   role?: string | null;
   gender?: string | null;
   avatar?: string | null;
-  isLoggedIn: boolean;
 }
 
 const initialState: IUserState = {
@@ -16,7 +15,6 @@ const initialState: IUserState = {
   role: null,
   gender: null,
   avatar: null,
-  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
