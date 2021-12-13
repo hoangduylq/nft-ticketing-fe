@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Button, Input, Layout, Menu } from 'antd';
+import { Avatar, Button, Input, Layout, Menu, Popover } from 'antd';
 import { useRouter } from 'next/router';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { selectorUser, logout } from 'app/user/userSlice';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 export default function Header() {
   const { Header } = Layout;
   const { Search } = Input;
   const router = useRouter();
+  const user = useAppSelector(selectorUser);
+  const dispatch = useAppDispatch();
 
   const loginHandler = () => {
     router.push('/login');
@@ -18,6 +23,48 @@ export default function Header() {
 
   const createEventHandler = () => {
     router.push('/events/create');
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  const text = <span>Title</span>;
+  const contentPophoverUser = (
+    <div>
+      <p>Edit</p>
+      <p onClick={handleLogout} className="button__logout">
+        Logout <LogoutOutlined />
+      </p>
+    </div>
+  );
+
+  const ItemMenu = () => {
+    return user.isLoggedIn ? (
+      <>
+        <Menu.Item>
+          <Popover
+            placement="bottomLeft"
+            title={text}
+            content={contentPophoverUser}
+            trigger="hover"
+            className="header__user"
+          >
+            <Avatar icon={<UserOutlined />} />
+            <span>{user.name}</span>
+          </Popover>
+        </Menu.Item>
+      </>
+    ) : (
+      <>
+        <Menu.Item key="2" onClick={registerHandler}>
+          Sign up
+        </Menu.Item>
+        <Menu.Item key="3" onClick={loginHandler}>
+          Sign in
+        </Menu.Item>
+      </>
+    );
   };
 
   return (
@@ -42,12 +89,7 @@ export default function Header() {
                 Create event
               </Button>
             </Menu.Item>
-            <Menu.Item key="2" onClick={registerHandler}>
-              <span>Sign up</span>
-            </Menu.Item>
-            <Menu.Item key="3" onClick={loginHandler}>
-              <span>Sign in</span>
-            </Menu.Item>
+            <ItemMenu />
           </Menu>
         </div>
       </div>
