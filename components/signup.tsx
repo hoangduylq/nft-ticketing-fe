@@ -21,7 +21,7 @@ const Signup: React.FC = () => {
 
       if (result) {
         setAlertMessage({ message: 'Sign Up Successfully!', title: TypeAlertEnum.Success });
-        router.push('/');
+        router.push('/login');
       }
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });

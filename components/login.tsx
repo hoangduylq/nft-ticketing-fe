@@ -42,7 +42,6 @@ const Login: React.FC = () => {
   const responseFacebook = async (response: any) => {
     try {
       const result: any = await api.authApi.loginFacebook(response.accessToken);
-      console.log(result);
       if (result) {
         // setCookie('token', result.accessToken);
         dispatch(login(result.payload));
