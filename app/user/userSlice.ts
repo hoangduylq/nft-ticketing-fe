@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 
-export interface IUserState {
+interface IUserState {
   email: string | null;
   name?: string | null;
   role?: string | null;
   gender?: string | null;
   avatar?: string | null;
+  isLoggedIn?: boolean;
 }
 
 const initialState: IUserState = {
@@ -15,36 +16,31 @@ const initialState: IUserState = {
   role: null,
   gender: null,
   avatar: null,
+  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state: IUserState, action: PayloadAction<IUserState>) => {
-      return {
-        ...state,
-        email: action.payload.email,
-        name: action.payload.name,
-        role: action.payload.role,
-        isLoggedIn: true,
-      };
+    login: (state, action: PayloadAction<IUserState>) => {
+      (state.email = action.payload.email),
+        (state.name = action.payload.name),
+        (state.role = action.payload.role),
+        (state.isLoggedIn = true);
     },
     logout: (state: IUserState) => {
-      return {
-        ...state,
-        email: null,
-        name: null,
-        role: null,
-        gender: null,
-        avatar: null,
-        isLoggedIn: false,
-      };
+      (state.email = null),
+        (state.name = null),
+        (state.role = null),
+        (state.gender = null),
+        (state.avatar = null),
+        (state.isLoggedIn = false);
     },
   },
 });
 
-export const { login } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export const selectorUser = (state: RootState) => state.user;
 
