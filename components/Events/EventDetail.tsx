@@ -1,14 +1,19 @@
 import { FileTextOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Form, Input, Row, Col, DatePicker, Tabs, Button, Upload } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const EventDetail: React.FC = () => {
   const { TabPane } = Tabs;
+  const router = useRouter();
 
   const layout = {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
+  };
+  const handleSubmit = () => {
+    router.push('/events/detail');
   };
 
   const onFinish = (values: any) => {
@@ -217,7 +222,7 @@ const EventDetail: React.FC = () => {
                     <Button size="large" className="btn btn--cancel  mr-5">
                       Cancel
                     </Button>
-                    <Button size="large" className="btn btn--submit">
+                    <Button size="large" className="btn btn--submit" onClick={handleSubmit}>
                       Submit
                     </Button>
                   </Col>

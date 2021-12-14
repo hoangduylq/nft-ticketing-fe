@@ -1,0 +1,21 @@
+@import '../utils/variable';
+
+.info-container {
+  &--content {
+    background: $color-primary;
+    p {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+}
+.ant-card {
+  background: $color-primary;
+  color: $color-primary-light-2;
+}
+
+.description-container {
+  justify-items: center;
+  width: 1200px;
+  margin-left: 36rem;
+}
