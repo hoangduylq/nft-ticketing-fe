@@ -1,21 +1,52 @@
 @import '../utils/variable';
+.ant-card-head-title {
+  font-size: 5rem;
+  color: $color-primary;
+}
+.ant-tabs-small > .ant-tabs-nav .ant-tabs-tab {
+  padding: 8px 0;
+  font-size: 2rem;
+  color: $color-primary;
+}
+.ant-card {
+  background: $color-primary-light-2;
+  color: $color-primary;
+}
 
 .info-container {
+  margin-top: 4rem;
   &--content {
-    background: $color-primary;
+    background: $color-primary-light-3;
+    justify-items: center;
     p {
-      text-align: center;
+      text-align: start;
       font-size: 2rem;
+    }
+    .btn--buy {
+      margin-left: 24rem;
+      color: $color-primary-light-3;
+      background-color: $color-primary;
+      border-radius: 2px;
+      margin-top: 30rem;
+      height: 8rem;
+      width: 16rem;
+      p {
+        text-align: center;
+        margin-top: 2rem;
+      }
+    }
+    .anticon svg {
+      margin-left: 55rem;
+      margin-top: -10rem;
+      padding-bottom: 2.5rem;
     }
   }
 }
-.ant-card {
-  background: $color-primary;
-  color: $color-primary-light-2;
-}
 
 .description-container {
-  justify-items: center;
-  width: 1200px;
-  margin-left: 36rem;
+  margin-left: 25.5rem;
+  height: 60rem;
+  p {
+    font-size: 2rem;
+  }
 }
