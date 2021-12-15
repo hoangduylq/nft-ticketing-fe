@@ -1,10 +1,12 @@
-import { FileTextOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Form, Input, Row, Col, DatePicker, Tabs, Button, Upload } from 'antd';
+import { FileTextOutlined, SettingOutlined } from '@ant-design/icons';
+import { Form, Input, Row, Col, DatePicker, Tabs, Button, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React from 'react';
+import UploadImage from './UploadImage';
 
 const EventDetail: React.FC = () => {
   const { TabPane } = Tabs;
+  const { Option } = Select;
 
   const layout = {
     labelCol: { span: 24 },
@@ -14,13 +16,6 @@ const EventDetail: React.FC = () => {
   const onFinish = (values: any) => {
     console.log(values);
   };
-
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   return (
     <main className="event-detail__content">
@@ -58,6 +53,28 @@ const EventDetail: React.FC = () => {
                       rules={[{ required: true }]}
                     >
                       <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="eventCategory"
+                      label="Event Category"
+                      rules={[{ required: true, message: 'Please select event category ' }]}
+                    >
+                      <Select
+                        placeholder="Select event category"
+                        // onChange={this.onGenderChange}
+                        allowClear
+                      >
+                        {/* {props.listCategory.map((category) => (
+              <Option value={category.id} key={category.id}>
+                {category.name}
+              </Option>
+            ))} */}
+
+                        <Option value="1">Phim ảnh</Option>
+                        <Option value="2">Điện ảnh</Option>
+                        <Option value="3">Sân khấu - điện ảnh</Option>
+                        <Option value="4">Nightlife</Option>
+                      </Select>
                     </Form.Item>
                     <Form.Item name="description" label="Description" rules={[{ required: true }]}>
                       <TextArea
@@ -98,12 +115,7 @@ const EventDetail: React.FC = () => {
                     <Row>
                       <Col>
                         <Form.Item name="logoUrl" label="Logo event" rules={[{ required: true }]}>
-                          <Upload
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                            listType="picture-card"
-                          >
-                            {uploadButton}
-                          </Upload>
+                          <UploadImage />
                         </Form.Item>
                       </Col>
                       <Col>
@@ -112,12 +124,7 @@ const EventDetail: React.FC = () => {
                           label="Banner event"
                           rules={[{ required: true }]}
                         >
-                          <Upload
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                            listType="picture-card"
-                          >
-                            {uploadButton}
-                          </Upload>
+                          <UploadImage />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -175,12 +182,7 @@ const EventDetail: React.FC = () => {
                       label="Ticket Image"
                       rules={[{ required: true }]}
                     >
-                      <Upload
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        listType="picture-card"
-                      >
-                        {uploadButton}
-                      </Upload>
+                      <UploadImage />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -193,7 +195,16 @@ const EventDetail: React.FC = () => {
                       <Input />
                     </Form.Item>
                   </Col>
-                  <Col offset={2} span={4}>
+                  <Col offset={1} span={4}>
+                    <Form.Item
+                      name="totalTickets"
+                      label="Total tickets"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                  <Col offset={1} span={4}>
                     <Form.Item
                       name="minTicketOrder"
                       label="Minimum ticket order"
@@ -202,7 +213,7 @@ const EventDetail: React.FC = () => {
                       <Input />
                     </Form.Item>
                   </Col>
-                  <Col offset={2} span={4}>
+                  <Col offset={1} span={4}>
                     <Form.Item
                       name="maxTicketOrder"
                       label="Maximum ticket order"

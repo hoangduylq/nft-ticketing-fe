@@ -1,7 +1,7 @@
-import CreateEvent from '@/components/Events/CreateEvent';
+import EventDetail from '@/components/Events/EventDetail';
 import { NextPage } from 'next';
 const CreatEventPage: NextPage = () => {
-  return <CreateEvent />;
+  return <EventDetail />;
 };
 
 export default CreatEventPage;
