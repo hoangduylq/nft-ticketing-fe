@@ -1,5 +1,5 @@
-import { FileTextOutlined, SettingOutlined } from '@ant-design/icons';
-import { Form, Input, Row, Col, DatePicker, Tabs, Button } from 'antd';
+import { FileTextOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { Form, Input, Row, Col, DatePicker, Tabs, Button, Upload } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React from 'react';
 
@@ -15,6 +15,13 @@ const EventDetail: React.FC = () => {
     console.log(values);
   };
 
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
   return (
     <main className="event-detail__content">
       <Form {...layout} name="control-ref" onFinish={onFinish} className="event-detail__form">
@@ -26,7 +33,7 @@ const EventDetail: React.FC = () => {
             <Tabs>
               <TabPane
                 tab={
-                  <span>
+                  <span className="tab__title">
                     <FileTextOutlined />
                     Information
                   </span>
@@ -88,12 +95,38 @@ const EventDetail: React.FC = () => {
                     >
                       <Input />
                     </Form.Item>
+                    <Row>
+                      <Col>
+                        <Form.Item name="logoUrl" label="Logo event" rules={[{ required: true }]}>
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                          >
+                            {uploadButton}
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col>
+                        <Form.Item
+                          name="bannerUrl"
+                          label="Banner event"
+                          rules={[{ required: true }]}
+                        >
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                          >
+                            {uploadButton}
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </TabPane>
               <TabPane
                 tab={
-                  <span>
+                  <span className="tab__title">
                     <SettingOutlined />
                     Date, Time and Ticket
                   </span>
@@ -136,6 +169,20 @@ const EventDetail: React.FC = () => {
                       <DatePicker />
                     </Form.Item>
                   </Col>
+                  <Col offset={2}>
+                    <Form.Item
+                      name="ticketImageUrl"
+                      label="Ticket Image"
+                      rules={[{ required: true }]}
+                    >
+                      <Upload
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        listType="picture-card"
+                      >
+                        {uploadButton}
+                      </Upload>
+                    </Form.Item>
+                  </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
@@ -165,12 +212,18 @@ const EventDetail: React.FC = () => {
                     </Form.Item>
                   </Col>
                 </Row>
+                <Row>
+                  <Col offset={20} span={4} className="event-detail__control">
+                    <Button size="large" className="btn btn--cancel  mr-5">
+                      Cancel
+                    </Button>
+                    <Button size="large" className="btn btn--submit">
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
               </TabPane>
             </Tabs>
-          </Col>
-          <Col offset={20} span={4} className="event-detail__control">
-            <Button size="large">Submit</Button>
-            <Button size="large">Cancel</Button>
           </Col>
         </Row>
       </Form>
