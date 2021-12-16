@@ -1,0 +1,29 @@
+@import '../utils/variable';
+
+.order-list__pagination {
+  margin: 80px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.order-item {
+  background: $color-white;
+  width: 100%;
+  padding: 40px;
+  margin-top: 40px;
+  box-shadow: 0 10px 15px 5px rgba(0, 0, 0, 0.05);
+
+  &__header {
+    margin-bottom: 20px;
+
+    .order-item__info {
+      &__item {
+        font-size: 1.4rem;
+
+        &__description {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}

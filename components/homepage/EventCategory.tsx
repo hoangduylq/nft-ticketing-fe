@@ -17,12 +17,12 @@ import {
   SoundOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-
-const { SubMenu } = Menu;
-const { Content, Sider } = Layout;
+import Link from 'next/link';
 import React from 'react';
 
 const EventCategory: React.FC = ({ children }: LayoutProps) => {
+  const { SubMenu } = Menu;
+  const { Content, Sider } = Layout;
   return (
     <>
       <Sider
@@ -36,12 +36,12 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
       >
         <Menu
           mode="inline"
-          defaultSelectedKeys={['1']}
+          // defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
         >
           <Menu.Item key="0" icon={<HomeOutlined />}>
-            Home
+            <Link href="/">Home</Link>
           </Menu.Item>
           <SubMenu key="sub1" icon={<BarsOutlined />} title="Category Event">
             <Menu.Item key="1" icon={<HeartOutlined />}>
@@ -73,7 +73,7 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="10" icon={<UserOutlined />}>
-            My ticket
+            <Link href="/order">My order</Link>
           </Menu.Item>
           <Menu.Item key="11" icon={<FolderOpenOutlined />}>
             My event
