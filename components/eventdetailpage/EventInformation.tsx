@@ -1,9 +1,19 @@
 import { HeartOutlined } from '@ant-design/icons';
-import { Col, Row, Image, Layout, Card } from 'antd';
+import { Col, Row, Image, Layout, Card, Input } from 'antd';
 import { Button } from 'antd/lib/radio';
 
 import React from 'react';
 const EventInformation: React.FC = () => {
+  const [quantity, setQuantity] = React.useState(1);
+  const handleAdd = () => {
+    setQuantity(quantity + 1);
+  };
+  const hanleSubtract = () => {
+    setQuantity(quantity - 1);
+  };
+  if (quantity == 0) {
+    alert('Do you want to delete?');
+  }
   return (
     <Layout className="info-container ">
       <Row justify="center">
@@ -28,6 +38,12 @@ const EventInformation: React.FC = () => {
               <p>Friday, 04 month 12 2021 (08:00 PM - 10:30 PM)</p>
               <p> Zodinet Platform</p>
               <p>From:150.000VND</p>
+              <p>Quantity </p>
+              <div className="btn--quantity">
+                <Button onClick={hanleSubtract}>-</Button>
+                <Input size="middle" value={quantity} style={{ width: 40 }}></Input>
+                <Button onClick={handleAdd}>+</Button>
+              </div>
               <Button className="btn--buy">
                 <p>Buy now</p>
               </Button>

@@ -14,20 +14,25 @@
 }
 
 .info-container {
-  margin-top: 4rem;
+  &--img {
+    margin-top: 4rem;
+  }
   &--content {
+    margin-top: 4rem;
     background: $color-primary-light-3;
     justify-items: center;
     p {
       text-align: start;
       font-size: 2rem;
+      margin-left: 1rem;
+      margin-top: 4rem;
     }
     .btn--buy {
       margin-left: 24rem;
       color: $color-primary-light-3;
       background-color: $color-primary;
       border-radius: 2px;
-      margin-top: 30rem;
+      margin-top: 10rem;
       height: 8rem;
       width: 16rem;
       p {
@@ -49,4 +54,11 @@
   p {
     font-size: 2rem;
   }
+}
+
+.btn--quantity {
+  display: flex;
+  align-items: center;
+  margin-left: 14rem;
+  margin-top: -5rem;
 }
