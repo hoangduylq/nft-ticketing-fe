@@ -22,7 +22,7 @@ const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 import React from 'react';
 
-const CategoryList: React.FC = ({ children }: LayoutProps) => {
+const EventCategory: React.FC = ({ children }: LayoutProps) => {
   return (
     <>
       <Sider
@@ -110,4 +110,4 @@ const CategoryList: React.FC = ({ children }: LayoutProps) => {
   );
 };
 
-export default CategoryList;
+export default EventCategory;
