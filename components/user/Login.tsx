@@ -3,15 +3,16 @@ import Link from 'next/link';
 import { Input, Button, Form, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import React, { useState } from 'react';
-import AlertMessage, { TypeAlertEnum } from './alert';
-import * as api from '../api/index';
+import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
+import * as api from '../../api/index';
 import { LoginPayload } from '@/models/auth.interface';
-import { useRouter } from 'next/dist/client/router';
 import { useCookies } from 'react-cookie';
 import FacebookLogin from 'react-facebook-login';
 
-import { useAppDispatch } from './../app/hooks';
-import { login } from './../app/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { checkBank, login, selectorUser } from '../../app/user/userSlice';
+import { useRouter } from 'next/router';
+import { IJwtPayload } from '@/models/jwtPayload.interface';
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -20,17 +21,28 @@ const Login: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectorUser);
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
+  const getBank = async (id: string) => {
+    const result = await api.userApi.findBankByUserId(id);
+    return result;
+  };
+
   const onFinish = async (values: LoginPayload) => {
     try {
-      const result: any = await api.authApi.login(values);
+      const result: IJwtPayload = await api.authApi.login(values);
       if (result) {
         setCookie('token', result.accessToken);
-        dispatch(login(result.data));
+        dispatch(login(result.payload));
+
+        const isBankAccount = (await getBank(user.id)) ? true : false;
+        dispatch(checkBank({ isBankAccount }));
+        // dispatch(cre)
+
         setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
         return router.push('/');
       }
@@ -70,7 +82,7 @@ const Login: React.FC = () => {
             wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            autoComplete="off"
+            autoComplete="on"
             className="form"
             scrollToFirstError={true}
           >

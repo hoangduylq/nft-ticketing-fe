@@ -1,6 +1,6 @@
 // import { Form, Input, Button, Checkbox } from 'antd';
 import NotFound from '@/components/common/NotFound/NotFound';
-import Login from '@/components/login';
+import Login from '@/components/user/Login';
 import { NextPage } from 'next';
 import React from 'react';
 import { useAppSelector } from './../../app/hooks';

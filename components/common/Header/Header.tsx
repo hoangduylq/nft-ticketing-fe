@@ -1,17 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Avatar, Button, Input, Layout, Menu, Popover } from 'antd';
+import { Avatar, Button, Col, Input, Layout, Menu, Popover, Row } from 'antd';
 import { useRouter } from 'next/router';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { selectorUser, logout } from 'app/user/userSlice';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { EditOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { useCookies } from 'react-cookie';
 export default function Header() {
   const { Header } = Layout;
   const { Search } = Input;
   const router = useRouter();
   const user = useAppSelector(selectorUser);
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [cookie, setCookie, removeCookie] = useCookies(['token']);
 
   const loginHandler = () => {
     router.push('/login');
@@ -22,21 +26,31 @@ export default function Header() {
   };
 
   const createEventHandler = () => {
-    router.push('/events/create');
+    if (user.isLoggedIn) {
+      router.push('/events/create');
+    } else {
+      router.push('/login');
+    }
   };
 
   const handleLogout = () => {
+    removeCookie('token');
     dispatch(logout());
   };
 
-  const text = <span>Title</span>;
   const contentPophoverUser = (
-    <div>
-      <p>Edit</p>
-      <p onClick={handleLogout} className="button__logout">
-        Logout <LogoutOutlined />
-      </p>
-    </div>
+    <>
+      <Row>
+        <Col className="btn--popover header__label">
+          <span className="mr-5">Profile</span> <EditOutlined />
+        </Col>
+      </Row>
+      <Row className="mt-10">
+        <Col onClick={handleLogout} className="btn--popover header__label">
+          <span className="mr-5">Logout</span> <LogoutOutlined />
+        </Col>
+      </Row>
+    </>
   );
 
   const ItemMenu = () => {
@@ -45,7 +59,6 @@ export default function Header() {
         <Menu.Item>
           <Popover
             placement="bottomLeft"
-            title={text}
             content={contentPophoverUser}
             trigger="hover"
             className="header__user"

@@ -1,9 +1,9 @@
 // import { DatePicker, Space } from 'antd';
 import { NextPageWithLayout } from '@/models/common.interface';
 import { MainLayout } from '@/components/layout';
-import CategoryList from '@/components/homepage/categoryList';
-import CarouselComponent from '@/components/homepage/carousel';
-import EventListComponent from '@/components/homepage/eventList';
+import CarouselComponent from '@/components/homepage/Carousel';
+import CategoryList from '@/components/homepage/CategoryList';
+import EventListComponent from '@/components/homepage/EventList';
 
 const Home: NextPageWithLayout = () => {
   return (

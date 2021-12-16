@@ -55,6 +55,11 @@
     }
   }
 
+  &__label {
+    font-size: 1.8rem;
+    background-color: #fff;
+  }
+
   &__navigation {
     justify-content: end;
     flex-grow: 1;
@@ -104,7 +109,7 @@
   -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
   box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }
-
-.button__logout {
-  cursor: pointer;
+.group__gender {
+  display: flex;
+  justify-content: space-between;
 }
