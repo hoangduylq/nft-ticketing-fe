@@ -4,7 +4,7 @@ import { EyeOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const EventListComponent: React.FC = () => {
+const EventList: React.FC = () => {
   return (
     <div className="event-list">
       <Divider orientation="left">Movies</Divider>
@@ -164,4 +164,4 @@ const EventListComponent: React.FC = () => {
   );
 };
 
-export default EventListComponent;
+export default EventList;

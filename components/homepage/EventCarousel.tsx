@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel, Image } from 'antd';
 
-const CarouselComponent: React.FC = () => {
+const EventCarousel: React.FC = () => {
   return (
     <Carousel autoplay className="carousel-wrap">
       <div className="carousel-wrap__item">
@@ -50,4 +50,4 @@ const CarouselComponent: React.FC = () => {
   );
 };
 
-export default CarouselComponent;
+export default EventCarousel;

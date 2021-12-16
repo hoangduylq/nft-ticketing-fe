@@ -42,9 +42,8 @@ const Login: React.FC = () => {
         const isBankAccount = (await getBank(user.id)) ? true : false;
         dispatch(checkBank({ isBankAccount }));
         // dispatch(cre)
-
-        setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
-        return router.push('/');
+        setAlertMessage({ message: 'Sign In Successfully!', title: TypeAlertEnum.Success });
+        router.push('/');
       }
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
@@ -55,10 +54,10 @@ const Login: React.FC = () => {
     try {
       const result: any = await api.authApi.loginFacebook(response.accessToken);
       if (result) {
-        // setCookie('token', result.accessToken);
+        setCookie('token', result.accessToken);
         dispatch(login(result.payload));
-        setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
-        return router.push('/');
+        setAlertMessage({ message: 'SignIn Successfully!', title: TypeAlertEnum.Success });
+        router.push('/');
       }
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });

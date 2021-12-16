@@ -8,6 +8,8 @@ import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { selectorUser, logout } from 'app/user/userSlice';
 import { EditOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { useCookies } from 'react-cookie';
+import Link from 'next/link';
+
 export default function Header() {
   const { Header } = Layout;
   const { Search } = Input;
@@ -84,10 +86,12 @@ export default function Header() {
     <Header className="header">
       <div className="container">
         <div className="header-box">
-          <img
-            src="https://zodinet.com/wp-content/uploads/2021/09/logo-footer.png"
-            className="header__logo"
-          />
+          <Link href="/" passHref>
+            <img
+              src="https://zodinet.com/wp-content/uploads/2021/09/logo-footer.png"
+              className="header__logo"
+            />
+          </Link>
           <Search placeholder="Search" enterButton className="header__search" />
 
           <Menu mode="horizontal" className="header__navigation">

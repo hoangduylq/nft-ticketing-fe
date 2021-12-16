@@ -15,12 +15,4 @@ export const authApi = {
   loginFacebook(accessToken: string) {
     return axiosClient.get(`auth/facebook?access_token=${accessToken}`);
   },
-
-  logout() {
-    return axiosClient.post('/logout');
-  },
-
-  getProfile() {
-    return axiosClient.get('/profile');
-  },
 };
