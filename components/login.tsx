@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import AlertMessage, { TypeAlertEnum } from './alert';
 import * as api from '../api/index';
 import { LoginPayload } from '@/models/auth.interface';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useCookies } from 'react-cookie';
 import FacebookLogin from 'react-facebook-login';
 
@@ -30,9 +30,9 @@ const Login: React.FC = () => {
       const result: any = await api.authApi.login(values);
       if (result) {
         setCookie('token', result.accessToken);
-        dispatch(login(result.data));
-        setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
-        return router.push('/');
+        dispatch(login(result.payload));
+        setAlertMessage({ message: 'Sign In Successfully!', title: TypeAlertEnum.Success });
+        router.push('/');
       }
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
@@ -42,12 +42,11 @@ const Login: React.FC = () => {
   const responseFacebook = async (response: any) => {
     try {
       const result: any = await api.authApi.loginFacebook(response.accessToken);
-      console.log(result);
       if (result) {
-        // setCookie('token', result.accessToken);
+        setCookie('token', result.accessToken);
         dispatch(login(result.payload));
-        setAlertMessage({ message: 'Đăng nhập thành công', title: TypeAlertEnum.Success });
-        return router.push('/');
+        setAlertMessage({ message: 'SignIn Successfully!', title: TypeAlertEnum.Success });
+        router.push('/');
       }
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });

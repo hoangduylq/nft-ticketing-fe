@@ -24,7 +24,7 @@ import React from 'react';
 
 const CategoryList: React.FC = ({ children }: LayoutProps) => {
   return (
-    <Layout>
+    <>
       <Sider
         width={300}
         className="site-layout-background"
@@ -106,7 +106,7 @@ const CategoryList: React.FC = ({ children }: LayoutProps) => {
           {children}
         </Content>
       </Layout>
-    </Layout>
+    </>
   );
 };
 
