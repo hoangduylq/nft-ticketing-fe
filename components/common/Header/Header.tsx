@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { selectorUser, logout } from 'app/user/userSlice';
 import { EditOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { useCookies } from 'react-cookie';
 import Link from 'next/link';
 
 export default function Header() {
@@ -16,9 +15,6 @@ export default function Header() {
   const router = useRouter();
   const user = useAppSelector(selectorUser);
   const dispatch = useAppDispatch();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cookie, setCookie, removeCookie] = useCookies(['token']);
-
   const loginHandler = () => {
     router.push('/login');
   };
@@ -36,7 +32,7 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    removeCookie('token');
+    localStorage.removeItem('token');
     dispatch(logout());
   };
 

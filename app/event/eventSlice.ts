@@ -2,19 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 
 interface IEventState {
-  isBank?: boolean;
+  id?: string;
 }
 
 const initialState: IEventState = {
-  isBank: false,
+  id: '',
 };
 
 export const eventSlice = createSlice({
   name: 'event',
   initialState,
   reducers: {
-    createEvent: (state, action: PayloadAction<IEventState>) => {
-      state.isBank = action.payload.isBank;
+    createEvent: (state, action: PayloadAction<IEventState | undefined>) => {
+      state.id = action.payload?.id;
     },
   },
 });

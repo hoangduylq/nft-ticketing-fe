@@ -2,13 +2,23 @@
 /* eslint-disable no-unused-vars */
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as api from '../../api/index';
 
-const UploadImage: React.FC = () => {
+export interface IUploadImageProps {
+  onSetUrlImage(url: string): void;
+}
+
+const UploadImage: React.FC<IUploadImageProps> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    props.onSetUrlImage(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}

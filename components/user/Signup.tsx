@@ -1,4 +1,4 @@
-import { SignupPayload } from '@/models/sigup.interface';
+import { ISignupPayload } from '@/models/sigup.interface';
 import { Row, Col, Form, Input, Button, Radio } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
-  const onFinish = async (values: SignupPayload) => {
+  const onFinish = async (values: ISignupPayload) => {
     try {
       const result = await api.authApi.signup(values);
 

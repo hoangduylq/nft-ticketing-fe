@@ -1,14 +1,14 @@
 import { IJwtPayload } from '@/models/jwtPayload.interface';
-import { SignupPayload } from '../models/sigup.interface';
+import { ISignupPayload } from '../models/sigup.interface';
 import axiosClient from './axios-client';
-import { LoginPayload } from '@/models/auth.interface';
+import { ILoginPayload } from '@/models/auth.interface';
 
 export const authApi = {
-  signup(payload: SignupPayload) {
+  signup(payload: ISignupPayload) {
     return axiosClient.post('/users/signup', payload);
   },
 
-  login(payload: LoginPayload): Promise<IJwtPayload> {
+  login(payload: ILoginPayload): Promise<IJwtPayload> {
     return axiosClient.post('/auth/login', payload);
   },
 

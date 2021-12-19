@@ -41,16 +41,21 @@ export const userSlice = createSlice({
         (state.role = null),
         (state.gender = null),
         (state.avatar = null),
-        (state.isLoggedIn = false);
+        (state.isLoggedIn = false),
+        (state.isBankAccount = false);
     },
 
-    checkBank: (state, action: PayloadAction<{ isBankAccount: boolean }>) => {
+    updateIsBank: (state: IUserState, action: PayloadAction<{ isBankAccount: boolean }>) => {
       state.isBankAccount = action.payload.isBankAccount;
+    },
+
+    autoLogin: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+      state.isLoggedIn = action.payload.isLoggedIn;
     },
   },
 });
 
-export const { login, logout, checkBank } = userSlice.actions;
+export const { login, logout, updateIsBank, autoLogin } = userSlice.actions;
 
 export const selectorUser = (state: RootState) => state.user;
 
