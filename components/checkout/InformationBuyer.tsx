@@ -50,7 +50,7 @@ const InformationBuyer: React.FC = () => {
         </div>
 
         <Form.Item name="paymentMethod" className="payment-method">
-          <Radio.Group size="large" className="payment-method__group" buttonStyle="solid">
+          <Radio.Group size="large" className="payment-method__group">
             <Radio.Button value="momo" className="payment-method__item">
               Momo Wallet
             </Radio.Button>
