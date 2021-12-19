@@ -4,7 +4,7 @@ import { MainLayout } from '@/components/layout';
 import EventCategory from '@/components/homepage/EventCategory';
 import OrderList from '@/components/order/OrderList';
 
-const Order: NextPageWithLayout = () => {
+const OrderPage: NextPageWithLayout = () => {
   return (
     <>
       <EventCategory>
@@ -14,6 +14,6 @@ const Order: NextPageWithLayout = () => {
   );
 };
 
-Order.Layout = MainLayout;
+OrderPage.Layout = MainLayout;
 
-export default Order;
+export default OrderPage;

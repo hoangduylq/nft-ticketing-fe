@@ -108,3 +108,16 @@
 .button__logout {
   cursor: pointer;
 }
+
+.event-category {
+  min-width: 300px !important;
+
+  &__menu {
+    height: 100%;
+    border-right: 0;
+  }
+}
+
+.event-category-layout {
+  padding: 0 24px 24px;
+}

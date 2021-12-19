@@ -25,20 +25,12 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
   const { Content, Sider } = Layout;
   return (
     <>
-      <Sider
-        width={300}
-        className="site-layout-background"
-        // style={{
-        //   overflow: 'auto',
-        //   position: 'fixed',
-        //   left: 0,
-        // }}
-      >
+      <Sider className="event-category">
         <Menu
           mode="inline"
           // defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
+          className="event-category__menu"
         >
           <Menu.Item key="0" icon={<HomeOutlined />}>
             <Link href="/">Home</Link>
@@ -89,22 +81,13 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout style={{ padding: '0 24px 24px' }}>
+      <Layout className="event-category-layout">
         {/* <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb> */}
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-          }}
-        >
-          {children}
-        </Content>
+        <Content className="site-layout-background">{children}</Content>
       </Layout>
     </>
   );
