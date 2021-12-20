@@ -52,7 +52,12 @@ export default function Header() {
         </Row>
       )}
       <Row className="mt-10">
-        <Col className="btn--popover header__label">
+        <Col
+          className="btn--popover header__label"
+          onClick={() => {
+            router.push('/user');
+          }}
+        >
           <EditOutlined />
           <span className="ml-10 ">Profile</span>
         </Col>
