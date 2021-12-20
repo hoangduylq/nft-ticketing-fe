@@ -57,6 +57,16 @@ export default function Header() {
           <span className="ml-10 ">Profile</span>
         </Col>
       </Row>
+      <Row>
+        <Col
+          className="btn--popover header__label"
+          onClick={() => {
+            router.push('/user');
+          }}
+        >
+          <span className="mr-5">Profile</span> <EditOutlined />
+        </Col>
+      </Row>
       <Row className="mt-10">
         <Col onClick={handleLogout} className="btn--popover header__label">
           <LogoutOutlined />

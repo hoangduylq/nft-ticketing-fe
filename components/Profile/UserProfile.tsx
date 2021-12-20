@@ -1,12 +1,12 @@
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, DatePicker, Form, Input, Row } from 'antd';
+import { Avatar, Button, Col, DatePicker, Form, Input, Row, Space } from 'antd';
 import React from 'react';
 import { Radio } from 'antd';
 
 const UserProfile: React.FC = () => {
   const [value, setValue] = React.useState(1);
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
@@ -14,11 +14,12 @@ const UserProfile: React.FC = () => {
 
   return (
     <Row justify="center">
-      <Col offset="16" span="8"></Col>
-      <Col span="24">
+      <Col span="12">
         <section className="profile-box">
-          <h1>My Profile </h1>
-          <Avatar size={150} icon={<UserOutlined />} />
+          <Space align="center" direction="vertical" className="profile-box__header">
+            <h1>My Profile </h1>
+            <Avatar size={150} icon={<UserOutlined />} />
+          </Space>
 
           <Form
             name="basic"
@@ -65,7 +66,7 @@ const UserProfile: React.FC = () => {
               </Radio>
             </Radio.Group>
             <Button type="primary" htmlType="submit" size="large" className="form__btn--change">
-              Change
+              Update
             </Button>
           </Form>
         </section>
