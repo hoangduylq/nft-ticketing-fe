@@ -10,11 +10,19 @@ const EventList: React.FC = () => {
     <div className="event-list">
       {/* <Divider orientation="left">Movies</Divider> */}
       <div className="event-list__title-wrap">
-        <Image src="https://ticketbox.vn/_next/static/images/home-leftmovie-desktop.svg" alt="" />
+        <Image
+          src="https://ticketbox.vn/_next/static/images/home-leftmovie-desktop.svg"
+          alt=""
+          preview={false}
+        />
         <Title level={2} className="event-list__title" italic={true}>
           Movies
         </Title>
-        <Image src="https://ticketbox.vn/_next/static/images/home-rightmovie-desktop.svg" alt="" />
+        <Image
+          src="https://ticketbox.vn/_next/static/images/home-rightmovie-desktop.svg"
+          alt=""
+          preview={false}
+        />
       </div>
       <Divider className="space-title" />
 
