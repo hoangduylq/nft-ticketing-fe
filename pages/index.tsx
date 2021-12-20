@@ -3,7 +3,8 @@ import { NextPageWithLayout } from '@/models/common.interface';
 import { MainLayout } from '@/components/layout';
 import EventCategory from '@/components/homepage/EventCategory';
 import EventCarousel from '@/components/homepage/EventCarousel';
-import EventList from '@/components/homepage/eventList';
+import EventList from '@/components/homepage/EventList';
+import React from 'react';
 
 const Home: NextPageWithLayout = () => {
   return (
