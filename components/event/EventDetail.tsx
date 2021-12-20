@@ -8,7 +8,7 @@ import * as api from '../../api/index';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectorUser } from 'app/user/userSlice';
 import router from 'next/router';
-import { IEventPayload } from '@/models/event.interface';
+import { ICategory, IEventPayload } from '@/models/event.interface';
 import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
 import { createEvent } from 'app/event/eventSlice';
 
@@ -96,6 +96,7 @@ const EventDetail: React.FC = () => {
   });
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
@@ -111,7 +112,13 @@ const EventDetail: React.FC = () => {
         creditNumber: result.creditNumber,
       });
     };
+
+    const getCategories = async () => {
+      const result: ICategory[] = await api.eventApi.getAllCategory();
+      setCategories(result);
+    };
     getBankAccount();
+    getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -209,17 +216,12 @@ const EventDetail: React.FC = () => {
                           label="Event Category"
                           rules={[{ required: true, message: 'Please select event category ' }]}
                         >
-                          <Select
-                            placeholder="Select event category"
-                            // onChange={this.onGenderChange}
-                            allowClear
-                          >
-                            <Option value="1ac31ea0-5131-42c3-9ca8-99767ebf0d3c">Phim ảnh</Option>
-                            <Option value="c6022b20-f3ac-4477-922a-675be5b2fdb1">Điện ảnh</Option>
-                            <Option value="d8dc4274-805d-47e8-8f02-e5c5848c96b4">
-                              Sân khấu - điện ảnh
-                            </Option>
-                            <Option value="f61b0beb-1665-4a93-b9c2-44e1378f4f96">Nightlife</Option>
+                          <Select placeholder="Select event category" allowClear>
+                            {categories.map((category) => (
+                              <Option value={category.id} key={category.id}>
+                                {category.name}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                         <Form.Item

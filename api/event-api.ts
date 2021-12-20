@@ -1,8 +1,8 @@
-import { IEventPayload } from './../models/event.interface';
+import { IEventPayload, ICategory } from './../models/event.interface';
 import axiosClient from './axios-client';
 
 export const eventApi = {
-  getAllCategory() {
+  getAllCategory(): Promise<ICategory[]> {
     return axiosClient.get('/categories');
   },
 
@@ -21,12 +21,12 @@ export const eventApi = {
   },
 
   getAllEvent(page: number, pageSize: number, id: string): Promise<IEventPayload[]> {
-    // const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     return axiosClient.get('/events/paging', {
-      // headers: {
-      //   Authorization: `Bearer  ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer  ${token}`,
+      },
       params: { page: page, pageSize: pageSize, userId: id },
     });
   },

@@ -23,3 +23,8 @@ export interface IEventPayload {
   organizationAddress: string;
   id?: string;
 }
+
+export interface ICategory {
+  id: string;
+  name: string;
+}
