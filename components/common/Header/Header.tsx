@@ -34,6 +34,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(logout());
+    router.push('/');
   };
 
   const contentPophoverUser = (

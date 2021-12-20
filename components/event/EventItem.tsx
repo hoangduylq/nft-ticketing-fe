@@ -1,5 +1,5 @@
-import { AntDesignOutlined, FieldTimeOutlined, EnvironmentFilled } from '@ant-design/icons';
-import { Row, Col, Avatar, Typography } from 'antd';
+import { FieldTimeOutlined, EnvironmentFilled, ArrowRightOutlined } from '@ant-design/icons';
+import { Row, Col, Avatar, Button, Card, Image } from 'antd';
 import { IEventPayload } from '../../models/event.interface';
 
 interface IEventItemProps {
@@ -7,33 +7,50 @@ interface IEventItemProps {
 }
 
 const EvenItem: React.FC<IEventItemProps> = (props) => {
-  const { Title } = Typography;
-
   return (
-    <article className="order-item">
-      <Row className="order-item__header">
-        <Col flex={1}>
-          <Avatar
-            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-            src={props.item.logoUrl}
-            icon={<AntDesignOutlined />}
+    <Col sm={24} md={12} xl={8}>
+      <Card
+        className="event-item__card"
+        cover={
+          <Image
+            alt="example"
+            src={props.item.bannerUrl ? props.item.bannerUrl : '/img/default-image.jpg'}
+            // src="/img/default-image.jpg"
+            preview={false}
+            className="event-item__img"
           />
-        </Col>
-        <Col className="order-item__info" flex={10}>
-          <Title level={2}>{props.item.name}</Title>
-          <div className="order-item__info__item">
-            <FieldTimeOutlined />
-            <span className="order-item__info__item__description">{props.item.eventStartDate}</span>
-          </div>
-          <div className="order-item__info__item">
-            <EnvironmentFilled />
-            <span className="order-item__info__item__description">
-              {`${props.item.eventPlaceName} - ${props.item.eventAddress}`}
-            </span>
-          </div>
-        </Col>
-      </Row>
-    </article>
+        }
+      >
+        <Row>
+          <Col span={2}>
+            <Avatar size="large" src={props.item.logoUrl ? props.item.logoUrl : ''} />
+          </Col>
+          <Col offset={2} span={20}>
+            <h2 className="event-item__title">{props.item.name}</h2>
+          </Col>
+          <Col offset={4} span={20} className="mt-10">
+            <div className="event-item__info-item">
+              <FieldTimeOutlined />
+              <span className="ml-10">{props.item.eventStartDate}</span>
+            </div>
+            <div className="event-item__info-item">
+              <EnvironmentFilled />
+              <span className="ml-10">
+                {`${props.item.eventPlaceName} - ${props.item.eventAddress}`}
+              </span>
+            </div>
+          </Col>
+          <Col className="mt-40 event-item__btn" offset={12} span={12}>
+            <Button shape="round" size="large" type="dashed" className="btn btn--submit">
+              See more
+              <span className="ml-10">
+                <ArrowRightOutlined />
+              </span>
+            </Button>
+          </Col>
+        </Row>
+      </Card>
+    </Col>
   );
 };
 

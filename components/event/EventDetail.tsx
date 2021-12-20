@@ -205,7 +205,7 @@ const EventDetail: React.FC = () => {
                           <Input />
                         </Form.Item>
                         <Form.Item
-                          name="eventPlaceAddress"
+                          name="eventAddress"
                           label="Event place address"
                           rules={[{ required: true }]}
                         >

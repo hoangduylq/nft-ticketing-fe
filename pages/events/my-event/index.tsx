@@ -4,11 +4,9 @@ import { MainLayout } from '@/components/layout';
 import { NextPageWithLayout } from '@/models/common.interface';
 const MyEventPage: NextPageWithLayout = () => {
   return (
-    <>
-      <EventCategory>
-        <ListEvent />
-      </EventCategory>
-    </>
+    <EventCategory>
+      <ListEvent />
+    </EventCategory>
   );
 };
 
