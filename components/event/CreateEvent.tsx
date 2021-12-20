@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectorUser, updateIsBank } from 'app/user/userSlice';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import * as api from '../../api/index';
 import ModalCreateBank from '../user/ModalCreateBank';
 import EventDetail from './EventDetail';
@@ -12,7 +12,7 @@ const CreateEvent: React.FC = () => {
 
   const [isBankAccount, setIsBankAccount] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getBank = async (id: string) => {
       try {
         const result = await api.userApi.findBankByUserId(id);

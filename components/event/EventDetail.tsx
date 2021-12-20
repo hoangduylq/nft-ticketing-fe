@@ -214,7 +214,7 @@ const EventDetail: React.FC = () => {
                             // onChange={this.onGenderChange}
                             allowClear
                           >
-                            <Option value="cb9f4525-b6e9-47f8-879b-327dbddeb00c">Phim ảnh</Option>
+                            <Option value="1ac31ea0-5131-42c3-9ca8-99767ebf0d3c">Phim ảnh</Option>
                             <Option value="c6022b20-f3ac-4477-922a-675be5b2fdb1">Điện ảnh</Option>
                             <Option value="d8dc4274-805d-47e8-8f02-e5c5848c96b4">
                               Sân khấu - điện ảnh

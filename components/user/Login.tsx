@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Link from 'next/link';
 import { Input, Button, Form, Col, Row } from 'antd';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import React, { useState } from 'react';
 import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
 import * as api from '../../api/index';
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 

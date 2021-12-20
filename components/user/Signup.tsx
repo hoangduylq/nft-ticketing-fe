@@ -2,7 +2,7 @@ import { ISignupPayload } from '@/models/sigup.interface';
 import { Row, Col, Form, Input, Button, Radio } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import * as api from '../../api/index';
 import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
 
@@ -11,7 +11,7 @@ const Signup: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 

@@ -3,7 +3,7 @@ import { Modal, Button, Form, Input, Row, Col } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectorUser, updateIsBank } from 'app/user/userSlice';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import * as api from '../../api/index';
 import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
 
@@ -32,7 +32,7 @@ const CreateBank: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
