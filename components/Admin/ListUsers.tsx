@@ -6,13 +6,12 @@ const ListUsers: React.FC = () => {
   const { Column } = Table;
 
   const data = [];
-  for (let i = 0; i < 46; i++) {
+  for (let i = 0; i < 3; i++) {
     data.push({
       key: i,
       username: 'Jim',
       role: 'Admin',
       email: 'lanbd98@gmail.com',
-      fa: 'X',
       actions: 'delete',
     });
   }
@@ -22,7 +21,6 @@ const ListUsers: React.FC = () => {
       <Column title="UserName" dataIndex="username" key="username" />
       <Column title="Role" dataIndex="role" key="role" />
       <Column title="Email" dataIndex="email" key="email" />
-      <Column title="2FA" dataIndex="fa" key="fa" />
       <Column
         title="Action"
         key="action"
