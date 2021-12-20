@@ -1,0 +1,18 @@
+.admin-page {
+  padding: 5rem;
+  min-height: 90rem;
+
+  .box-header {
+    height: 20rem;
+    p {
+      font-size: 2rem;
+    }
+    h4 {
+      font-size: 3rem;
+    }
+  }
+  .ant-table-pagination.ant-pagination {
+    margin: 4rem 0;
+    justify-content: center;
+  }
+}

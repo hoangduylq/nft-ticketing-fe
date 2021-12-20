@@ -6,7 +6,7 @@ import { Avatar, Button, Col, Input, Layout, Menu, Popover, Row } from 'antd';
 import { useRouter } from 'next/router';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { selectorUser, logout } from 'app/user/userSlice';
-import { EditOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { EditOutlined, LogoutOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 export default function Header() {
@@ -39,14 +39,29 @@ export default function Header() {
 
   const contentPophoverUser = (
     <>
-      <Row>
+      {user.role === 'admin' && (
+        <Row>
+          <Col
+            className="btn--popover header__label"
+            onClick={() => {
+              router.push('/admin');
+            }}
+          >
+            <ProfileOutlined />
+            <span className="ml-10 ">Manager User</span>
+          </Col>
+        </Row>
+      )}
+      <Row className="mt-10">
         <Col className="btn--popover header__label">
-          <span className="mr-5">Profile</span> <EditOutlined />
+          <EditOutlined />
+          <span className="ml-10 ">Profile</span>
         </Col>
       </Row>
       <Row className="mt-10">
         <Col onClick={handleLogout} className="btn--popover header__label">
-          <span className="mr-5">Logout</span> <LogoutOutlined />
+          <LogoutOutlined />
+          <span className="ml-10 ">Logout</span>
         </Col>
       </Row>
     </>
