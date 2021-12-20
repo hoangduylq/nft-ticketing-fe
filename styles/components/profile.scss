@@ -1,47 +1,45 @@
 @import '../utils/variable';
+.user-profile {
+  .profile-box {
+    margin: 40px auto;
+    width: 100%;
+    height: 105rem;
+    padding: 85px 85px 0;
+    display: inline-block;
+    vertical-align: top;
+    align-items: center;
+    border-radius: 4px;
+    justify-content: center;
+    background: $color-primary-light-2;
 
-.profile-box {
-  margin: 3rem 30rem 3rem 60rem;
-  width: 80rem;
-  height: 105rem;
-  padding: 85px 85px 0;
-  display: inline-block;
-  vertical-align: top;
-  align-items: center;
-  border-radius: 4px;
-  justify-content: center;
-  background: $color-primary-light-2;
-  h1 {
-    margin-top: -2rem;
-    text-align: center;
-    font-size: 4rem;
-    color: $color-primary;
+    &__header {
+      width: 100%;
+    }
+
+    h1 {
+      margin-top: -2rem;
+      text-align: center;
+      font-size: 4rem;
+      color: $color-primary;
+    }
+    p {
+      font-size: 2.6rem;
+    }
+    .form__btn--change {
+      background-color: $color-primary;
+      border: 1px solid $color-primary;
+      color: $color-primary-light-3;
+      font-weight: 200;
+      margin: 20px auto;
+      width: 100%;
+    }
   }
-  p {
-    font-size: 2.6rem;
-  }
-  span {
-    font-size: 2rem;
-    margin-right: 2.3rem;
-  }
-  .form__btn--change {
-    background-color: $color-primary;
-    border: 1px solid $color-primary;
+
+  .form__btn--change:hover,
+  .form__btn--change:focus,
+  .form__btn--change:active {
+    text-decoration: none;
+    background: $color-primary;
     color: $color-primary-light-3;
-    font-weight: 200;
-    margin-top: 5rem;
-    margin-left: 26rem;
   }
-}
-
-.ant-avatar {
-  margin-left: 25rem;
-}
-
-.form__btn--change:hover,
-.form__btn--change:focus,
-.form__btn--change:active {
-  text-decoration: none;
-  background: $color-primary;
-  color: $color-primary-light-3;
 }

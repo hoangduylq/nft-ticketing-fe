@@ -1,16 +1,18 @@
-import Footer from '@/components/common/Footer/Footer';
-import Header from '@/components/common/Header/Header';
-import UserProfile from '@/components/Profile/UserProfile';
-import { NextPage } from 'next';
+import EventCategory from '@/components/homepage/EventCategory';
+import { MainLayout } from '@/components/layout';
+import UserProfile from '@/components/profile/UserProfile';
+import { NextPageWithLayout } from '@/models/common.interface';
 import React from 'react';
-const UsersPage: NextPage = () => {
+const UsersPage: NextPageWithLayout = () => {
   return (
-    <>
-      <Header />
-      <UserProfile />
-      <Footer />
-    </>
+    <EventCategory>
+      <article className="user-profile">
+        <UserProfile />
+      </article>
+    </EventCategory>
   );
 };
+
+UsersPage.Layout = MainLayout;
 
 export default UsersPage;

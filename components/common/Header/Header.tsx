@@ -39,7 +39,12 @@ export default function Header() {
   const contentPophoverUser = (
     <>
       <Row>
-        <Col className="btn--popover header__label">
+        <Col
+          className="btn--popover header__label"
+          onClick={() => {
+            router.push('/user');
+          }}
+        >
           <span className="mr-5">Profile</span> <EditOutlined />
         </Col>
       </Row>
