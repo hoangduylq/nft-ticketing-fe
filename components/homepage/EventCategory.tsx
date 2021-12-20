@@ -82,11 +82,6 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
         </Menu>
       </Sider>
       <Layout className="event-category-layout">
-        {/* <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb> */}
         <Content className="site-layout-background">{children}</Content>
       </Layout>
     </>

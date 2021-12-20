@@ -27,7 +27,7 @@ const EventCarousel: React.FC = () => {
       </div>
       <div className="carousel-wrap__item">
         <Image
-          src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/11/16/2A6C62.jpg"
+          src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
           alt="1"
           preview={false}
         />
