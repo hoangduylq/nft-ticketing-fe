@@ -1,13 +1,30 @@
 import React from 'react';
-import { Card, Image, Row, Col, Divider, Button } from 'antd';
-import { EyeOutlined, EllipsisOutlined } from '@ant-design/icons';
-
-const { Meta } = Card;
+import { Card, Image, Row, Col, Divider, Button, Typography } from 'antd';
+import { FieldTimeOutlined } from '@ant-design/icons';
 
 const EventList: React.FC = () => {
+  const { Title } = Typography;
+  const { Meta } = Card;
+
   return (
     <div className="event-list">
-      <Divider orientation="left">Movies</Divider>
+      {/* <Divider orientation="left">Movies</Divider> */}
+      <div className="event-list__title-wrap">
+        <Image
+          src="https://ticketbox.vn/_next/static/images/home-leftmovie-desktop.svg"
+          alt=""
+          preview={false}
+        />
+        <Title level={2} className="event-list__title" italic={true}>
+          Movies
+        </Title>
+        <Image
+          src="https://ticketbox.vn/_next/static/images/home-rightmovie-desktop.svg"
+          alt=""
+          preview={false}
+        />
+      </div>
+      <Divider className="space-title" />
 
       <Row gutter={[24, 24]} justify="space-between" className="event-list-row">
         <Col sm={24} md={12} xl={8}>
@@ -16,13 +33,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title={process.env.BASE_URL} description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -32,13 +56,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title={process.env.BASE_URL} description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -48,13 +79,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -64,13 +102,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -80,13 +125,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -96,13 +148,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -112,13 +171,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -128,13 +194,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
 
@@ -144,13 +217,20 @@ const EventList: React.FC = () => {
             cover={
               <Image
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
                 preview={false}
               />
             }
-            actions={[<EyeOutlined key="eye" />, <EllipsisOutlined key="ellipsis" />]}
           >
-            <Meta title="Card title" description="This is the description" />
+            <Meta
+              title="Chirstmas Crecendo"
+              description={
+                <>
+                  <FieldTimeOutlined />
+                  <span>25/12/2021</span>
+                </>
+              }
+            />
           </Card>
         </Col>
       </Row>

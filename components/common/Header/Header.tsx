@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Avatar, Button, Input, Layout, Menu, Popover } from 'antd';
+import { Avatar, Button, Col, Input, Layout, Menu, Popover, Row } from 'antd';
 import { useRouter } from 'next/router';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 import { selectorUser, logout } from 'app/user/userSlice';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { EditOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 export default function Header() {
@@ -14,7 +15,6 @@ export default function Header() {
   const router = useRouter();
   const user = useAppSelector(selectorUser);
   const dispatch = useAppDispatch();
-
   const loginHandler = () => {
     router.push('/login');
   };
@@ -24,21 +24,31 @@ export default function Header() {
   };
 
   const createEventHandler = () => {
-    router.push('/events/create');
+    if (user.isLoggedIn) {
+      router.push('/events/create');
+    } else {
+      router.push('/login');
+    }
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
     dispatch(logout());
   };
 
-  const text = <span>Title</span>;
   const contentPophoverUser = (
-    <div>
-      <p>Edit</p>
-      <p onClick={handleLogout} className="button__logout">
-        Logout <LogoutOutlined />
-      </p>
-    </div>
+    <>
+      <Row>
+        <Col className="btn--popover header__label">
+          <span className="mr-5">Profile</span> <EditOutlined />
+        </Col>
+      </Row>
+      <Row className="mt-10">
+        <Col onClick={handleLogout} className="btn--popover header__label">
+          <span className="mr-5">Logout</span> <LogoutOutlined />
+        </Col>
+      </Row>
+    </>
   );
 
   const ItemMenu = () => {
@@ -47,10 +57,10 @@ export default function Header() {
         <Menu.Item>
           <Popover
             placement="bottomLeft"
-            title={text}
             content={contentPophoverUser}
             trigger="hover"
             className="header__user"
+            key="4"
           >
             <Avatar icon={<UserOutlined />} />
             <span>{user.name}</span>

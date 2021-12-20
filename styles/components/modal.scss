@@ -47,6 +47,23 @@
       }
     }
   }
+
+  &-bank {
+    &__contain {
+      width: 60rem !important;
+    }
+
+    &__message {
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+
+    &__label {
+      & .ant-form-item-label {
+        text-align: left;
+      }
+    }
+  }
 }
 
 .ant-modal-title {

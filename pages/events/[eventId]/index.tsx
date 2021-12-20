@@ -1,7 +1,7 @@
-import EventDetail from '@/components/Events/EventDetail';
+// import EventDetail from '@/components/event/EventDetail';
 import { NextPage } from 'next';
 const EventDetailPage: NextPage = () => {
-  return <EventDetail />;
+  return <></>;
 };
 
 export default EventDetailPage;

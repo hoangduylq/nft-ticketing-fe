@@ -1,21 +1,21 @@
-import { SignupPayload } from '@/models/sigup.interface';
-import { Input, Button, Form, Row, Col, Select } from 'antd';
-import React, { useEffect, useState } from 'react';
-import * as api from '../api/index';
-import AlertMessage, { TypeAlertEnum } from './alert';
+import { ISignupPayload } from '@/models/sigup.interface';
+import { Row, Col, Form, Input, Button, Radio } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { useState, useLayoutEffect } from 'react';
+import * as api from '../../api/index';
+import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
 
 const Signup: React.FC = () => {
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
-  const onFinish = async (values: SignupPayload) => {
+  const onFinish = async (values: ISignupPayload) => {
     try {
       const result = await api.authApi.signup(values);
 
@@ -118,11 +118,11 @@ const Signup: React.FC = () => {
               rules={[{ required: true, message: 'Please select gender!' }]}
               className="form__item"
             >
-              <Select size="large" placeholder="Gender">
-                <Select.Option value="Female">Female</Select.Option>
-                <Select.Option value="Male">Male</Select.Option>
-                <Select.Option value="Other">Other</Select.Option>
-              </Select>
+              <Radio.Group className="group__gender">
+                <Radio value="Female">Female</Radio>
+                <Radio value="Male">Male</Radio>
+                <Radio value="Other">Other</Radio>
+              </Radio.Group>
             </Form.Item>
 
             <Form.Item wrapperCol={{ span: 24 }} className="form__item  mt-10">

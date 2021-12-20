@@ -2,18 +2,18 @@ import 'antd/dist/antd.css';
 import '@/styles/globals.scss';
 import { AppPropsWithLayout } from '../models';
 import { EmptyLayout } from '@/components/layout';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { store } from './../app/store';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import AppContent from '@/components/AppContent';
 
-React.useLayoutEffect = React.useEffect;
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const Layout = Component.Layout ?? EmptyLayout;
 
   const [showChild, setShowChild] = React.useState(false);
 
   // Wait until after client-side hydration to show
-  React.useEffect(() => {
+  useEffect(() => {
     setShowChild(true);
   }, []);
 
@@ -24,9 +24,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AppContent>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AppContent>
     </Provider>
   );
 }

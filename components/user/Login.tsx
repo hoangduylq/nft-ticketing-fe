@@ -1,35 +1,34 @@
 /* eslint-disable no-unused-vars */
 import Link from 'next/link';
 import { Input, Button, Form, Col, Row } from 'antd';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import React, { useState } from 'react';
-import AlertMessage, { TypeAlertEnum } from './alert';
-import * as api from '../api/index';
-import { LoginPayload } from '@/models/auth.interface';
-import { useRouter } from 'next/router';
-import { useCookies } from 'react-cookie';
+import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
+import * as api from '../../api/index';
+import { ILoginPayload } from '@/models/auth.interface';
 import FacebookLogin from 'react-facebook-login';
 
-import { useAppDispatch } from './../app/hooks';
-import { login } from './../app/user/userSlice';
+import { useAppDispatch } from '../../app/hooks';
+import { login } from '../../app/user/userSlice';
+import { useRouter } from 'next/router';
+import { IJwtPayload } from '@/models/jwtPayload.interface';
 
 const Login: React.FC = () => {
   const router = useRouter();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cookies, setCookie] = useCookies(['token']);
+
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
-  const onFinish = async (values: LoginPayload) => {
+  const onFinish = async (values: ILoginPayload) => {
     try {
-      const result: any = await api.authApi.login(values);
+      const result: IJwtPayload = await api.authApi.login(values);
       if (result) {
-        setCookie('token', result.accessToken);
+        localStorage.setItem('token', result.accessToken);
         dispatch(login(result.payload));
         setAlertMessage({ message: 'Sign In Successfully!', title: TypeAlertEnum.Success });
         router.push('/');
@@ -43,7 +42,7 @@ const Login: React.FC = () => {
     try {
       const result: any = await api.authApi.loginFacebook(response.accessToken);
       if (result) {
-        setCookie('token', result.accessToken);
+        localStorage.setItem('token', result.accessToken);
         dispatch(login(result.payload));
         setAlertMessage({ message: 'SignIn Successfully!', title: TypeAlertEnum.Success });
         router.push('/');
@@ -70,7 +69,7 @@ const Login: React.FC = () => {
             wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            autoComplete="off"
+            autoComplete="on"
             className="form"
             scrollToFirstError={true}
           >

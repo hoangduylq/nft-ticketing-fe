@@ -6,10 +6,18 @@
     margin: 5rem auto;
     border-radius: 5px;
     box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+    margin-bottom: 10rem;
   }
 
   &__form {
     padding: 2rem;
+
+    &-container {
+      background-color: $color-primary-light-2;
+      border-radius: 5px;
+      padding: 2rem 4rem;
+      border: 2px dashed $color-primary-light-1;
+    }
   }
 
   &__heading {

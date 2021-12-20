@@ -55,6 +55,11 @@
     }
   }
 
+  &__label {
+    font-size: 1.8rem;
+    background-color: #fff;
+  }
+
   &__navigation {
     justify-content: end;
     flex-grow: 1;
@@ -104,7 +109,20 @@
   -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
   box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
 }
+.group__gender {
+  display: flex;
+  justify-content: space-between;
+}
 
-.button__logout {
-  cursor: pointer;
+.event-category {
+  min-width: 300px !important;
+
+  &__menu {
+    height: 100%;
+    border-right: 0;
+  }
+}
+
+.event-category-layout {
+  padding: 0 24px 24px;
 }
