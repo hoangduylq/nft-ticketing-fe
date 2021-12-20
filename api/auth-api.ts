@@ -15,4 +15,12 @@ export const authApi = {
   loginFacebook(accessToken: string) {
     return axiosClient.get(`auth/facebook?access_token=${accessToken}`);
   },
+
+  getUser(token: string): Promise<IJwtPayload> {
+    return axiosClient.get('/auth/login-jwt', {
+      headers: {
+        Authorization: `Bearer  ${token}`,
+      },
+    });
+  },
 };
