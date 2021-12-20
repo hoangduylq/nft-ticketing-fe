@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Col, Empty, Image, Row, Table, Tabs } from 'antd';
+import { Avatar, Col, Empty, Row, Table, Tabs } from 'antd';
 import {
   AntDesignOutlined,
   DownloadOutlined,
@@ -123,13 +123,7 @@ const OrderItem: React.FC = () => {
             <Avatar
               shape="square"
               size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-              icon={
-                <Image
-                  src="https://vi.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/basic_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
-                  alt="/"
-                  preview={false}
-                />
-              }
+              src="https://vi.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/basic_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
             />
           </Col>
         </Row>
