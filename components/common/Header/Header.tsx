@@ -60,6 +60,7 @@ export default function Header() {
             content={contentPophoverUser}
             trigger="hover"
             className="header__user"
+            key="4"
           >
             <Avatar icon={<UserOutlined />} />
             <span>{user.name}</span>

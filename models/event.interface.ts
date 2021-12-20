@@ -21,4 +21,5 @@ export interface IEventPayload {
   organizationEmail: string;
   organizationPhone: string;
   organizationAddress: string;
+  id?: string;
 }

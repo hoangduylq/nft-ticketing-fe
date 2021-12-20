@@ -68,7 +68,7 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
             <Link href="/order">My order</Link>
           </Menu.Item>
           <Menu.Item key="11" icon={<FolderOpenOutlined />}>
-            My event
+            <Link href="/events/my-event"> My event</Link>
           </Menu.Item>
           <Menu.Item key="12" icon={<FileTextOutlined />}>
             Blog

@@ -12,18 +12,19 @@ const CreateEvent: React.FC = () => {
 
   const [isBankAccount, setIsBankAccount] = useState(false);
 
-  const getBank = async (id: string) => {
-    try {
-      const result = await api.userApi.findBankByUserId(id);
-      setIsBankAccount(!!result);
-      dispatch(updateIsBank({ isBankAccount: !!result }));
-    } catch (error) {
-      dispatch(updateIsBank({ isBankAccount: false }));
-    }
-  };
-
   useEffect(() => {
+    const getBank = async (id: string) => {
+      try {
+        const result = await api.userApi.findBankByUserId(id);
+        setIsBankAccount(!!result);
+        dispatch(updateIsBank({ isBankAccount: !!result }));
+      } catch (error) {
+        dispatch(updateIsBank({ isBankAccount: false }));
+      }
+    };
+
     getBank(user.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id]);
 
   return (

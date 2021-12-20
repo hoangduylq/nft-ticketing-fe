@@ -120,13 +120,12 @@ const EventDetail: React.FC = () => {
   }, [form, formValues]);
 
   const onFinish = async (values: any) => {
-    console.log(values);
     const payload: IEventPayload = { ...values, userId: user.id };
     try {
       const result: any = await api.eventApi.createEvent(payload);
-      dispatch(createEvent(result?.id));
+      dispatch(createEvent(result.id));
       setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
-      router.push('/');
+      router.push('/events/my-event');
     } catch (error: any) {
       setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
     }
