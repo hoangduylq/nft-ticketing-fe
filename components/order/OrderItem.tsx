@@ -9,10 +9,16 @@ import {
   SolutionOutlined,
 } from '@ant-design/icons';
 import { Typography } from 'antd';
+import { IOrderPayload } from '@/models/order.interface';
 
-const OrderItem: React.FC = () => {
+interface IOrderItemProps {
+  item: IOrderPayload;
+}
+
+const OrderItem: React.FC<IOrderItemProps> = (props) => {
   const { Title } = Typography;
   const { TabPane } = Tabs;
+  const { amount, tickets, event } = props.item;
 
   const columns = [
     {
@@ -40,10 +46,10 @@ const OrderItem: React.FC = () => {
   const data = [
     {
       key: '1',
-      name: 'So You Think You Cant? (Present English)',
-      quantity: 32,
-      price: 100,
-      total: 3200,
+      name: event.name,
+      quantity: amount,
+      price: +event.ticketPrice,
+      total: +event.ticketPrice * amount,
     },
   ];
 
@@ -65,32 +71,12 @@ const OrderItem: React.FC = () => {
     },
   ];
 
-  const dataTicket = [
-    {
-      key: '1',
-      number: '1',
-      ticket: '1231231321321231321321321',
-      download: <DownloadOutlined />,
-    },
-    {
-      key: '1',
-      number: '1',
-      ticket: '1231231321321231321321321',
-      download: <DownloadOutlined />,
-    },
-    {
-      key: '1',
-      number: '1',
-      ticket: '1231231321321231321321321',
-      download: <DownloadOutlined />,
-    },
-    {
-      key: '1',
-      number: '1',
-      ticket: '1231231321321231321321321',
-      download: <DownloadOutlined />,
-    },
-  ];
+  const dataTicket = tickets.map((ticket, index) => ({
+    key: index + 1,
+    number: index + 1,
+    ticket,
+    download: <DownloadOutlined />,
+  }));
 
   if (false) return <Empty />;
 
@@ -101,20 +87,20 @@ const OrderItem: React.FC = () => {
           <Col flex={1}>
             <Avatar
               size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-              icon={<AntDesignOutlined />}
+              icon={!event.logoUrl ? <AntDesignOutlined /> : ''}
+              src={event.logoUrl}
             />
           </Col>
           <Col className="order-item__info" flex={10}>
-            <Title level={2}>So You Think You Cant? (Present English)</Title>
+            <Title level={2}>{event.name}</Title>
             <div className="order-item__info__item">
               <FieldTimeOutlined />
-              <span className="order-item__info__item__description">Mon, 27 Sep 2021 12:00 AM</span>
+              <span className="order-item__info__item__description">{event.eventStartDate}</span>
             </div>
             <div className="order-item__info__item">
               <EnvironmentFilled />
               <span className="order-item__info__item__description">
-                DA VINCI ACADEMY - Tầng 3, Số 1 đường 36 - khu C, khu đô thị An Phú An Khánh, Quận
-                2, Thành Phố Hồ Chí Minh
+                {event.eventPlaceName + ' - ' + event.eventAddress}
               </span>
             </div>
           </Col>
@@ -143,7 +129,7 @@ const OrderItem: React.FC = () => {
             tab={
               <span>
                 <SolutionOutlined />
-                Your Tickets
+                My Tickets
               </span>
             }
             key="2"
