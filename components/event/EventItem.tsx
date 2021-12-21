@@ -1,5 +1,6 @@
 import { FieldTimeOutlined, EnvironmentFilled, ArrowRightOutlined } from '@ant-design/icons';
-import { Row, Col, Avatar, Button, Card, Image } from 'antd';
+import { Row, Col, Avatar, Button, Card, Image, Typography } from 'antd';
+
 import { IEventPayload } from '../../models/event.interface';
 
 interface IEventItemProps {
@@ -7,6 +8,7 @@ interface IEventItemProps {
 }
 
 const EvenItem: React.FC<IEventItemProps> = (props) => {
+  const { Text } = Typography;
   return (
     <Col sm={24} md={12} xl={8}>
       <Card
@@ -15,7 +17,6 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
           <Image
             alt="example"
             src={props.item.bannerUrl ? props.item.bannerUrl : '/img/default-image.jpg'}
-            // src="/img/default-image.jpg"
             preview={false}
             className="event-item__img"
           />
@@ -23,10 +24,15 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
       >
         <Row>
           <Col span={2}>
-            <Avatar size="large" src={props.item.logoUrl ? props.item.logoUrl : ''} />
+            <Avatar
+              size="large"
+              src={props.item.logoUrl ? props.item.logoUrl : '/img/default-image.jpg'}
+            />
           </Col>
           <Col offset={2} span={20}>
-            <h2 className="event-item__title">{props.item.name}</h2>
+            <Text className="event-item__title" ellipsis>
+              {props.item.name}
+            </Text>
           </Col>
           <Col offset={4} span={20} className="mt-10">
             <div className="event-item__info-item">
@@ -34,10 +40,10 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
               <span className="ml-10">{props.item.eventStartDate}</span>
             </div>
             <div className="event-item__info-item">
-              <EnvironmentFilled />
-              <span className="ml-10">
+              <Text ellipsis>
+                <EnvironmentFilled className="mr-10" />
                 {`${props.item.eventPlaceName} - ${props.item.eventAddress}`}
-              </span>
+              </Text>
             </div>
           </Col>
           <Col className="mt-40 event-item__btn" offset={12} span={12}>

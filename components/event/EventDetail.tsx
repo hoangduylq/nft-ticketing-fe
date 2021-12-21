@@ -136,7 +136,6 @@ const EventDetail: React.FC = () => {
 
   const onFinish = async () => {
     const payload: IEventPayload = { ...formValues, userId: user.id };
-    console.log(payload);
     try {
       const result: any = await api.eventApi.createEvent(payload);
       dispatch(createEvent(result.id));
