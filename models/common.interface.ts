@@ -5,6 +5,7 @@ import { EmotionCache } from '@emotion/react';
 
 export interface LayoutProps {
   children: ReactNode;
+  // data?: any;
 }
 
 export type NextPageWithLayout = NextPage & {

@@ -6,6 +6,11 @@ import React, { useEffect, useState } from 'react';
 import * as api from '../../api/index';
 import EvenItem from './EventItem';
 
+const paging = {
+  page: 1,
+  pageSize: 6,
+};
+
 const ListEvent: React.FC = () => {
   const [listEvent, setListEvent] = useState<IEventPayload[]>([]);
   const user = useAppSelector(selectorUser);
@@ -16,7 +21,7 @@ const ListEvent: React.FC = () => {
       setListEvent(result);
     };
     if (user.id) {
-      getEventPaging(1, 5, user.id);
+      getEventPaging(paging.page, paging.pageSize, user.id);
     }
   }, [user.id]);
 
@@ -34,9 +39,11 @@ const ListEvent: React.FC = () => {
         </main>
       )}
 
-      <div className="event-list__pagination">
-        <Pagination defaultCurrent={1} total={50} />
-      </div>
+      {listEvent.length > 0 && (
+        <div className="event-list__pagination">
+          <Pagination defaultCurrent={paging.page} pageSize={paging.pageSize} />
+        </div>
+      )}
     </article>
   );
 };

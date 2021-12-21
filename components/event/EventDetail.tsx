@@ -1,5 +1,5 @@
-import { FileTextOutlined, SettingOutlined, MoneyCollectOutlined } from '@ant-design/icons';
-import { Form, Row, Col, Tabs, Input, Select, DatePicker, Button, InputNumber } from 'antd';
+import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Form, Row, Col, Input, Select, DatePicker, Button, InputNumber, Steps } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -83,13 +83,17 @@ const initState: IFormEventData = {
   creditNumber: '',
 };
 
+const { Step } = Steps;
+
 const EventDetail: React.FC = () => {
-  const { TabPane } = Tabs;
   const { Option } = Select;
 
+  const [current, setCurrent] = React.useState(0);
   const user = useAppSelector(selectorUser);
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm();
+  const [formInfo] = Form.useForm();
+  const [formTicket] = Form.useForm();
+  const [formAccountBank] = Form.useForm();
 
   const [formValues, setFormValues] = useState({
     ...initState,
@@ -123,11 +127,16 @@ const EventDetail: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    form.setFieldsValue(formValues);
-  }, [form, formValues]);
+    formInfo.setFieldsValue(formValues);
+  }, [formInfo, formValues]);
 
-  const onFinish = async (values: any) => {
-    const payload: IEventPayload = { ...values, userId: user.id };
+  useEffect(() => {
+    formTicket.setFieldsValue(formValues);
+  }, [formTicket, formValues]);
+
+  const onFinish = async () => {
+    const payload: IEventPayload = { ...formValues, userId: user.id };
+    console.log(payload);
     try {
       const result: any = await api.eventApi.createEvent(payload);
       dispatch(createEvent(result.id));
@@ -152,8 +161,336 @@ const EventDetail: React.FC = () => {
   };
 
   const handleUploadImage = (url: string, field: string) => {
-    form.setFields([{ name: field, value: url }]);
+    formTicket.setFields([{ name: field, value: url }]);
   };
+
+  const next = (value: any) => {
+    setFormValues((prevState) => ({ ...prevState, ...value }));
+    setCurrent(current + 1);
+  };
+
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  const formInfoContent = (
+    <Form
+      {...layout}
+      form={formInfo}
+      name="form-info"
+      className="event-detail__form"
+      validateMessages={validateMessages}
+      autoComplete="on"
+      onFinish={next}
+    >
+      <Row>
+        <Col span={24} className="mb-10">
+          <h2 className="event-detail__heading--secondary">Event Information</h2>
+        </Col>
+        <Col offset={2} span={9}>
+          <Form.Item name="name" label="Event name" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="eventPlaceName" label="Event place name" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="eventAddress" label="Event place address" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="categoryId"
+            label="Event Category"
+            rules={[{ required: true, message: 'Please select event category ' }]}
+          >
+            <Select placeholder="Select event category" allowClear>
+              {categories.map((category) => (
+                <Option value={category.id} key={category.id}>
+                  {category.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="description" label="Description" rules={[{ required: true }]}>
+            <TextArea placeholder="Description for event" autoSize={{ minRows: 3, maxRows: 5 }} />
+          </Form.Item>
+        </Col>
+        <Col offset={2} span={9}>
+          <Form.Item
+            name="organizationInfo"
+            label="Organizer's Information"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="organizationEmail"
+            label="Organizer's email"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="organizationPhone"
+            label="Organizer's Phone"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="organizationAddress"
+            label="Organizer's Address"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Row>
+            <Col span={10}>
+              <Form.Item name="logoUrl" label="Logo event">
+                <UploadImage
+                  onSetUrlImage={(url) => {
+                    handleUploadImage(url, 'logoUrl');
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={10}>
+              <Form.Item name="bannerUrl" label="Banner event">
+                <UploadImage
+                  onSetUrlImage={(url) => {
+                    handleUploadImage(url, 'bannerUrl');
+                  }}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row justify="end">
+        <Button htmlType="submit" className="btn btn--submit">
+          Continue
+          <span className="ml-10">
+            <ArrowRightOutlined />
+          </span>
+        </Button>
+      </Row>
+    </Form>
+  );
+
+  const formTicketContent = (
+    <Form
+      {...layout}
+      form={formTicket}
+      name="form-ticket"
+      className="event-detail__form"
+      validateMessages={validateMessages}
+      autoComplete="on"
+      onFinish={next}
+    >
+      <Row>
+        <Col span={12}>
+          <Col span={24}>
+            <h2 className="event-detail__heading--secondary">Event Time </h2>
+          </Col>
+          <Row>
+            <Col offset={2} span={8}>
+              <Form.Item
+                name="eventStartDate"
+                label="Event start date"
+                rules={[{ required: true }]}
+              >
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+              </Form.Item>
+              <Form.Item name="saleStartDate" label="Sale start date" rules={[{ required: true }]}>
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+              </Form.Item>
+            </Col>
+            <Col offset={2} span={8}>
+              <Form.Item name="eventEndDate" label="Event end date" rules={[{ required: true }]}>
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+              </Form.Item>
+              <Form.Item name="saleEndDate" label="Sale end date" rules={[{ required: true }]}>
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={12}>
+          <Col span={24}>
+            <h2 className="event-detail__heading--secondary">Ticket </h2>
+          </Col>
+          <Row>
+            <Col offset={2} span={8}>
+              <Form.Item
+                name="ticketPrice"
+                label="Ticket Price"
+                rules={[
+                  { required: true },
+                  {
+                    type: 'number',
+                    min: 1,
+                    message: 'Please input number greater than 0',
+                  },
+                ]}
+              >
+                <InputNumber className="w-100" />
+              </Form.Item>
+              <Form.Item
+                name="minTicketOrder"
+                label="Minimum ticket order"
+                dependencies={['maxTicketOrder']}
+                rules={[
+                  { required: true },
+                  {
+                    type: 'number',
+                    min: 1,
+                    message: 'Please input number greater than 0',
+                  },
+                  ({ getFieldValue, isFieldTouched }) => ({
+                    validator(rule, value) {
+                      const maxTicketOrder = getFieldValue('maxTicketOrder');
+                      if (isFieldTouched('maxTicketOrder') && maxTicketOrder < value) {
+                        return Promise.reject([
+                          `Please input number less than or equal ${maxTicketOrder}`,
+                        ]);
+                      }
+                      return Promise.resolve();
+                    },
+                  }),
+                ]}
+              >
+                <InputNumber className="w-100" />
+              </Form.Item>
+            </Col>
+            <Col offset={2} span={8}>
+              <Form.Item
+                name="totalTickets"
+                label="Total tickets"
+                rules={[
+                  { required: true },
+                  {
+                    type: 'number',
+                    min: 1,
+                    message: 'Please input number greater than 0',
+                  },
+                ]}
+              >
+                <InputNumber className="w-100" />
+              </Form.Item>
+              <Form.Item
+                name="maxTicketOrder"
+                label="Maximum ticket order"
+                dependencies={['totalTickets']}
+                rules={[
+                  { required: true },
+                  {
+                    type: 'number',
+                    min: 1,
+                    message: 'Please input number greater than 0',
+                  },
+
+                  ({ getFieldValue, isFieldTouched }) => ({
+                    validator(rule, value) {
+                      const totalTicket = getFieldValue('totalTickets');
+                      if (isFieldTouched('maxTicketOrder') && totalTicket < value) {
+                        return Promise.reject([
+                          `Please input number less than or equal ${totalTicket}`,
+                        ]);
+                      }
+                      return Promise.resolve();
+                    },
+                  }),
+                ]}
+              >
+                <InputNumber className="w-100" />
+              </Form.Item>
+            </Col>
+            <Col offset={8}>
+              <Form.Item name="ticketImageUrl" label="Ticket Image">
+                <UploadImage
+                  onSetUrlImage={(url) => {
+                    handleUploadImage(url, 'ticketImageUrl');
+                  }}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row justify="end">
+        <Button className="btn btn--submit mr-10" onClick={() => prev()}>
+          <span className="mr-10">
+            <ArrowLeftOutlined />
+          </span>
+          Previous
+        </Button>
+
+        <Button htmlType="submit" className="btn btn--submit">
+          Continue
+          <span className="ml-10">
+            <ArrowRightOutlined />
+          </span>
+        </Button>
+      </Row>
+    </Form>
+  );
+
+  const formBankContent = (
+    <Form
+      {...layout}
+      form={formAccountBank}
+      name="form-bank"
+      onFinish={onFinish}
+      className="event-detail__form"
+      validateMessages={validateMessages}
+      autoComplete="on"
+    >
+      <Row>
+        <Col span={24} className="mb-10">
+          <h2 className="event-detail__heading--secondary">Bank Account Information</h2>
+        </Col>
+        <Col offset={6} span={12}>
+          <Form.Item name="bankName" label="Bank name" rules={[{ required: true }]}>
+            <Input readOnly />
+          </Form.Item>
+          <Form.Item name="cardHolderName" label="Card Holder Name" rules={[{ required: true }]}>
+            <Input readOnly />
+          </Form.Item>
+          <Form.Item name="creditNumber" label="Credit Number" rules={[{ required: true }]}>
+            <Input readOnly />
+          </Form.Item>
+        </Col>
+        <Col offset={8} className="mt-40">
+          <Button className="btn btn--submit mr-10" onClick={() => prev()}>
+            <span className="mr-10">
+              <ArrowLeftOutlined />
+            </span>
+            Previous
+          </Button>
+          <Button className="btn btn--submit  mr-10" htmlType="submit">
+            Create Event
+          </Button>
+          <Button className="btn btn--cancel" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+  );
+
+  const steps = [
+    {
+      title: 'Information',
+      content: formInfoContent,
+    },
+    {
+      title: 'Date & Time, Ticket',
+      content: formTicketContent,
+    },
+    {
+      title: 'Bank Account',
+      content: formBankContent,
+    },
+  ];
 
   return (
     <Row>
@@ -164,304 +501,19 @@ const EventDetail: React.FC = () => {
       </Col>
       <Col span={24}>
         <main className="event-detail__content">
-          <Form
-            {...layout}
-            form={form}
-            name="form-event"
-            onFinish={onFinish}
-            className="event-detail__form"
-            validateMessages={validateMessages}
-            initialValues={formValues}
-            autoComplete="on"
-          >
-            <Row>
-              <Col span={24}>
-                <h1 className="event-detail__heading">Event Information</h1>
-              </Col>
-              <Col offset={2} span={20}>
-                <Tabs>
-                  <TabPane
-                    tab={
-                      <span className="tab__title">
-                        <FileTextOutlined />
-                        Information
-                      </span>
-                    }
-                    key="1"
-                  >
-                    <Row>
-                      <Col span={24} className="mb-10">
-                        <h2 className="event-detail__heading--secondary">Event Information</h2>
-                      </Col>
-                      <Col offset={2} span={9}>
-                        <Form.Item name="name" label="Event name" rules={[{ required: true }]}>
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="eventPlaceName"
-                          label="Event place name"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="eventAddress"
-                          label="Event place address"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="categoryId"
-                          label="Event Category"
-                          rules={[{ required: true, message: 'Please select event category ' }]}
-                        >
-                          <Select placeholder="Select event category" allowClear>
-                            {categories.map((category) => (
-                              <Option value={category.id} key={category.id}>
-                                {category.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                        <Form.Item
-                          name="description"
-                          label="Description"
-                          rules={[{ required: true }]}
-                        >
-                          <TextArea
-                            placeholder="Description for event"
-                            autoSize={{ minRows: 3, maxRows: 5 }}
-                          />
-                        </Form.Item>
-                      </Col>
-                      <Col offset={2} span={9}>
-                        <Form.Item
-                          name="organizationInfo"
-                          label="Organizer's Information"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="organizationEmail"
-                          label="Organizer's email"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="organizationPhone"
-                          label="Organizer's Phone"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          name="organizationAddress"
-                          label="Organizer's Address"
-                          rules={[{ required: true }]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Row>
-                          <Col span={10}>
-                            <Form.Item name="logoUrl" label="Logo event">
-                              <UploadImage
-                                onSetUrlImage={(url) => {
-                                  handleUploadImage(url, 'logoUrl');
-                                }}
-                              />
-                            </Form.Item>
-                          </Col>
-                          <Col span={10}>
-                            <Form.Item name="bannerUrl" label="Banner event">
-                              <UploadImage
-                                onSetUrlImage={(url) => {
-                                  handleUploadImage(url, 'bannerUrl');
-                                }}
-                              />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                  </TabPane>
-                  <TabPane
-                    tab={
-                      <span className="tab__title">
-                        <SettingOutlined />
-                        Date, Time and Ticket
-                      </span>
-                    }
-                    key="2"
-                  >
-                    <Row>
-                      <Col span={12}>
-                        <Col span={24}>
-                          <h2 className="event-detail__heading--secondary">Event Time </h2>
-                        </Col>
-                        <Row>
-                          <Col offset={2} span={8}>
-                            <Form.Item
-                              name="eventStartDate"
-                              label="Event start date"
-                              rules={[{ required: true }]}
-                            >
-                              <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
-                            </Form.Item>
-                            <Form.Item
-                              name="saleStartDate"
-                              label="Sale start date"
-                              rules={[{ required: true }]}
-                            >
-                              <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
-                            </Form.Item>
-                          </Col>
-                          <Col offset={2} span={8}>
-                            <Form.Item
-                              name="eventEndDate"
-                              label="Event end date"
-                              rules={[{ required: true }]}
-                            >
-                              <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
-                            </Form.Item>
-                            <Form.Item
-                              name="saleEndDate"
-                              label="Sale end date"
-                              rules={[{ required: true }]}
-                            >
-                              <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col span={12}>
-                        <Col span={24}>
-                          <h2 className="event-detail__heading--secondary">Ticket </h2>
-                        </Col>
-                        <Row>
-                          <Col offset={2} span={8}>
-                            <Form.Item
-                              name="ticketPrice"
-                              label="Ticket Price"
-                              rules={[
-                                { required: true },
-                                {
-                                  type: 'number',
-                                  min: 1,
-                                  message: 'Please input number greater than 0',
-                                },
-                              ]}
-                            >
-                              <InputNumber className="w-100" />
-                            </Form.Item>
-                            <Form.Item
-                              name="minTicketOrder"
-                              label="Minimum ticket order"
-                              rules={[
-                                { required: true },
-                                {
-                                  type: 'number',
-                                  min: 1,
-                                  message: 'Please input number greater than 0',
-                                },
-                              ]}
-                            >
-                              <InputNumber className="w-100" />
-                            </Form.Item>
-                          </Col>
-                          <Col offset={2} span={8}>
-                            <Form.Item
-                              name="totalTickets"
-                              label="Total tickets"
-                              rules={[
-                                { required: true },
-                                {
-                                  type: 'number',
-                                  min: 1,
-                                  message: 'Please input number greater than 0',
-                                },
-                              ]}
-                            >
-                              <InputNumber className="w-100" />
-                            </Form.Item>
-                            <Form.Item
-                              name="maxTicketOrder"
-                              label="Maximum ticket order"
-                              rules={[
-                                { required: true },
-                                {
-                                  type: 'number',
-                                  min: 1,
-                                  message: 'Please input number greater than 0',
-                                },
-                              ]}
-                            >
-                              <InputNumber className="w-100" />
-                            </Form.Item>
-                          </Col>
-                          <Col offset={8}>
-                            <Form.Item name="ticketImageUrl" label="Ticket Image">
-                              <UploadImage
-                                onSetUrlImage={(url) => {
-                                  handleUploadImage(url, 'ticketImageUrl');
-                                }}
-                              />
-                            </Form.Item>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                  </TabPane>
-                  <TabPane
-                    tab={
-                      <span className="tab__title">
-                        <MoneyCollectOutlined /> Bank Account
-                      </span>
-                    }
-                    key="3"
-                  >
-                    <Row>
-                      <Col span={24} className="mb-10">
-                        <h2 className="event-detail__heading--secondary">
-                          Bank Account Information
-                        </h2>
-                      </Col>
-                      <Col offset={6} span={12}>
-                        <Form.Item name="bankName" label="Bank name" rules={[{ required: true }]}>
-                          <Input readOnly />
-                        </Form.Item>
-                        <Form.Item
-                          name="cardHolderName"
-                          label="Card Holder Name"
-                          rules={[{ required: true }]}
-                        >
-                          <Input readOnly />
-                        </Form.Item>
-                        <Form.Item
-                          name="creditNumber"
-                          label="Credit Number"
-                          rules={[{ required: true }]}
-                        >
-                          <Input readOnly />
-                        </Form.Item>
-
-                        <Col offset={5} className="mt-40">
-                          <Button size="large" className="btn btn--submit  mr-10" htmlType="submit">
-                            Create Event
-                          </Button>
-                          <Button size="large" className="btn btn--cancel" onClick={handleCancel}>
-                            Cancel
-                          </Button>
-                        </Col>
-                      </Col>
-                    </Row>
-                  </TabPane>
-                </Tabs>
-              </Col>
-            </Row>
-          </Form>
+          <Row>
+            <Col span={24}>
+              <h1 className="event-detail__heading">Event Information</h1>
+            </Col>
+            <Col offset={2} span={20}>
+              <Steps current={current}>
+                {steps.map((item) => (
+                  <Step key={item.title} title={item.title} />
+                ))}
+              </Steps>
+              <Row className="steps-content">{steps[current].content}</Row>
+            </Col>
+          </Row>
         </main>
       </Col>
     </Row>
