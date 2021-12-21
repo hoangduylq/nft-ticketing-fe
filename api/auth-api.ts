@@ -1,4 +1,4 @@
-import { IJwtPayload } from '@/models/jwtPayload.interface';
+import { IJwtPayload, IPayload } from '@/models/jwtPayload.interface';
 import { ISignupPayload } from '../models/sigup.interface';
 import axiosClient from './axios-client';
 import { ILoginPayload } from '@/models/auth.interface';
@@ -16,8 +16,8 @@ export const authApi = {
     return axiosClient.get(`auth/facebook?access_token=${accessToken}`);
   },
 
-  getUser(token: string): Promise<IJwtPayload> {
-    return axiosClient.get('/auth/login-jwt', {
+  getUser(token: string): Promise<IPayload> {
+    return axiosClient.get('/auth/user', {
       headers: {
         Authorization: `Bearer  ${token}`,
       },
