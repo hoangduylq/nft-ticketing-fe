@@ -84,14 +84,14 @@ const OrderItem: React.FC<IOrderItemProps> = (props) => {
     <>
       <article className="order-item">
         <Row className="order-item__header">
-          <Col flex={1}>
+          <Col span={2}>
             <Avatar
               size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
               icon={!event.logoUrl ? <AntDesignOutlined /> : ''}
               src={event.logoUrl}
             />
           </Col>
-          <Col className="order-item__info" flex={10}>
+          <Col className="order-item__info" span={20}>
             <Title level={2}>{event.name}</Title>
             <div className="order-item__info__item">
               <FieldTimeOutlined />
@@ -105,7 +105,7 @@ const OrderItem: React.FC<IOrderItemProps> = (props) => {
             </div>
           </Col>
 
-          <Col className="order-item__qr">
+          <Col className="order-item__qr" span={2}>
             <Avatar
               shape="square"
               size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
