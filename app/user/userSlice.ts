@@ -7,6 +7,8 @@ interface IUserState {
   name?: string | null;
   role?: string | null;
   gender?: string | null;
+  birthday?: string | null;
+  numberPhone?: string | null;
   avatar?: string | null;
   isLoggedIn?: boolean;
   isBankAccount?: boolean;
@@ -18,6 +20,8 @@ const initialState: IUserState = {
   name: null,
   role: null,
   gender: null,
+  birthday: null,
+  numberPhone: null,
   avatar: null,
   isLoggedIn: false,
   isBankAccount: false,
@@ -40,6 +44,8 @@ export const userSlice = createSlice({
         (state.name = null),
         (state.role = null),
         (state.gender = null),
+        (state.birthday = null),
+        (state.numberPhone = null),
         (state.avatar = null),
         (state.isLoggedIn = false),
         (state.isBankAccount = false);
