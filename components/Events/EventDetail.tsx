@@ -1,0 +1,239 @@
+import { FileTextOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { Form, Input, Row, Col, DatePicker, Tabs, Button, Upload } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+const EventDetail: React.FC = () => {
+  const { TabPane } = Tabs;
+  const router = useRouter();
+
+  const layout = {
+    labelCol: { span: 24 },
+    wrapperCol: { span: 24 },
+  };
+  const handleSubmit = () => {
+    router.push('/events/detail');
+  };
+
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  return (
+    <main className="event-detail__content">
+      <Form {...layout} name="control-ref" onFinish={onFinish} className="event-detail__form">
+        <Row>
+          <Col span={24}>
+            <h1 className="event-detail__heading">Event Information</h1>
+          </Col>
+          <Col offset={2} span={22}>
+            <Tabs>
+              <TabPane
+                tab={
+                  <span className="tab__title">
+                    <FileTextOutlined />
+                    Information
+                  </span>
+                }
+                key="1"
+              >
+                <Row>
+                  <Col span={10}>
+                    <Form.Item name="eventName" label="Event name" rules={[{ required: true }]}>
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="eventPlaceName"
+                      label="Event place name"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="eventPlaceAddress"
+                      label="Event place address"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item name="description" label="Description" rules={[{ required: true }]}>
+                      <TextArea
+                        placeholder="Description for event"
+                        autoSize={{ minRows: 3, maxRows: 5 }}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col offset={2} span={10}>
+                    <Form.Item
+                      name="organizationInfo"
+                      label="Organizer's Information"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="organizationEmail"
+                      label="Organizer's email"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="organizationPhone"
+                      label="Organizer's Phone"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      name="organizationAddress"
+                      label="Organizer's Address"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Row>
+                      <Col>
+                        <Form.Item name="logoUrl" label="Logo event" rules={[{ required: true }]}>
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                          >
+                            {uploadButton}
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                      <Col>
+                        <Form.Item
+                          name="bannerUrl"
+                          label="Banner event"
+                          rules={[{ required: true }]}
+                        >
+                          <Upload
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            listType="picture-card"
+                          >
+                            {uploadButton}
+                          </Upload>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane
+                tab={
+                  <span className="tab__title">
+                    <SettingOutlined />
+                    Date, Time and Ticket
+                  </span>
+                }
+                key="2"
+              >
+                <Row>
+                  <Col span={24}>
+                    <h2 className="event-detail__heading--secondary">Event Time </h2>
+                  </Col>
+                  <Col offset={4} span={6}>
+                    <Form.Item
+                      name="eventStartDate"
+                      label="Event start date"
+                      rules={[{ required: true }]}
+                    >
+                      <DatePicker />
+                    </Form.Item>
+                    <Form.Item
+                      name="saleStartDate"
+                      label="Sale start date"
+                      rules={[{ required: true }]}
+                    >
+                      <DatePicker />
+                    </Form.Item>
+                  </Col>
+                  <Col span={4}>
+                    <Form.Item
+                      name="eventEndDate"
+                      label="Event end date"
+                      rules={[{ required: true }]}
+                    >
+                      <DatePicker />
+                    </Form.Item>
+                    <Form.Item
+                      name="saleEndDate"
+                      label="Sale end date"
+                      rules={[{ required: true }]}
+                    >
+                      <DatePicker />
+                    </Form.Item>
+                  </Col>
+                  <Col offset={2}>
+                    <Form.Item
+                      name="ticketImageUrl"
+                      label="Ticket Image"
+                      rules={[{ required: true }]}
+                    >
+                      <Upload
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        listType="picture-card"
+                      >
+                        {uploadButton}
+                      </Upload>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <h2 className="event-detail__heading--secondary">Ticket </h2>
+                  </Col>
+                  <Col offset={4} span={4}>
+                    <Form.Item name="ticketPrice" label="Ticket Price" rules={[{ required: true }]}>
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                  <Col offset={2} span={4}>
+                    <Form.Item
+                      name="minTicketOrder"
+                      label="Minimum ticket order"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                  <Col offset={2} span={4}>
+                    <Form.Item
+                      name="maxTicketOrder"
+                      label="Maximum ticket order"
+                      rules={[{ required: true }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col offset={20} span={4} className="event-detail__control">
+                    <Button size="large" className="btn btn--cancel  mr-5">
+                      Cancel
+                    </Button>
+                    <Button size="large" className="btn btn--submit" onClick={handleSubmit}>
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
+              </TabPane>
+            </Tabs>
+          </Col>
+        </Row>
+      </Form>
+    </main>
+  );
+};
+
+export default EventDetail;
