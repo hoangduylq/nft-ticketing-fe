@@ -12,7 +12,7 @@ const AppContent: React.FC = ({ children }) => {
     const getUserJwt = async () => {
       const token = localStorage.getItem('token');
       if (token) {
-        const result: IPayload = await api.authApi.getUser(token);
+        const result: IPayload = await api.userApi.getUser(token);
         if (result) {
           dispatch(login(result));
         }
