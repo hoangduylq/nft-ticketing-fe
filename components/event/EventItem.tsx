@@ -1,5 +1,6 @@
 import { FieldTimeOutlined, EnvironmentFilled, ArrowRightOutlined } from '@ant-design/icons';
 import { Row, Col, Avatar, Button, Card, Image, Typography } from 'antd';
+import { useRouter } from 'next/router';
 
 import { IEventPayload } from '../../models/event.interface';
 
@@ -9,6 +10,12 @@ interface IEventItemProps {
 
 const EvenItem: React.FC<IEventItemProps> = (props) => {
   const { Text } = Typography;
+  const router = useRouter();
+
+  const onSeeMore = () => {
+    router.push(`/events/${props.item.id}`);
+  };
+
   return (
     <Col sm={24} md={12} xl={8}>
       <Card
@@ -47,7 +54,13 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
             </div>
           </Col>
           <Col className="mt-40 event-item__btn" offset={12} span={12}>
-            <Button shape="round" size="large" type="dashed" className="btn btn--submit">
+            <Button
+              shape="round"
+              size="large"
+              type="dashed"
+              className="btn btn--submit"
+              onClick={onSeeMore}
+            >
               See more
               <span className="ml-10">
                 <ArrowRightOutlined />

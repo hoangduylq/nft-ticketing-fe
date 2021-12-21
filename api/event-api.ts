@@ -30,4 +30,8 @@ export const eventApi = {
       params: { page: page, pageSize: pageSize, userId: id },
     });
   },
+
+  getEventById(id: string): Promise<IEventPayload> {
+    return axiosClient.get(`/events/${id}`);
+  },
 };

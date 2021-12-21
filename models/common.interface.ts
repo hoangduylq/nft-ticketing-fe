@@ -5,10 +5,9 @@ import { EmotionCache } from '@emotion/react';
 
 export interface LayoutProps {
   children: ReactNode;
-  // data?: any;
 }
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<> = NextPage & {
   // eslint-disable-next-line no-unused-vars
   Layout?: (props: LayoutProps) => ReactElement;
 };
