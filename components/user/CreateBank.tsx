@@ -51,7 +51,7 @@ const CreateBank: React.FC = () => {
         router.push('/events/create');
       }
     } catch (error: any) {
-      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
     }
   };
 

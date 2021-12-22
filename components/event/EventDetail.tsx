@@ -1,5 +1,5 @@
 import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Form, Row, Col, Input, Select, DatePicker, Button, InputNumber, Steps } from 'antd';
+import { Form, Row, Col, Input, Select, Button, InputNumber, Steps, DatePicker } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -55,37 +55,63 @@ interface IFormEventData {
   creditNumber: string;
   userId?: string;
 }
-
 const initState: IFormEventData = {
   name: '',
+
   categoryId: '',
+
   logoUrl: '',
+
   bannerUrl: '',
+
   description: '',
+
   eventPlaceName: '',
+
   eventAddress: '',
+
   saleStartDate: '',
+
   saleEndDate: '',
-  eventStartDate: '',
+
+  eventStartDate: '22-12-2021',
+
   eventEndDate: '',
+
   totalTickets: 0,
+
   availableTickets: 0,
+
   ticketImageUrl: '',
+
   ticketPrice: 0,
+
   maxTicketOrder: 0,
+
   minTicketOrder: 0,
+
   organizationInfo: '',
+
   organizationEmail: '',
+
   organizationPhone: '',
+
   organizationAddress: '',
+
   bankName: '',
+
   cardHolderName: '',
+
   creditNumber: '',
 };
 
+interface IEventDetailProps {
+  id?: string;
+}
+
 const { Step } = Steps;
 
-const EventDetail: React.FC = () => {
+const EventDetail: React.FC<IEventDetailProps> = (props) => {
   const { Option } = Select;
 
   const [current, setCurrent] = React.useState(0);
@@ -95,9 +121,7 @@ const EventDetail: React.FC = () => {
   const [formTicket] = Form.useForm();
   const [formAccountBank] = Form.useForm();
 
-  const [formValues, setFormValues] = useState({
-    ...initState,
-  });
+  const [formValues, setFormValues] = useState<IFormEventData>({ ...initState });
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -109,12 +133,14 @@ const EventDetail: React.FC = () => {
   useEffect(() => {
     const getBankAccount = async () => {
       const result: any = await api.userApi.findBankByUserId(user.id);
-      setFormValues({
-        ...formValues,
-        bankName: result.name,
-        cardHolderName: result.cardHolderName,
-        creditNumber: result.creditNumber,
-      });
+      if (result) {
+        setFormValues({
+          ...formValues,
+          bankName: result.name,
+          cardHolderName: result.cardHolderName,
+          creditNumber: result.creditNumber,
+        });
+      }
     };
 
     const getCategories = async () => {
@@ -127,11 +153,25 @@ const EventDetail: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const getEventById = async (id: string) => {
+      const result: IEventPayload = await api.eventApi.getEventById(id);
+      if (result) {
+        setFormValues({ ...formValues, ...result });
+      }
+    };
+    if (props.id) {
+      getEventById(props.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.id]);
+
+  useEffect(() => {
     formInfo.setFieldsValue(formValues);
   }, [formInfo, formValues]);
 
   useEffect(() => {
     formTicket.setFieldsValue(formValues);
+    console.log(formValues);
   }, [formTicket, formValues]);
 
   const onFinish = async () => {
@@ -142,7 +182,7 @@ const EventDetail: React.FC = () => {
       setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
       router.push('/events/my-event');
     } catch (error: any) {
-      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
     }
   };
 
@@ -165,7 +205,7 @@ const EventDetail: React.FC = () => {
 
   const next = (value: any) => {
     setFormValues((prevState) => ({ ...prevState, ...value }));
-    setCurrent(current + 1);
+    setCurrent((prevState) => prevState + 1);
   };
 
   const prev = () => {
@@ -283,10 +323,11 @@ const EventDetail: React.FC = () => {
       className="event-detail__form"
       validateMessages={validateMessages}
       autoComplete="on"
+      initialValues={formValues}
       onFinish={next}
     >
       <Row>
-        <Col span={12}>
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 12 }}>
           <Col span={24}>
             <h2 className="event-detail__heading--secondary">Event Time </h2>
           </Col>
@@ -297,18 +338,30 @@ const EventDetail: React.FC = () => {
                 label="Event start date"
                 rules={[{ required: true }]}
               >
-                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+                <DatePicker format="DD-MM-YYYY" />
               </Form.Item>
               <Form.Item name="saleStartDate" label="Sale start date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+                <DatePicker
+                  format="DD-MM-YYYY"
+                  disabledDate={disabledDate}
+                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
+                />
               </Form.Item>
             </Col>
             <Col offset={2} span={8}>
               <Form.Item name="eventEndDate" label="Event end date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+                <DatePicker
+                  format="DD-MM-YYYY"
+                  disabledDate={disabledDate}
+                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
+                />
               </Form.Item>
               <Form.Item name="saleEndDate" label="Sale end date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
+                <DatePicker
+                  format="DD-MM-YYYY"
+                  disabledDate={disabledDate}
+                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -504,7 +557,7 @@ const EventDetail: React.FC = () => {
             <Col span={24}>
               <h1 className="event-detail__heading">Event Information</h1>
             </Col>
-            <Col offset={2} span={20}>
+            <Col offset={2} xs={{ span: 12 }} lg={{ span: 20 }}>
               <Steps current={current}>
                 {steps.map((item) => (
                   <Step key={item.title} title={item.title} />

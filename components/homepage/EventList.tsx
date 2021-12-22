@@ -1,14 +1,38 @@
-import React from 'react';
-import { Card, Image, Row, Col, Divider, Button, Typography } from 'antd';
-import { FieldTimeOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Image, Row, Divider, Button, Typography } from 'antd';
 
-const EventList: React.FC = () => {
+import * as api from '../../api/index';
+import { IEventPayload } from '@/models/event.interface';
+import EvenItem from '../event/EventItem';
+import { useRouter } from 'next/router';
+
+interface IEventListProps {
+  id: string;
+  name: string;
+}
+
+const EventList: React.FC<IEventListProps> = (props) => {
   const { Title } = Typography;
-  const { Meta } = Card;
+  const router = useRouter();
+
+  const [listEvent, setListEvents] = useState<IEventPayload[]>([]);
+  // const [pageInfo, setPageInfo] = useState({ page: 1, pageSize: 6 });
+
+  useEffect(() => {
+    const getEventsByCategory = async (id: string) => {
+      const result = await api.eventApi.getEventPagingByCategory(1, 6, id);
+      setListEvents(result);
+    };
+
+    getEventsByCategory(props.id);
+  }, [props.id]);
+
+  const onSeeMore = () => {
+    router.push(`events/categories/${props.id}`);
+  };
 
   return (
     <div className="event-list">
-      {/* <Divider orientation="left">Movies</Divider> */}
       <div className="event-list__title-wrap">
         <Image
           src="https://ticketbox.vn/_next/static/images/home-leftmovie-desktop.svg"
@@ -16,7 +40,7 @@ const EventList: React.FC = () => {
           preview={false}
         />
         <Title level={2} className="event-list__title" italic={true}>
-          Movies
+          {props.name}
         </Title>
         <Image
           src="https://ticketbox.vn/_next/static/images/home-rightmovie-desktop.svg"
@@ -26,217 +50,13 @@ const EventList: React.FC = () => {
       </div>
       <Divider className="space-title" />
 
-      <Row gutter={[24, 24]} justify="space-between" className="event-list-row">
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-
-        <Col sm={24} md={12} xl={8}>
-          <Card
-            className="event-list__item"
-            cover={
-              <Image
-                alt="example"
-                src="https://images.tkbcdn.com/1/780/300/Upload/eventcover/2021/12/13/D0A090.jpg"
-                preview={false}
-              />
-            }
-          >
-            <Meta
-              title="Chirstmas Crecendo"
-              description={
-                <>
-                  <FieldTimeOutlined />
-                  <span>25/12/2021</span>
-                </>
-              }
-            />
-          </Card>
-        </Col>
+      <Row gutter={[24, 24]} className="event-list-row">
+        {listEvent.length > 0 &&
+          listEvent.map((event) => <EvenItem item={event} key={event.id} isHome={true} />)}
       </Row>
 
       <Divider className="see-more">
-        <Button type="primary" shape="round" size="large">
+        <Button type="primary" shape="round" size="large" onClick={onSeeMore}>
           See More
         </Button>
       </Divider>

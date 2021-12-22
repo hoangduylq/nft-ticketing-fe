@@ -34,7 +34,7 @@ const Login: React.FC = () => {
         router.push('/');
       }
     } catch (error: any) {
-      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
     }
   };
 
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
         router.push('/');
       }
     } catch (error: any) {
-      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
     }
   };
 

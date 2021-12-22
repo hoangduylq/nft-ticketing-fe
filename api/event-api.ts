@@ -20,15 +20,18 @@ export const eventApi = {
     });
   },
 
-  getAllEvent(page: number, pageSize: number, id: string): Promise<IEventPayload[]> {
-    const token = localStorage.getItem('token');
+  getEventPagingByUserId(page: number, pageSize: number, userId: string): Promise<IEventPayload[]> {
+    return axiosClient.get(`events/paging?page=${page}&pageSize=${pageSize}&userId=${userId}`);
+  },
 
-    return axiosClient.get('/events/paging', {
-      headers: {
-        Authorization: `Bearer  ${token}`,
-      },
-      params: { page: page, pageSize: pageSize, userId: id },
-    });
+  getEventPagingByCategory(
+    page: number,
+    pageSize: number,
+    categoryId: string
+  ): Promise<IEventPayload[]> {
+    return axiosClient.get(
+      `events/paging?page=${page}&pageSize=${pageSize}&categoryId=${categoryId}`
+    );
   },
 
   getEventById(id: string): Promise<IEventPayload> {
