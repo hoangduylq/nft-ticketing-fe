@@ -2,23 +2,16 @@
 
 .carousel-wrap {
   &__item {
-    height: 400px;
-    color: $color-primary;
-    text-align: center;
     background-color: $color-primary;
-    overflow: hidden;
     margin-top: 20px;
+    width: 100%;
+  }
 
-    div {
-      width: 100%;
+  .ant-image {
+    width: 100%;
 
-      img {
-        object-fit: contain;
-      }
-    }
-
-    .slick-active {
-      color: $color-primary;
+    img {
+      object-fit: contain;
     }
   }
 }

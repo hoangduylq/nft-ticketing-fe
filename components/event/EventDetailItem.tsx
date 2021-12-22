@@ -89,8 +89,12 @@ const EventDetailItem: React.FC = () => {
   const handleClick = () => {
     if (isUpdate) {
       router.push(`/events/update/${eventId}`);
+    } else {
+      router.push(`/checkout/${eventId}`);
     }
   };
+
+  // const handleCheckout = () => {};
 
   return (
     <Row>

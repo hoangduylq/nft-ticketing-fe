@@ -3,7 +3,7 @@ import { IPayload } from '@/models/jwtPayload.interface';
 import axiosClient from './axios-client';
 
 export const userApi = {
-  findBankByUserId(id: string) {
+  findBankByUserId(id: string): Promise<IBankPayload> {
     return axiosClient.get(`/payment/bank/${id}`);
   },
 
