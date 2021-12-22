@@ -5,17 +5,22 @@ import EventCategory from '@/components/homepage/EventCategory';
 import OrderList from '@/components/order/OrderList';
 import { useAppSelector } from './../../app/hooks';
 import { selectorUser } from './../../app/user/userSlice';
-import NotFound from '@/components/common/NotFound/NotFound';
+import { useRouter } from 'next/router';
+import { Empty } from 'antd';
 
 const OrderPage: NextPageWithLayout = () => {
   const user = useAppSelector(selectorUser);
+  const router = useRouter();
 
-  return user.isLoggedIn ? (
+  if (!user.isLoggedIn) {
+    router.push('/login');
+    return <Empty />;
+  }
+
+  return (
     <EventCategory>
       <OrderList />
     </EventCategory>
-  ) : (
-    <NotFound />
   );
 };
 

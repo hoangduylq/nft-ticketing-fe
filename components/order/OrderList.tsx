@@ -2,26 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Empty, Pagination } from 'antd';
 import OrderItem from './OrderItem';
 import { Typography } from 'antd';
-import { useAppSelector } from 'app/hooks';
-import { selectorUser } from 'app/user/userSlice';
 import * as api from '../../api/index';
 import { IOrderPayload } from '@/models/order.interface';
-import { useRouter } from 'next/router';
 
 const OrderList: React.FC = () => {
   const { Title } = Typography;
   const [orders, setOrders] = useState<IOrderPayload[]>([]);
-  const user = useAppSelector(selectorUser);
-  const router = useRouter();
 
   useEffect(() => {
-    if (!user.isLoggedIn) router.push('/login');
     const getEventPaging = async (page: number, limit: number) => {
       const result: IOrderPayload[] = await api.ordertApi.getAllOrder(page, limit);
       setOrders(result);
     };
     getEventPaging(1, 4);
-  }, [router, user.isLoggedIn]);
+  }, []);
 
   if (orders.length === 0) return <Empty className="mt-40" />;
   return (
