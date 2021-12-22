@@ -3,19 +3,35 @@ import { Empty, Pagination } from 'antd';
 import OrderItem from './OrderItem';
 import { Typography } from 'antd';
 import * as api from '../../api/index';
-import { IOrderPayload } from '@/models/order.interface';
+import { IOrderPagingPayload, IOrderPayload } from '@/models/order.interface';
 
 const OrderList: React.FC = () => {
   const { Title } = Typography;
   const [orders, setOrders] = useState<IOrderPayload[]>([]);
+  const [optionPaging, setOptionPaging] = useState({
+    page: 1,
+    limit: 5,
+  });
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const getEventPaging = async (page: number, limit: number) => {
-      const result: IOrderPayload[] = await api.orderApi.getAllOrder(page, limit);
-      setOrders(result);
+      const result: IOrderPagingPayload = await api.orderApi.getAllOrder(page, limit);
+      console.log('result total:', result.total);
+      setOrders(result.orders);
+      setTotal(result.total);
     };
-    getEventPaging(1, 4);
-  }, []);
+    getEventPaging(optionPaging.page, optionPaging.limit);
+  }, [optionPaging.limit, optionPaging.page]);
+
+  const changePage = (page: number) => {
+    setOptionPaging({
+      ...optionPaging,
+      page: page,
+    });
+  };
+
+  console.log(total);
 
   if (orders.length === 0) return <Empty className="mt-40" />;
   return (
@@ -27,7 +43,13 @@ const OrderList: React.FC = () => {
         <OrderItem key={order.id} item={order} />
       ))}
       <div className="order-list__pagination">
-        <Pagination defaultCurrent={1} total={50} />
+        <Pagination
+          defaultCurrent={1}
+          total={total}
+          current={optionPaging.page}
+          onChange={changePage}
+          pageSize={optionPaging.limit}
+        />
       </div>
     </article>
   );

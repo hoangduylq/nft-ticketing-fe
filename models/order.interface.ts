@@ -15,6 +15,11 @@ export interface IOrderPayload {
   event: IEvent;
 }
 
+export interface IOrderPagingPayload {
+  orders: IOrderPayload[];
+  total: number;
+}
+
 export interface ICreateOrderPayload {
   eventId?: string;
   userId?: string;
