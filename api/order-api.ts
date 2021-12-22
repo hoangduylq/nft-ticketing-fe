@@ -2,7 +2,7 @@ import { IOrderPayload } from '@/models/order.interface';
 import axiosClient from './axios-client';
 
 export const ordertApi = {
-  getAllOrder(page: number, limit: number, id: string): Promise<IOrderPayload[]> {
+  getAllOrder(page: number, limit: number): Promise<IOrderPayload[]> {
     const token = localStorage.getItem('token');
 
     return axiosClient.get(`orders/paging?page=${page}&limit=${limit}`, {
