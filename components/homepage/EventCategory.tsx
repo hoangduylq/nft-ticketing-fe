@@ -2,15 +2,12 @@ import { Layout, Menu, LayoutProps } from 'antd';
 import {
   BarsOutlined,
   DingtalkOutlined,
-  FileTextOutlined,
   FolderOpenOutlined,
   FullscreenExitOutlined,
   FullscreenOutlined,
   GatewayOutlined,
   HeartOutlined,
   HomeOutlined,
-  MessageOutlined,
-  MobileOutlined,
   ReadOutlined,
   ShareAltOutlined,
   SmileOutlined,
@@ -26,12 +23,7 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
   return (
     <>
       <Sider width={300} className="site-layout-background">
-        <Menu
-          mode="inline"
-          // defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          className="event-category__menu"
-        >
+        <Menu mode="inline" defaultOpenKeys={['sub1']} className="event-category__menu">
           <Menu.Item key="0" icon={<HomeOutlined />}>
             <Link href="/">Home</Link>
           </Menu.Item>
@@ -69,15 +61,6 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
           </Menu.Item>
           <Menu.Item key="11" icon={<FolderOpenOutlined />}>
             <Link href="/events/my-event"> My event</Link>
-          </Menu.Item>
-          <Menu.Item key="12" icon={<FileTextOutlined />}>
-            Blog
-          </Menu.Item>
-          <Menu.Item key="13" icon={<MessageOutlined />}>
-            For Organizer
-          </Menu.Item>
-          <Menu.Item key="14" icon={<MobileOutlined />}>
-            Contact
           </Menu.Item>
         </Menu>
       </Sider>
