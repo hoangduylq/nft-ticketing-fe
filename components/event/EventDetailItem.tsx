@@ -19,9 +19,9 @@ const EventDetailItem: React.FC = () => {
   const { TabPane } = Tabs;
 
   const router = useRouter();
-  const [data, setData] = useState<IEventPayload>({});
+  const [data, setData] = useState<IEventPayload>({} as IEventPayload);
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
-  const [isDisplayAlert, setIsDisplayAlert] = useState(false);
+  const [, setIsDisplayAlert] = useState(false);
 
   const columns = [
     {
@@ -67,6 +67,10 @@ const EventDetailItem: React.FC = () => {
     }
   }, [eventId]);
 
+  const handleCheckout = () => {
+    router.push(`/checkout/${eventId}`);
+  };
+
   return (
     <section className="event__contain">
       <Row justify="center">
@@ -109,7 +113,11 @@ const EventDetailItem: React.FC = () => {
             </Col>
 
             <Col offset={4} span={16} className="mt-40">
-              <Button className="btn btn--submit btn--order w-100" size="large">
+              <Button
+                className="btn btn--submit btn--order w-100"
+                size="large"
+                onClick={handleCheckout}
+              >
                 Order Ticket
               </Button>
             </Col>

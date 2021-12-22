@@ -14,3 +14,10 @@ export interface IOrderPayload {
   tickets: string[];
   event: IEvent;
 }
+
+export interface ICreateOrderPayload {
+  eventId?: string;
+  userId?: string;
+  bankId?: string;
+  amount?: number;
+}

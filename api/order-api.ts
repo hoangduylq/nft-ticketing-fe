@@ -1,7 +1,10 @@
-import { IOrderPayload } from '@/models/order.interface';
+import { ICreateOrderPayload, IOrderPayload } from '@/models/order.interface';
 import axiosClient from './axios-client';
 
-export const ordertApi = {
+export const orderApi = {
+  create(payload: ICreateOrderPayload) {
+    return axiosClient.post('/orders', payload);
+  },
   getAllOrder(page: number, limit: number): Promise<IOrderPayload[]> {
     const token = localStorage.getItem('token');
 

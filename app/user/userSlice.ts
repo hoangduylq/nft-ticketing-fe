@@ -3,26 +3,26 @@ import { RootState } from 'app/store';
 
 interface IUserState {
   id: string;
-  email?: string | null;
-  name?: string | null;
-  role?: string | null;
-  gender?: string | null;
-  birthday?: string | null;
-  numberPhone?: string | null;
-  avatar?: string | null;
+  email?: string;
+  name?: string;
+  role?: string;
+  gender?: string;
+  birthday?: string;
+  numberPhone?: string;
+  avatar?: string;
   isLoggedIn?: boolean;
   isBankAccount?: boolean;
 }
 
 const initialState: IUserState = {
   id: '',
-  email: null,
-  name: null,
-  role: null,
-  gender: null,
-  birthday: null,
-  numberPhone: null,
-  avatar: null,
+  email: '',
+  name: '',
+  role: '',
+  gender: '',
+  birthday: '',
+  numberPhone: '',
+  avatar: '',
   isLoggedIn: false,
   isBankAccount: false,
 };
@@ -39,14 +39,14 @@ export const userSlice = createSlice({
         (state.isLoggedIn = true);
     },
     logout: (state: IUserState) => {
-      (state.email = null),
+      (state.email = ''),
         (state.id = ''),
-        (state.name = null),
-        (state.role = null),
-        (state.gender = null),
-        (state.birthday = null),
-        (state.numberPhone = null),
-        (state.avatar = null),
+        (state.name = ''),
+        (state.role = ''),
+        (state.gender = ''),
+        (state.birthday = ''),
+        (state.numberPhone = ''),
+        (state.avatar = ''),
         (state.isLoggedIn = false),
         (state.isBankAccount = false);
     },

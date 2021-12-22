@@ -1,8 +1,15 @@
 import React from 'react';
 import { Divider, Form, Input, Radio } from 'antd';
 import { CreditCardOutlined, UserOutlined } from '@ant-design/icons';
+import { IUserProfile } from '@/models/user.interface';
 
-const InformationBuyer: React.FC = () => {
+interface IUserProps {
+  item: IUserProfile;
+}
+
+const InformationBuyer: React.FC<IUserProps> = (props) => {
+  const { email, numberPhone } = props.item;
+
   const onFinish = async () => {
     console.log(true);
   };
@@ -30,7 +37,7 @@ const InformationBuyer: React.FC = () => {
           className="form__item"
           label="Phone number"
         >
-          <Input size="large" />
+          <Input size="large" defaultValue={numberPhone || ''} />
         </Form.Item>
 
         <Form.Item
@@ -39,7 +46,7 @@ const InformationBuyer: React.FC = () => {
           className="form__item"
           label="Email"
         >
-          <Input placeholder="Input here" size="large" />
+          <Input placeholder="Input here" size="large" defaultValue={email || ''} disabled />
         </Form.Item>
 
         <Divider />

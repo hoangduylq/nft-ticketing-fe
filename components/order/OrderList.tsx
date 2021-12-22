@@ -11,7 +11,7 @@ const OrderList: React.FC = () => {
 
   useEffect(() => {
     const getEventPaging = async (page: number, limit: number) => {
-      const result: IOrderPayload[] = await api.ordertApi.getAllOrder(page, limit);
+      const result: IOrderPayload[] = await api.orderApi.getAllOrder(page, limit);
       setOrders(result);
     };
     getEventPaging(1, 4);
