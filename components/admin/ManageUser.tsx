@@ -1,6 +1,18 @@
 import { ISignupPayload } from '@/models/sigup.interface';
 import { IUserProfile } from '@/models/user.interface';
-import { Table, Space, Tag, Popconfirm, Modal, Form, Input, Button, Select } from 'antd';
+import {
+  Table,
+  Space,
+  Tag,
+  Popconfirm,
+  Modal,
+  Form,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+} from 'antd';
+import moment from 'moment';
 
 const initState: ISignupPayload = {
   name: '',
@@ -25,6 +37,8 @@ const ManageUser: React.FC = () => {
   const [userEdit, setUserEdit] = useState<IUserProfile>({});
   const [loading, setLoading] = useState(false);
 
+  const dateFormat = 'DD/MM/YYYY';
+
   useEffect(() => {
     const getUsers = async () => {
       const token = localStorage.getItem('token');
@@ -42,6 +56,7 @@ const ManageUser: React.FC = () => {
 
   const handleEdit = async (key: string) => {
     const user = await api.userApi.getUserByAdmin(key);
+    user.birthday ? (user.birthday = moment(user.birthday)) : '';
     setUserEdit(user);
     setModalVisibleEdit(true);
   };
@@ -200,6 +215,9 @@ const ManageUser: React.FC = () => {
           </Form.Item>
           <Form.Item name="numberPhone" label="Number Phone" className="modal-user__label">
             <Input />
+          </Form.Item>
+          <Form.Item name="birthday" className="form__item w-100" label="Birthday">
+            <DatePicker size="large" format={dateFormat} className="w-100" />
           </Form.Item>
           <Form.Item
             name="gender"
