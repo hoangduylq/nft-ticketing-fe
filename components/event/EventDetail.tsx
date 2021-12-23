@@ -1,5 +1,16 @@
 import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Form, Row, Col, Input, Select, Button, InputNumber, Steps, DatePicker } from 'antd';
+import {
+  Form,
+  Row,
+  Col,
+  Input,
+  Select,
+  Button,
+  InputNumber,
+  Steps,
+  DatePicker,
+  FormInstance,
+} from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -36,10 +47,10 @@ interface IFormEventData {
   description: string;
   eventPlaceName: string;
   eventAddress: string;
-  saleStartDate: string;
-  saleEndDate: string;
-  eventStartDate: string;
-  eventEndDate: string;
+  saleStartDate: moment.Moment;
+  saleEndDate: moment.Moment;
+  eventStartDate: moment.Moment;
+  eventEndDate: moment.Moment;
   totalTickets: number;
   availableTickets: number;
   ticketImageUrl: string;
@@ -55,55 +66,6 @@ interface IFormEventData {
   creditNumber: string;
   userId?: string;
 }
-const initState: IFormEventData = {
-  name: '',
-
-  categoryId: '',
-
-  logoUrl: '',
-
-  bannerUrl: '',
-
-  description: '',
-
-  eventPlaceName: '',
-
-  eventAddress: '',
-
-  saleStartDate: '',
-
-  saleEndDate: '',
-
-  eventStartDate: '22-12-2021',
-
-  eventEndDate: '',
-
-  totalTickets: 0,
-
-  availableTickets: 0,
-
-  ticketImageUrl: '',
-
-  ticketPrice: 0,
-
-  maxTicketOrder: 0,
-
-  minTicketOrder: 0,
-
-  organizationInfo: '',
-
-  organizationEmail: '',
-
-  organizationPhone: '',
-
-  organizationAddress: '',
-
-  bankName: '',
-
-  cardHolderName: '',
-
-  creditNumber: '',
-};
 
 interface IEventDetailProps {
   id?: string;
@@ -121,15 +83,17 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
   const [formTicket] = Form.useForm();
   const [formAccountBank] = Form.useForm();
 
-  const [formValues, setFormValues] = useState<IFormEventData>({ ...initState });
+  const [formValues, setFormValues] = useState<IFormEventData>({} as IFormEventData);
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
   }, [alertMessage]);
 
+  //get bank account of user
   useEffect(() => {
     const getBankAccount = async () => {
       const result: any = await api.userApi.findBankByUserId(user.id);
@@ -152,15 +116,18 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //get event when update
   useEffect(() => {
     const getEventById = async (id: string) => {
       const result: IEventPayload = await api.eventApi.getEventById(id);
       if (result) {
-        setFormValues({ ...formValues, ...result });
+        const parsedValue = parseValue(result);
+        setFormValues({ ...formValues, ...parsedValue });
       }
     };
     if (props.id) {
       getEventById(props.id);
+      setIsUpdate(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.id]);
@@ -171,18 +138,21 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
 
   useEffect(() => {
     formTicket.setFieldsValue(formValues);
-    console.log(formValues);
   }, [formTicket, formValues]);
 
   const onFinish = async () => {
     const payload: IEventPayload = { ...formValues, userId: user.id };
-    try {
-      const result: any = await api.eventApi.createEvent(payload);
-      dispatch(createEvent(result.id));
-      setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
-      router.push('/events/my-event');
-    } catch (error: any) {
-      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
+    if (!isUpdate) {
+      try {
+        const result: any = await api.eventApi.createEvent(payload);
+        dispatch(createEvent(result.id));
+        setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
+        router.push('/events/my-event');
+      } catch (error: any) {
+        setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
+      }
+    } else {
+      setAlertMessage({ message: 'Feature are development', title: TypeAlertEnum.Info });
     }
   };
 
@@ -199,17 +169,30 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
     return current && current < moment().endOf('day');
   };
 
-  const handleUploadImage = (url: string, field: string) => {
-    formTicket.setFields([{ name: field, value: url }]);
+  const handleUploadImage = (url: string, field: string, form: FormInstance) => {
+    form.setFields([{ name: field, value: url }]);
   };
 
   const next = (value: any) => {
+    console.log(value);
     setFormValues((prevState) => ({ ...prevState, ...value }));
     setCurrent((prevState) => prevState + 1);
   };
 
   const prev = () => {
-    setCurrent(current - 1);
+    setCurrent((prevState) => prevState - 1);
+  };
+
+  const parseValue = (eventPayload: IEventPayload): IEventPayload => {
+    eventPayload.eventStartDate = moment(eventPayload.eventStartDate);
+    eventPayload.eventEndDate = moment(eventPayload.eventEndDate);
+    eventPayload.saleStartDate = moment(eventPayload.saleStartDate);
+    eventPayload.saleEndDate = moment(eventPayload.saleEndDate);
+    eventPayload.ticketPrice = +eventPayload.ticketPrice;
+    eventPayload.minTicketOrder = +eventPayload.minTicketOrder;
+    eventPayload.maxTicketOrder = +eventPayload.maxTicketOrder;
+    eventPayload.totalTickets = +eventPayload.totalTickets;
+    return eventPayload;
   };
 
   const formInfoContent = (
@@ -287,7 +270,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
               <Form.Item name="logoUrl" label="Logo event">
                 <UploadImage
                   onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'logoUrl');
+                    handleUploadImage(url, 'logoUrl', formInfo);
                   }}
                 />
               </Form.Item>
@@ -296,7 +279,8 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
               <Form.Item name="bannerUrl" label="Banner event">
                 <UploadImage
                   onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'bannerUrl');
+                    console.log(url);
+                    handleUploadImage(url, 'bannerUrl', formInfo);
                   }}
                 />
               </Form.Item>
@@ -338,30 +322,18 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                 label="Event start date"
                 rules={[{ required: true }]}
               >
-                <DatePicker format="DD-MM-YYYY" />
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
               </Form.Item>
               <Form.Item name="saleStartDate" label="Sale start date" rules={[{ required: true }]}>
-                <DatePicker
-                  format="DD-MM-YYYY"
-                  disabledDate={disabledDate}
-                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
-                />
+                <DatePicker format="DD-MM-YYYY" />
               </Form.Item>
             </Col>
             <Col offset={2} span={8}>
               <Form.Item name="eventEndDate" label="Event end date" rules={[{ required: true }]}>
-                <DatePicker
-                  format="DD-MM-YYYY"
-                  disabledDate={disabledDate}
-                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
-                />
+                <DatePicker format="DD-MM-YYYY" />
               </Form.Item>
               <Form.Item name="saleEndDate" label="Sale end date" rules={[{ required: true }]}>
-                <DatePicker
-                  format="DD-MM-YYYY"
-                  disabledDate={disabledDate}
-                  value={moment(formValues.eventStartDate, 'DD-MM-YYYY')}
-                />
+                <DatePicker format="DD-MM-YYYY" />
               </Form.Item>
             </Col>
           </Row>
@@ -400,7 +372,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                   ({ getFieldValue, isFieldTouched }) => ({
                     validator(rule, value) {
                       const maxTicketOrder = getFieldValue('maxTicketOrder');
-                      if (isFieldTouched('maxTicketOrder') && maxTicketOrder < value) {
+                      if (isFieldTouched('maxTicketOrder') && maxTicketOrder < +value) {
                         return Promise.reject([
                           `Please input number less than or equal ${maxTicketOrder}`,
                         ]);
@@ -443,7 +415,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                   ({ getFieldValue, isFieldTouched }) => ({
                     validator(rule, value) {
                       const totalTicket = getFieldValue('totalTickets');
-                      if (isFieldTouched('maxTicketOrder') && totalTicket < value) {
+                      if (isFieldTouched('maxTicketOrder') && totalTicket < +value) {
                         return Promise.reject([
                           `Please input number less than or equal ${totalTicket}`,
                         ]);
@@ -460,7 +432,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
               <Form.Item name="ticketImageUrl" label="Ticket Image">
                 <UploadImage
                   onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'ticketImageUrl');
+                    handleUploadImage(url, 'ticketImageUrl', formTicket);
                   }}
                 />
               </Form.Item>
@@ -502,13 +474,13 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
         </Col>
         <Col offset={6} span={12}>
           <Form.Item name="bankName" label="Bank name" rules={[{ required: true }]}>
-            <Input readOnly />
+            <Input disabled={true} />
           </Form.Item>
           <Form.Item name="cardHolderName" label="Card Holder Name" rules={[{ required: true }]}>
-            <Input readOnly />
+            <Input disabled={true} />
           </Form.Item>
           <Form.Item name="creditNumber" label="Credit Number" rules={[{ required: true }]}>
-            <Input readOnly />
+            <Input disabled={true} />
           </Form.Item>
         </Col>
         <Col offset={8} className="mt-40">
@@ -519,7 +491,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
             Previous
           </Button>
           <Button className="btn btn--submit  mr-10" htmlType="submit">
-            Create Event
+            {isUpdate ? 'Update Event' : 'Create Event'}
           </Button>
           <Button className="btn btn--cancel" onClick={handleCancel}>
             Cancel

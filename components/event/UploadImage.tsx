@@ -2,11 +2,12 @@
 /* eslint-disable no-unused-vars */
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as api from '../../api/index';
 
 export interface IUploadImageProps {
   onSetUrlImage(url: string): void;
+  imageUrl?: string;
 }
 
 const UploadImage: React.FC<IUploadImageProps> = (props) => {
@@ -14,7 +15,7 @@ const UploadImage: React.FC<IUploadImageProps> = (props) => {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     props.onSetUrlImage(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);

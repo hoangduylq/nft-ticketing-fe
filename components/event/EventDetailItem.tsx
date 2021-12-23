@@ -45,6 +45,12 @@ const EventDetailItem: React.FC = () => {
       key: 'amount',
       render: (text: string) => <a>{text}</a>,
     },
+    // {
+    //   title: 'Number of tickets sold ',
+    //   dataIndex: '',
+    //   key: 'amount',
+    //   render: (text: string) => <a>{text}</a>,
+    // },
     {
       title: 'Ticket Image',
       dataIndex: 'ticketImageUrl',
@@ -93,8 +99,6 @@ const EventDetailItem: React.FC = () => {
       router.push(`/checkout/${eventId}`);
     }
   };
-
-  // const handleCheckout = () => {};
 
   return (
     <Row>

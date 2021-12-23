@@ -12,7 +12,7 @@ const ListEvent: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [optionPaging, setOptionPaging] = useState({
     page: 1,
-    limit: 3,
+    limit: 6,
   });
 
   useEffect(() => {

@@ -7,10 +7,10 @@ export interface IEventPayload {
   description: string;
   eventPlaceName: string;
   eventAddress: string;
-  saleStartDate: string;
-  saleEndDate: string;
-  eventStartDate: string;
-  eventEndDate: string;
+  saleStartDate: moment.Moment;
+  saleEndDate: moment.Moment;
+  eventStartDate: moment.Moment;
+  eventEndDate: moment.Moment;
   totalTickets: number;
   availableTickets: number;
   ticketImageUrl: string;
