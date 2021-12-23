@@ -1,3 +1,4 @@
+import { IUserProfile } from '@/models/user.interface';
 import { IBankPayload } from '@/models/bank.interface';
 import { IPayload } from '@/models/jwtPayload.interface';
 import axiosClient from './axios-client';
@@ -21,6 +22,32 @@ export const userApi = {
     return axiosClient.get('/users/profile', {
       headers: {
         Authorization: `Bearer  ${token}`,
+      },
+    });
+  },
+
+  getAllUser(token: string): Promise<IUserProfile[]> {
+    return axiosClient.get('/users', {
+      headers: {
+        Authorization: `Bearer  ${token}`,
+      },
+    });
+  },
+
+  getUserByAdmin(id: string): Promise<IUserProfile> {
+    const token = localStorage.getItem('token');
+    return axiosClient.get(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer  ${token}`,
+      },
+    });
+  },
+
+  patchUserByAdmin(id: string, payload: IUserProfile) {
+    const token = localStorage.getItem('token');
+    return axiosClient.patch(`/users/${id}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   },

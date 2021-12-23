@@ -2,7 +2,7 @@
   padding: 5rem;
   min-height: 90rem;
 
-  .box-header {
+  &__header {
     height: 20rem;
     p {
       font-size: 2rem;
@@ -15,4 +15,11 @@
     margin: 4rem 0;
     justify-content: center;
   }
+}
+.ant-scrolling-effect {
+  width: 100% !important;
+}
+
+.admin-page__birthday-input {
+  width: 100% !important;
 }
