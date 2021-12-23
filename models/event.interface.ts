@@ -24,6 +24,21 @@ export interface IEventPayload {
   id?: string;
 }
 
+export interface IEventPagingPayload {
+  total: number;
+  events: IEPayload[];
+}
+
+export interface IEPayload {
+  id: string;
+  name: string;
+  eventPlaceName: string;
+  eventAddress: string;
+  eventStartDate: string;
+  logoUrl: string;
+  bannerUrl: string;
+}
+
 export interface ICategory {
   id: string;
   name: string;

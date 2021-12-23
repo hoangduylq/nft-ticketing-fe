@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Image, Row, Divider, Button, Typography } from 'antd';
 
 import * as api from '../../api/index';
-import { IEventPayload } from '@/models/event.interface';
+import { IEPayload, IEventPagingPayload } from '@/models/event.interface';
 import EvenItem from '../event/EventItem';
 import { useRouter } from 'next/router';
 
@@ -15,17 +16,25 @@ const EventList: React.FC<IEventListProps> = (props) => {
   const { Title } = Typography;
   const router = useRouter();
 
-  const [listEvent, setListEvents] = useState<IEventPayload[]>([]);
-  // const [pageInfo, setPageInfo] = useState({ page: 1, pageSize: 6 });
+  const [listEvent, setListEvents] = useState<IEPayload[]>([]);
+  // eslint-disable-next-line no-unused-vars
+  const [optionPaging, setOptionPaging] = useState({
+    page: 1,
+    limit: 6,
+  });
 
   useEffect(() => {
-    const getEventsByCategory = async (id: string) => {
-      const result = await api.eventApi.getEventPagingByCategory(1, 6, id);
-      setListEvents(result);
+    const getEventsByCategory = async (page: number, pageSize: number, id: string) => {
+      const result: IEventPagingPayload = await api.eventApi.getEventPagingByCategory(
+        page,
+        pageSize,
+        id
+      );
+      setListEvents(result.events);
     };
 
-    getEventsByCategory(props.id);
-  }, [props.id]);
+    getEventsByCategory(optionPaging.page, optionPaging.limit, props.id);
+  }, [optionPaging.limit, optionPaging.page, props.id]);
 
   const onSeeMore = () => {
     router.push(`events/categories/${props.id}`);

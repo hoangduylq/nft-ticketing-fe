@@ -1,4 +1,4 @@
-import { IEventPayload, ICategory } from './../models/event.interface';
+import { IEventPayload, ICategory, IEventPagingPayload } from './../models/event.interface';
 import axiosClient from './axios-client';
 
 export const eventApi = {
@@ -20,7 +20,11 @@ export const eventApi = {
     });
   },
 
-  getEventPagingByUserId(page: number, pageSize: number, userId: string): Promise<IEventPayload[]> {
+  getEventPagingByUserId(
+    page: number,
+    pageSize: number,
+    userId: string
+  ): Promise<IEventPagingPayload> {
     return axiosClient.get(`events/paging?page=${page}&pageSize=${pageSize}&userId=${userId}`);
   },
 
@@ -28,7 +32,7 @@ export const eventApi = {
     page: number,
     pageSize: number,
     categoryId: string
-  ): Promise<IEventPayload[]> {
+  ): Promise<IEventPagingPayload> {
     return axiosClient.get(
       `events/paging?page=${page}&pageSize=${pageSize}&categoryId=${categoryId}`
     );

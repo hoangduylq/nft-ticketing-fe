@@ -2,10 +2,10 @@ import { FieldTimeOutlined, EnvironmentFilled, ArrowRightOutlined } from '@ant-d
 import { Row, Col, Avatar, Button, Card, Image, Typography } from 'antd';
 import { useRouter } from 'next/router';
 
-import { IEventPayload } from '../../models/event.interface';
+import { IEPayload } from '../../models/event.interface';
 
 interface IEventItemProps {
-  item: IEventPayload;
+  item: IEPayload;
   isHome?: boolean;
   isOwner?: boolean;
 }

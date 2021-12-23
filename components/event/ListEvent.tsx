@@ -1,4 +1,4 @@
-import { IEventPayload } from '@/models/event.interface';
+import { IEPayload, IEventPagingPayload } from '@/models/event.interface';
 import { Divider, Empty, Pagination, Row } from 'antd';
 import { useAppSelector } from 'app/hooks';
 import { selectorUser } from 'app/user/userSlice';
@@ -6,24 +6,36 @@ import React, { useEffect, useState } from 'react';
 import * as api from '../../api/index';
 import EvenItem from './EventItem';
 
-const paging = {
-  page: 1,
-  pageSize: 6,
-};
-
 const ListEvent: React.FC = () => {
-  const [listEvent, setListEvent] = useState<IEventPayload[]>([]);
+  const [listEvent, setListEvent] = useState<IEPayload[]>([]);
   const user = useAppSelector(selectorUser);
+  const [total, setTotal] = useState(0);
+  const [optionPaging, setOptionPaging] = useState({
+    page: 1,
+    limit: 3,
+  });
 
   useEffect(() => {
     const getEventPaging = async (page: number, pageSize: number, id: string) => {
-      const result: IEventPayload[] = await api.eventApi.getEventPagingByUserId(page, pageSize, id);
-      setListEvent(result);
+      const result: IEventPagingPayload = await api.eventApi.getEventPagingByUserId(
+        page,
+        pageSize,
+        id
+      );
+      setListEvent(result.events);
+      setTotal(result.total);
     };
     if (user.id) {
-      getEventPaging(paging.page, paging.pageSize, user.id);
+      getEventPaging(optionPaging.page, optionPaging.limit, user.id);
     }
-  }, [user.id]);
+  }, [optionPaging.limit, optionPaging.page, user.id]);
+
+  const changePage = (page: number) => {
+    setOptionPaging({
+      ...optionPaging,
+      page: page,
+    });
+  };
 
   return (
     <article className="event-list">
@@ -41,7 +53,13 @@ const ListEvent: React.FC = () => {
 
       {listEvent.length > 0 && (
         <div className="event-list__pagination">
-          <Pagination defaultCurrent={paging.page} pageSize={paging.pageSize} />
+          <Pagination
+            defaultCurrent={1}
+            total={total}
+            current={optionPaging.page}
+            onChange={changePage}
+            pageSize={optionPaging.limit}
+          />
         </div>
       )}
     </article>
