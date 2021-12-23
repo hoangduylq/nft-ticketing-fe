@@ -23,12 +23,11 @@ import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import * as api from '../../api/index';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppSelector } from 'app/hooks';
 import { selectorUser } from 'app/user/userSlice';
 import router from 'next/router';
 import { ICategory, IEventPayload } from '@/models/event.interface';
 import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
-import { createEvent } from 'app/event/eventSlice';
 
 const validateMessages = {
   required: '${label} is required!',
@@ -85,7 +84,6 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
 
   const [current, setCurrent] = React.useState(0);
   const user = useAppSelector(selectorUser);
-  const dispatch = useAppDispatch();
   const [formInfo] = Form.useForm();
   const [formTicket] = Form.useForm();
   const [formAccountBank] = Form.useForm();
@@ -164,9 +162,10 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
     if (!isUpdate) {
       try {
         const result: any = await api.eventApi.createEvent(payload);
-        dispatch(createEvent(result.id));
-        setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
-        router.push('/events/my-event');
+        if (result) {
+          setAlertMessage({ message: 'Created Event Successfully!', title: TypeAlertEnum.Success });
+          router.push('/events/my-event');
+        }
       } catch (error: any) {
         setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
       }
@@ -324,46 +323,58 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
           <Row>
             <Col span={10}>
               <Form.Item name="logoUrl" label="Logo event">
-                {!isDisplaySpinLogo && (
-                  <Avatar
-                    size={128}
-                    icon={<UserOutlined />}
-                    src={imageLogoUrl ? imageLogoUrl : '/img/default-image.jpg'}
-                  />
-                )}
+                <Row justify="center">
+                  <Spin spinning={isDisplaySpinLogo} size="large">
+                    <Avatar
+                      size={128}
+                      icon={<UserOutlined />}
+                      src={imageLogoUrl ? imageLogoUrl : '/img/default-image.jpg'}
+                      shape="square"
+                    />
+                  </Spin>
 
-                {isDisplaySpinLogo && <Spin size="large" />}
-
-                <Upload action={(e) => handleUpload(e, 'logoUrl', formInfo)} showUploadList={false}>
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
+                  <Upload
+                    action={(e) => handleUpload(e, 'logoUrl', formInfo)}
+                    showUploadList={false}
+                    className="mt-10"
+                  >
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                  </Upload>
+                </Row>
               </Form.Item>
             </Col>
-            <Col span={10}>
+            <Col span={10} offset={4}>
               <Form.Item name="bannerUrl" label="Banner event">
-                {!isDisplaySpinBanner && (
-                  <Avatar
-                    size={128}
-                    icon={<UserOutlined />}
-                    src={imageBannerUrl ? imageBannerUrl : '/img/default-image.jpg'}
-                  />
-                )}
+                <Row justify="center">
+                  <Spin spinning={isDisplaySpinBanner} size="large">
+                    <Avatar
+                      size={128}
+                      icon={<UserOutlined />}
+                      src={imageBannerUrl ? imageBannerUrl : '/img/default-image.jpg'}
+                      shape="square"
+                    />
+                  </Spin>
 
-                {isDisplaySpinBanner && <Spin size="large" />}
-
-                <Upload
-                  action={(e) => handleUpload(e, 'bannerUrl', formInfo)}
-                  showUploadList={false}
-                >
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
+                  <Upload
+                    action={(e) => handleUpload(e, 'bannerUrl', formInfo)}
+                    showUploadList={false}
+                  >
+                    <Button icon={<UploadOutlined />} className="mt-10">
+                      Upload
+                    </Button>
+                  </Upload>
+                </Row>
               </Form.Item>
             </Col>
           </Row>
         </Col>
       </Row>
       <Row justify="end">
-        <Button htmlType="submit" className="btn btn--submit">
+        <Button
+          htmlType="submit"
+          className="btn btn--submit"
+          disabled={isDisplaySpinBanner || isDisplaySpinLogo || isDisplaySpinTicket}
+        >
           Continue
           <span className="ml-10">
             <ArrowRightOutlined />
@@ -504,19 +515,19 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
             </Col>
             <Col offset={8}>
               <Form.Item name="ticketImageUrl" label="Ticket Image">
-                {!isDisplaySpinTicket && (
+                <Spin spinning={isDisplaySpinBanner} size="large">
                   <Avatar
                     size={128}
                     icon={<UserOutlined />}
                     src={imageTicketUrl ? imageTicketUrl : '/img/default-image.jpg'}
+                    shape="square"
                   />
-                )}
-
-                {isDisplaySpinTicket && <Spin size="large" />}
+                </Spin>
 
                 <Upload
                   action={(e) => handleUpload(e, 'ticketImageUrl', formTicket)}
                   showUploadList={false}
+                  className="mt-10"
                 >
                   <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
@@ -526,14 +537,22 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
         </Col>
       </Row>
       <Row justify="end">
-        <Button className="btn btn--submit mr-10" onClick={() => prev()}>
+        <Button
+          className="btn btn--submit mr-10"
+          onClick={() => prev()}
+          disabled={isDisplaySpinBanner || isDisplaySpinLogo || isDisplaySpinTicket}
+        >
           <span className="mr-10">
             <ArrowLeftOutlined />
           </span>
           Previous
         </Button>
 
-        <Button htmlType="submit" className="btn btn--submit">
+        <Button
+          htmlType="submit"
+          className="btn btn--submit"
+          disabled={isDisplaySpinBanner || isDisplaySpinLogo || isDisplaySpinTicket}
+        >
           Continue
           <span className="ml-10">
             <ArrowRightOutlined />

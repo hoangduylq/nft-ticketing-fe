@@ -1,6 +1,9 @@
 import { FieldTimeOutlined, EnvironmentFilled, ArrowRightOutlined } from '@ant-design/icons';
 import { Row, Col, Avatar, Button, Card, Image, Typography } from 'antd';
+import { isOwner } from 'app/event/eventSlice';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../app/hooks';
 
 import { IEPayload } from '../../models/event.interface';
 
@@ -13,11 +16,15 @@ interface IEventItemProps {
 const EvenItem: React.FC<IEventItemProps> = (props) => {
   const { Text } = Typography;
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(isOwner({ isOwner: props.isOwner ? !!props.isOwner : false }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isOwner]);
 
   const onSeeMore = () => {
-    if (props.isOwner) {
-      router.push(`/events/${props.item.id}?isOwner=${props.isOwner}`);
-    }
     router.push(`/events/${props.item.id}`);
   };
 

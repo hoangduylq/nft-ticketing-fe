@@ -137,18 +137,18 @@ const UserProfile: React.FC = () => {
                 <Form.Item name="avatar">
                   <Col offset={2} span={22}>
                     <Row justify="center">
-                      {!isDisplaySpin && (
+                      <Spin spinning={isDisplaySpin} size="large">
                         <Avatar
                           size={128}
                           icon={<UserOutlined />}
                           src={imageUrl ? imageUrl : '/img/default-image.jpg'}
                         />
-                      )}
-
-                      {isDisplaySpin && <Spin size="large" />}
+                      </Spin>
 
                       <Upload action={handleUpload} showUploadList={false}>
-                        <Button icon={<UploadOutlined />}>Upload</Button>
+                        <Button icon={<UploadOutlined />} className="mt-10">
+                          Upload
+                        </Button>
                       </Upload>
                     </Row>
                   </Col>

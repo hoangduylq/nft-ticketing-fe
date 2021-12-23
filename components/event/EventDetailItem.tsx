@@ -9,8 +9,8 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 import { Avatar, Button, Col, Empty, Image, Row, Table, Tabs, Typography } from 'antd';
+import { selectorEvent } from 'app/event/eventSlice';
 import { useAppSelector } from 'app/hooks';
-import { selectorUser } from 'app/user/userSlice';
 
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ const EventDetailItem: React.FC = () => {
   const { TabPane } = Tabs;
 
   const router = useRouter();
-  const user = useAppSelector(selectorUser);
+  const event = useAppSelector(selectorEvent);
 
   const [data, setData] = useState<IEventPayload>({} as IEventPayload);
   const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
@@ -30,7 +30,6 @@ const EventDetailItem: React.FC = () => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   const eventId = router.query.eventId ? router.query.eventId.toString() : '';
-  const isOwner = router.query.isOwner ? router.query.isOwner.toString() : '';
 
   const columns = [
     {
@@ -88,9 +87,8 @@ const EventDetailItem: React.FC = () => {
   }, [eventId]);
 
   useEffect(() => {
-    const check = !!(user.id === data.userId && !!isOwner);
-    setIsUpdate(check);
-  }, [isOwner, data.userId, user.id]);
+    setIsUpdate(event.isOwner ? event.isOwner : false);
+  }, [event.isOwner]);
 
   const handleClick = () => {
     if (isUpdate) {
