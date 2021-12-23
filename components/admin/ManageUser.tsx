@@ -43,7 +43,6 @@ const ManageUser: React.FC = () => {
   const handleEdit = async (key: string) => {
     const user = await api.userApi.getUserByAdmin(key);
     setUserEdit(user);
-    formInfo.setFieldsValue(user);
     setModalVisibleEdit(true);
   };
 

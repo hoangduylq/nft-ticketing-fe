@@ -279,7 +279,6 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
               <Form.Item name="bannerUrl" label="Banner event">
                 <UploadImage
                   onSetUrlImage={(url) => {
-                    console.log(url);
                     handleUploadImage(url, 'bannerUrl', formInfo);
                   }}
                 />

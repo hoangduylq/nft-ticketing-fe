@@ -56,7 +56,7 @@ export default function Header() {
         <Col
           className="btn--popover header__label"
           onClick={() => {
-            router.push('/user');
+            router.push('/user/profile');
           }}
         >
           <EditOutlined />

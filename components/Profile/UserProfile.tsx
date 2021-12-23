@@ -1,75 +1,173 @@
-import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, DatePicker, Form, Input, Row, Space } from 'antd';
-import React from 'react';
-import { Radio } from 'antd';
+import {
+  Avatar,
+  Button,
+  Col,
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  Row,
+  Select,
+  Spin,
+  Typography,
+  Upload,
+} from 'antd';
+import React, { useEffect, useState } from 'react';
+import * as api from '../../api/index';
+import { IUserProfile } from '@/models/user.interface';
+import moment from 'moment';
+import AlertMessage, { TypeAlertEnum } from '../common/Alert/AlertMessage';
+import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 
 const UserProfile: React.FC = () => {
-  const [value, setValue] = React.useState(1);
+  const { Option } = Select;
+  const [data, setData] = useState<IUserProfile>({} as IUserProfile);
+  const { Title } = Typography;
+  const [form] = Form.useForm();
 
-  const onChange = (e: any) => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
+  const [alertMessage, setAlertMessage] = useState({ message: '', title: TypeAlertEnum.Info });
+  const [isDisplayAlert, setIsDisplayAlert] = useState(false);
+  const [isDisplaySpin, setIsDisplaySpin] = useState(false);
+
+  const [imageUrl, setImageUrl] = useState('');
+
+  const dateFormatList = 'DD/MM/YYYY';
+
+  useEffect(() => {
+    const getUserById = async (id: string) => {
+      const result: IUserProfile = await api.userApi.getUser(id);
+      if (result) {
+        result.birthday ? (result.birthday = moment(result.birthday)) : '';
+        result.avatar ? setImageUrl(result.avatar) : setImageUrl('');
+        setData(result);
+      }
+    };
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      getUserById(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({ ...data });
+  }, [data, form]);
+
+  useEffect(() => {
+    setIsDisplayAlert(alertMessage.message ? true : false);
+  }, [alertMessage]);
+
+  useEffect(() => {
+    form.setFields([{ name: 'avatar', value: imageUrl }]);
+  }, [form, imageUrl]);
+
+  const handleUpload = async (file: any): Promise<any> => {
+    setIsDisplaySpin(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    const result: any = await api.eventApi.uploadImage(formData);
+    setImageUrl(result.url);
+    setIsDisplaySpin(false);
   };
-  const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+
+  const onFinish = async (value: IUserProfile) => {
+    try {
+      const result = await api.userApi.updateUser(value);
+      setData(result);
+      setAlertMessage({ message: 'Update event Successfully!', title: TypeAlertEnum.Success });
+    } catch (error: any) {
+      setAlertMessage({
+        message: error?.errorCode,
+        title: TypeAlertEnum.Error,
+      });
+    }
+  };
 
   return (
-    <Row justify="center">
-      <Col span="12">
-        <section className="profile-box">
-          <Space align="center" direction="vertical" className="profile-box__header">
-            <h1>My Profile </h1>
-            <Avatar size={150} icon={<UserOutlined />} />
-          </Space>
+    <Row>
+      <Col offset="16" span="8">
+        {isDisplayAlert && (
+          <AlertMessage message={alertMessage.message} title={alertMessage.title} />
+        )}
+      </Col>
+      <Col span={24}>
+        <Row className="profile__contain">
+          <Col span={24}>
+            <Title className="profile__heading " level={2}>
+              Your Profile
+            </Title>
+          </Col>
+          <Col span={24}>
+            <Divider className="profile__dashed" />
+          </Col>
+          <Col span={24} className="mt-20">
+            <Form
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 18 }}
+              name="form-profile"
+              form={form}
+              onFinish={onFinish}
+            >
+              <Row>
+                <Col offset={2} span={12}>
+                  <Form.Item name="name" className="form__item" label="Full Name">
+                    <Input size="large" />
+                  </Form.Item>
+                  <Form.Item name="email" className="form__item" label="Email">
+                    <Input size="large" disabled />
+                  </Form.Item>
+                  <Form.Item name="numberPhone" className="form__item" label="Phone number">
+                    <Input size="large" />
+                  </Form.Item>
+                  <Form.Item name="birthday" className="form__item w-100" label="Birthday">
+                    <DatePicker size="large" format={dateFormatList} className="w-100" />
+                  </Form.Item>
+                  <Form.Item name="gender" label="Gender">
+                    <Row justify="space-between" className="w-100">
+                      <Col span={24}>
+                        <Select placeholder="Select gender" allowClear size="large">
+                          <Option value="Male">Male</Option>
+                          <Option value="Female">Female</Option>
+                          <Option value="Other">Other</Option>
+                        </Select>
+                      </Col>
+                    </Row>
+                  </Form.Item>
+                </Col>
+                <Form.Item name="avatar">
+                  <Col offset={2} span={22}>
+                    <Row justify="center">
+                      {!isDisplaySpin && (
+                        <Avatar
+                          size={128}
+                          icon={<UserOutlined />}
+                          src={imageUrl ? imageUrl : '/img/default-image.jpg'}
+                        />
+                      )}
 
-          <Form
-            name="basic"
-            wrapperCol={{ span: 24 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-            className="form"
-            scrollToFirstError={true}
-          >
-            <p>FullName</p>
-            <Form.Item name="name" className="form__item">
-              <Input
-                size="large"
-                placeholder="Fullname"
-                prefix={<UserOutlined className="site-form-item-icon" />}
-              />
-            </Form.Item>
-            <p>Email</p>
-            <Form.Item name="email" className="form__item">
-              <Input
-                size="large"
-                placeholder="example@gmail.com"
-                prefix={<MailOutlined className="site-form-item-icon" />}
-              />
-            </Form.Item>
-            <p>Phone</p>
-            <Form.Item name="number" className="form__item">
-              <Input size="large" prefix={<PhoneOutlined className="site-form-item-icon" />} />
-            </Form.Item>
-            <p>Birthday</p>
-            <Form.Item name="birthday" className="form__item">
-              <DatePicker size="large" format={dateFormatList} />
-            </Form.Item>
-            <p>Gender</p>
-            <Radio.Group onChange={onChange} value={value}>
-              <Radio value={1}>
-                <span>Male</span>
-              </Radio>
-              <Radio value={2}>
-                <span>Female</span>
-              </Radio>
-              <Radio value={3}>
-                <span>Orther</span>
-              </Radio>
-            </Radio.Group>
-            <Button type="primary" htmlType="submit" size="large" className="form__btn--change">
-              Update
-            </Button>
-          </Form>
-        </section>
+                      {isDisplaySpin && <Spin size="large" />}
+
+                      <Upload action={handleUpload} showUploadList={false}>
+                        <Button icon={<UploadOutlined />}>Upload</Button>
+                      </Upload>
+                    </Row>
+                  </Col>
+                </Form.Item>
+              </Row>
+
+              <Row justify="center" className="mt-40">
+                <Button
+                  className="btn btn--submit"
+                  size="large"
+                  htmlType="submit"
+                  disabled={isDisplaySpin}
+                >
+                  Update Profile
+                </Button>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );

@@ -26,6 +26,15 @@ export const userApi = {
     });
   },
 
+  updateUser(payload: IUserProfile): Promise<IUserProfile> {
+    const token = localStorage.getItem('token');
+    return axiosClient.patch('/users', payload, {
+      headers: {
+        Authorization: `Bearer  ${token}`,
+      },
+    });
+  },
+
   getAllUser(token: string): Promise<IUserProfile[]> {
     return axiosClient.get('/users', {
       headers: {
