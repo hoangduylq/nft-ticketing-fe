@@ -396,7 +396,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
       onFinish={next}
     >
       <Row>
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 10 }}>
           <Col span={24}>
             <h2 className="event-detail__heading--secondary">Event Time </h2>
           </Col>
@@ -423,12 +423,12 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
             </Col>
           </Row>
         </Col>
-        <Col span={12}>
+        <Col span={14}>
           <Col span={24}>
             <h2 className="event-detail__heading--secondary">Ticket </h2>
           </Col>
           <Row>
-            <Col offset={2} span={8}>
+            <Col offset={2} span={6}>
               <Form.Item
                 name="ticketPrice"
                 label="Ticket Price"
@@ -470,7 +470,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                 <InputNumber className="w-100" />
               </Form.Item>
             </Col>
-            <Col offset={2} span={8}>
+            <Col offset={1} span={6}>
               <Form.Item
                 name="totalTickets"
                 label="Total tickets"
@@ -513,30 +513,34 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                 <InputNumber className="w-100" />
               </Form.Item>
             </Col>
-            <Col offset={8}>
+            <Col offset={2} span={6}>
               <Form.Item name="ticketImageUrl" label="Ticket Image">
-                <Spin spinning={isDisplaySpinBanner} size="large">
-                  <Avatar
-                    size={128}
-                    icon={<UserOutlined />}
-                    src={imageTicketUrl ? imageTicketUrl : '/img/default-image.jpg'}
-                    shape="square"
-                  />
-                </Spin>
+                <Row justify="center">
+                  <Spin spinning={isDisplaySpinTicket} size="large">
+                    <Avatar
+                      size={128}
+                      icon={<UserOutlined />}
+                      src={imageTicketUrl ? imageTicketUrl : '/img/default-image.jpg'}
+                      shape="square"
+                    />
+                  </Spin>
 
-                <Upload
-                  action={(e) => handleUpload(e, 'ticketImageUrl', formTicket)}
-                  showUploadList={false}
-                  className="mt-10"
-                >
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
+                  <Upload
+                    action={(e) => handleUpload(e, 'ticketImageUrl', formTicket)}
+                    showUploadList={false}
+                    className="mt-10"
+                  >
+                    <Button icon={<UploadOutlined />} className="mt-10">
+                      Upload
+                    </Button>
+                  </Upload>
+                </Row>
               </Form.Item>
             </Col>
           </Row>
         </Col>
       </Row>
-      <Row justify="end">
+      <Row justify="end" className="mt-20">
         <Button
           className="btn btn--submit mr-10"
           onClick={() => prev()}
