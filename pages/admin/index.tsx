@@ -3,8 +3,7 @@ import { MainLayout } from '@/components/layout';
 import { useAppSelector } from './../../app/hooks';
 import NotFound from '@/components/common/NotFound/NotFound';
 import { NextPageWithLayout } from '@/models/common.interface';
-import HeaderManager from '@/components/Admin/HeaderManager';
-import ListUsers from '@/components/Admin/ListUsers';
+import ManageUser from '@/components/admin/ManageUser';
 const AdminPage: NextPageWithLayout = () => {
   const user = useAppSelector(selectorUser);
 
@@ -12,8 +11,7 @@ const AdminPage: NextPageWithLayout = () => {
     <NotFound />
   ) : (
     <article className="admin-page">
-      <HeaderManager />
-      <ListUsers />
+      <ManageUser />
     </article>
   );
 };

@@ -4,14 +4,15 @@ export interface IUserInterface {
 }
 
 export interface IUserProfile {
-  id: string;
-  email?: string | null;
-  name?: string | null;
-  role?: string | null;
-  gender?: string | null;
-  birthday?: string | null;
-  numberPhone?: string | null;
-  avatar?: string | null;
+  id?: string;
+  email?: string;
+  name?: string;
+  role?: string;
+  gender?: string;
+  birthday?: moment.Moment;
+  numberPhone?: string;
+  avatar?: string;
+  isDeleted?: boolean;
   isLoggedIn?: boolean;
   isBankAccount?: boolean;
 }
