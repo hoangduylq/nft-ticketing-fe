@@ -24,7 +24,7 @@ const Signup: React.FC = () => {
         router.push('/login');
       }
     } catch (error: any) {
-      setAlertMessage({ message: error.message, title: TypeAlertEnum.Error });
+      setAlertMessage({ message: error?.errorCode, title: TypeAlertEnum.Error });
     }
   };
 

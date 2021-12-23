@@ -6,6 +6,8 @@ import { IEventPayload } from '../../models/event.interface';
 
 interface IEventItemProps {
   item: IEventPayload;
+  isHome?: boolean;
+  isOwner?: boolean;
 }
 
 const EvenItem: React.FC<IEventItemProps> = (props) => {
@@ -13,11 +15,21 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
   const router = useRouter();
 
   const onSeeMore = () => {
+    if (props.isOwner) {
+      router.push(`/events/${props.item.id}?isOwner=${props.isOwner}`);
+    }
     router.push(`/events/${props.item.id}`);
   };
 
   return (
-    <Col sm={24} md={12} xl={8}>
+    <Col
+      sm={24}
+      md={12}
+      xl={8}
+      key={props.item.id}
+      onClick={onSeeMore}
+      className="event-item__contain"
+    >
       <Card
         className="event-item__card"
         cover={
@@ -53,20 +65,22 @@ const EvenItem: React.FC<IEventItemProps> = (props) => {
               </Text>
             </div>
           </Col>
-          <Col className="mt-40 event-item__btn" offset={12} span={12}>
-            <Button
-              shape="round"
-              size="large"
-              type="dashed"
-              className="btn btn--submit"
-              onClick={onSeeMore}
-            >
-              See more
-              <span className="ml-10">
-                <ArrowRightOutlined />
-              </span>
-            </Button>
-          </Col>
+          {!props.isHome && (
+            <Col className="mt-40 event-item__btn" offset={12} span={12}>
+              <Button
+                shape="round"
+                size="large"
+                type="dashed"
+                className="btn btn--submit"
+                onClick={onSeeMore}
+              >
+                See more
+                <span className="ml-10">
+                  <ArrowRightOutlined />
+                </span>
+              </Button>
+            </Col>
+          )}
         </Row>
       </Card>
     </Col>

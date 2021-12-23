@@ -17,7 +17,7 @@ const ListEvent: React.FC = () => {
 
   useEffect(() => {
     const getEventPaging = async (page: number, pageSize: number, id: string) => {
-      const result: IEventPayload[] = await api.eventApi.getAllEvent(page, pageSize, id);
+      const result: IEventPayload[] = await api.eventApi.getEventPagingByUserId(page, pageSize, id);
       setListEvent(result);
     };
     if (user.id) {
@@ -33,7 +33,7 @@ const ListEvent: React.FC = () => {
         <main className="event-list__ contain">
           <Row gutter={[24, 24]} className="event-list-row">
             {listEvent.map((event) => (
-              <EvenItem item={event} key={event.id} />
+              <EvenItem item={event} key={event.id} isOwner={true} />
             ))}
           </Row>
         </main>
