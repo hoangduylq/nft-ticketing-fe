@@ -31,7 +31,7 @@ const UserProfile: React.FC = () => {
 
   const [imageUrl, setImageUrl] = useState('');
 
-  const dateFormatList = 'DD/MM/YYYY';
+  const dateFormat = 'DD/MM/YYYY';
 
   useEffect(() => {
     const getUserById = async (id: string) => {
@@ -120,7 +120,7 @@ const UserProfile: React.FC = () => {
                     <Input size="large" />
                   </Form.Item>
                   <Form.Item name="birthday" className="form__item w-100" label="Birthday">
-                    <DatePicker size="large" format={dateFormatList} className="w-100" />
+                    <DatePicker size="large" format={dateFormat} className="w-100" />
                   </Form.Item>
                   <Form.Item name="gender" label="Gender">
                     <Row justify="space-between" className="w-100">
