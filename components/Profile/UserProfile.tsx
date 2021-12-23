@@ -123,15 +123,11 @@ const UserProfile: React.FC = () => {
                     <DatePicker size="large" format={dateFormatList} className="w-100" />
                   </Form.Item>
                   <Form.Item name="gender" label="Gender">
-                    <Row justify="space-between" className="w-100">
-                      <Col span={24}>
-                        <Select placeholder="Select gender" allowClear size="large">
-                          <Option value="Male">Male</Option>
-                          <Option value="Female">Female</Option>
-                          <Option value="Other">Other</Option>
-                        </Select>
-                      </Col>
-                    </Row>
+                    <Select placeholder="Select gender" allowClear size="large">
+                      <Option value="Male">Male</Option>
+                      <Option value="Female">Female</Option>
+                      <Option value="Other">Other</Option>
+                    </Select>
                   </Form.Item>
                 </Col>
                 <Form.Item name="avatar">
