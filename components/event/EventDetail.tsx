@@ -1,4 +1,9 @@
-import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import {
+  ArrowRightOutlined,
+  ArrowLeftOutlined,
+  UploadOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import {
   Form,
   Row,
@@ -10,11 +15,13 @@ import {
   Steps,
   DatePicker,
   FormInstance,
+  Avatar,
+  Spin,
+  Upload,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import UploadImage from './UploadImage';
 import * as api from '../../api/index';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectorUser } from 'app/user/userSlice';
@@ -88,6 +95,12 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
   const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isDisplaySpinLogo, setIsDisplaySpinLogo] = useState(false);
+  const [isDisplaySpinBanner, setIsDisplaySpinBanner] = useState(false);
+  const [isDisplaySpinTicket, setIsDisplaySpinTicket] = useState(false);
+  const [imageLogoUrl, setImageLogoUrl] = useState('');
+  const [imageBannerUrl, setImageBannerUrl] = useState('');
+  const [imageTicketUrl, setImageTicketUrl] = useState('');
 
   useEffect(() => {
     setIsDisplayAlert(alertMessage.message ? true : false);
@@ -140,6 +153,12 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
     formTicket.setFieldsValue(formValues);
   }, [formTicket, formValues]);
 
+  useEffect(() => {
+    setImageLogoUrl(formValues.logoUrl);
+    setImageBannerUrl(formValues.bannerUrl);
+    setImageTicketUrl(formValues.ticketImageUrl);
+  }, [isUpdate, formValues.logoUrl, formValues.bannerUrl, formValues.ticketImageUrl]);
+
   const onFinish = async () => {
     const payload: IEventPayload = { ...formValues, userId: user.id };
     if (!isUpdate) {
@@ -156,6 +175,46 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
     }
   };
 
+  const handleUpload = async (file: any, field: string, form: FormInstance): Promise<any> => {
+    switch (field) {
+      case 'logoUrl':
+        setIsDisplaySpinLogo(true);
+        const resultLogo: any = await uploadImage(file);
+        setImageLogoUrl(resultLogo.url);
+        form.setFields([{ name: field, value: resultLogo.url }]);
+        setFormValues({ ...formValues, ...form.getFieldsValue() });
+        setIsDisplaySpinLogo(false);
+        break;
+      case 'bannerUrl':
+        setIsDisplaySpinBanner(true);
+        const resultBanner: any = await uploadImage(file);
+        setImageBannerUrl(resultBanner.url);
+        form.setFields([{ name: field, value: resultBanner.url }]);
+        setFormValues({ ...formValues, ...form.getFieldsValue() });
+
+        setIsDisplaySpinBanner(false);
+        break;
+      case 'ticketImageUrl':
+        setIsDisplaySpinTicket(true);
+        const result: any = await uploadImage(file);
+        setImageTicketUrl(result.url);
+        form.setFields([{ name: field, value: result.url }]);
+        setFormValues({ ...formValues, ...form.getFieldsValue() });
+        setIsDisplaySpinTicket(false);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const uploadImage = async (file: any) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const result = await api.eventApi.uploadImage(formData);
+    return result;
+  };
+
   const handleCancel = () => {
     if (confirm('Do you want cancel create event?')) {
       router.push('/');
@@ -167,10 +226,6 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
   const disabledDate = (current: any) => {
     // Can not select days before today and today
     return current && current < moment().endOf('day');
-  };
-
-  const handleUploadImage = (url: string, field: string, form: FormInstance) => {
-    form.setFields([{ name: field, value: url }]);
   };
 
   const next = (value: any) => {
@@ -204,6 +259,7 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
       validateMessages={validateMessages}
       autoComplete="on"
       onFinish={next}
+      initialValues={formValues}
     >
       <Row>
         <Col span={24} className="mb-10">
@@ -268,20 +324,39 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
           <Row>
             <Col span={10}>
               <Form.Item name="logoUrl" label="Logo event">
-                <UploadImage
-                  onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'logoUrl', formInfo);
-                  }}
-                />
+                {!isDisplaySpinLogo && (
+                  <Avatar
+                    size={128}
+                    icon={<UserOutlined />}
+                    src={imageLogoUrl ? imageLogoUrl : '/img/default-image.jpg'}
+                  />
+                )}
+
+                {isDisplaySpinLogo && <Spin size="large" />}
+
+                <Upload action={(e) => handleUpload(e, 'logoUrl', formInfo)} showUploadList={false}>
+                  <Button icon={<UploadOutlined />}>Upload</Button>
+                </Upload>
               </Form.Item>
             </Col>
             <Col span={10}>
               <Form.Item name="bannerUrl" label="Banner event">
-                <UploadImage
-                  onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'bannerUrl', formInfo);
-                  }}
-                />
+                {!isDisplaySpinBanner && (
+                  <Avatar
+                    size={128}
+                    icon={<UserOutlined />}
+                    src={imageBannerUrl ? imageBannerUrl : '/img/default-image.jpg'}
+                  />
+                )}
+
+                {isDisplaySpinBanner && <Spin size="large" />}
+
+                <Upload
+                  action={(e) => handleUpload(e, 'bannerUrl', formInfo)}
+                  showUploadList={false}
+                >
+                  <Button icon={<UploadOutlined />}>Upload</Button>
+                </Upload>
               </Form.Item>
             </Col>
           </Row>
@@ -429,11 +504,22 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
             </Col>
             <Col offset={8}>
               <Form.Item name="ticketImageUrl" label="Ticket Image">
-                <UploadImage
-                  onSetUrlImage={(url) => {
-                    handleUploadImage(url, 'ticketImageUrl', formTicket);
-                  }}
-                />
+                {!isDisplaySpinTicket && (
+                  <Avatar
+                    size={128}
+                    icon={<UserOutlined />}
+                    src={imageTicketUrl ? imageTicketUrl : '/img/default-image.jpg'}
+                  />
+                )}
+
+                {isDisplaySpinTicket && <Spin size="large" />}
+
+                <Upload
+                  action={(e) => handleUpload(e, 'ticketImageUrl', formTicket)}
+                  showUploadList={false}
+                >
+                  <Button icon={<UploadOutlined />}>Upload</Button>
+                </Upload>
               </Form.Item>
             </Col>
           </Row>
