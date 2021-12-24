@@ -1,3 +1,10 @@
+/* eslint-disable no-unused-vars */
+export enum StatusEnum {
+  Progress = 'Progress',
+  Done = 'Done',
+  Canceled = 'Canceled',
+}
+
 export interface IEvent {
   name: string;
   logoUrl: string;
@@ -13,6 +20,7 @@ export interface IOrderPayload {
   amount: number;
   tickets: string[];
   event: IEvent;
+  status: StatusEnum;
 }
 
 export interface IOrderPagingPayload {

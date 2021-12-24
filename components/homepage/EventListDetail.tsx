@@ -1,4 +1,4 @@
-import { IEventPayload } from '@/models/event.interface';
+import { IEPayload } from '@/models/event.interface';
 import { Empty, Pagination, Row } from 'antd';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -8,20 +8,32 @@ import EvenItem from '../event/EventItem';
 const EventListDetail: React.FC = () => {
   const router = useRouter();
   const categoryId = router.query.categoryId ? router.query.categoryId.toString() : '';
-  const [pageInfo, setPageInfo] = useState({ page: 1, pageSize: 6 });
-  const [listEvent, setListEvents] = useState<IEventPayload[]>([]);
+  const [optionPaging, setOptionPaging] = useState({
+    page: 1,
+    limit: 6,
+  });
+  const [listEvent, setListEvents] = useState<IEPayload[]>([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const getEventsByCategory = async (id: string) => {
       const result = await api.eventApi.getEventPagingByCategory(
-        pageInfo.page,
-        pageInfo.pageSize,
+        optionPaging.page,
+        optionPaging.limit,
         id
       );
-      setListEvents(result);
+      setListEvents(result.events);
+      setTotal(result.total);
     };
     getEventsByCategory(categoryId);
-  }, [pageInfo.page, pageInfo.pageSize, categoryId]);
+  }, [optionPaging.limit, optionPaging.page, categoryId]);
+
+  const changePage = (page: number) => {
+    setOptionPaging({
+      ...optionPaging,
+      page: page,
+    });
+  };
 
   return (
     <article className="event-list">
@@ -38,7 +50,13 @@ const EventListDetail: React.FC = () => {
 
       {listEvent.length > 0 && (
         <div className="event-list__pagination">
-          <Pagination defaultCurrent={pageInfo.page} pageSize={pageInfo.pageSize} />
+          <Pagination
+            defaultCurrent={1}
+            total={total}
+            current={optionPaging.page}
+            onChange={changePage}
+            pageSize={optionPaging.limit}
+          />
         </div>
       )}
     </article>

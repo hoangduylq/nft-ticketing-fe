@@ -20,6 +20,7 @@ const InformationCheckout: React.FC<IEventItemProps> = (props) => {
 
   const [bankSellerAccount, setBankSellerAccount] = useState<IBankPayload>({} as IBankPayload);
   const [isDisableBtnSubmit, setIsDisableBtnSubmit] = useState(false);
+  const [isAgree, setIsAgree] = useState(false);
 
   useEffect(() => {
     const getBank = async (id: string) => {
@@ -73,6 +74,11 @@ const InformationCheckout: React.FC<IEventItemProps> = (props) => {
     }
   };
 
+  function onChange(e: any) {
+    setIsAgree(e.target.checked);
+    // console.log(`checked = ${e.target.checked}`);
+  }
+
   return (
     <article className="information-checkout">
       <Row>
@@ -99,7 +105,9 @@ const InformationCheckout: React.FC<IEventItemProps> = (props) => {
         <Space size={4} direction="vertical" className="information-checkout__event__wrap">
           <Title level={5}>{eventPlaceName}</Title>
           <span>{eventAddress}</span>
-          <span>{eventStartDate + eventEndDate}</span>
+          <span>
+            {eventStartDate} - {eventEndDate}
+          </span>
           <span>D17</span>
           <div className="information-checkout__event__ticket">
             <div>
@@ -121,7 +129,7 @@ const InformationCheckout: React.FC<IEventItemProps> = (props) => {
         <span>{amount * +ticketPrice}đ</span>
       </Row>
       <Row className="information-checkout__term">
-        <Checkbox>
+        <Checkbox onChange={onChange}>
           I agree with <a href="">Terms and Condition and am purchasing tickets</a> for age
           appropriate audience
         </Checkbox>
@@ -134,6 +142,7 @@ const InformationCheckout: React.FC<IEventItemProps> = (props) => {
           className="form__button"
           loading={isDisableBtnSubmit}
           onClick={handleSubmit}
+          disabled={!isAgree}
         >
           <span className="form__button-label">Pay</span>
         </Button>

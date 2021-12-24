@@ -17,7 +17,6 @@ const OrderList: React.FC = () => {
   useEffect(() => {
     const getEventPaging = async (page: number, limit: number) => {
       const result: IOrderPagingPayload = await api.orderApi.getAllOrder(page, limit);
-      console.log('result total:', result.total);
       setOrders(result.orders);
       setTotal(result.total);
     };
