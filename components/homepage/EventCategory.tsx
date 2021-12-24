@@ -2,21 +2,32 @@ import { Layout, Menu, LayoutProps } from 'antd';
 import {
   BarsOutlined,
   FolderOpenOutlined,
-  GatewayOutlined,
-  HeartOutlined,
   HomeOutlined,
-  ShareAltOutlined,
-  SoundOutlined,
+  SplitCellsOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { ICategory } from '@/models/event.interface';
+import * as api from '../../api/index';
 
 const EventCategory: React.FC = ({ children }: LayoutProps) => {
   const { SubMenu } = Menu;
   const { Content, Sider } = Layout;
   const router = useRouter();
+
+  const [categories, setCategories] = useState<ICategory[]>([]);
+
+  useEffect(() => {
+    const getCategory = async () => {
+      const result = await api.eventApi.getAllCategory();
+      setCategories(result);
+    };
+
+    getCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClickMenuItem = (e: any) => {
     router.push(`/events/categories/${e.key}`);
@@ -29,35 +40,17 @@ const EventCategory: React.FC = ({ children }: LayoutProps) => {
           <Menu.Item key="0" icon={<HomeOutlined />}>
             <Link href="/">Home</Link>
           </Menu.Item>
+
           <SubMenu key="sub1" icon={<BarsOutlined />} title="Category Event">
-            <Menu.Item
-              key="c6022b20-f3ac-4477-922a-675be5b2fdb1"
-              icon={<HeartOutlined />}
-              onClick={handleClickMenuItem}
-            >
-              Movies
-            </Menu.Item>
-            <Menu.Item
-              key="cb9f4525-b6e9-47f8-879b-327dbddeb00c"
-              icon={<SoundOutlined />}
-              onClick={handleClickMenuItem}
-            >
-              Live music
-            </Menu.Item>
-            <Menu.Item
-              key="d8dc4274-805d-47e8-8f02-e5c5848c96b4"
-              icon={<GatewayOutlined />}
-              onClick={handleClickMenuItem}
-            >
-              Theater - Art Culture
-            </Menu.Item>
-            <Menu.Item
-              key="f61b0beb-1665-4a93-b9c2-44e1378f4f96"
-              icon={<ShareAltOutlined />}
-              onClick={handleClickMenuItem}
-            >
-              Community
-            </Menu.Item>
+            {categories.map((category) => (
+              <Menu.Item
+                key={category.id}
+                icon={<SplitCellsOutlined />}
+                onClick={handleClickMenuItem}
+              >
+                {category.name}
+              </Menu.Item>
+            ))}
           </SubMenu>
           <Menu.Item key="10" icon={<UserOutlined />}>
             <Link href="/order">My order</Link>

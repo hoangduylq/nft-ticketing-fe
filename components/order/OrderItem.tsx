@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Col, Empty, Row, Table, Tabs } from 'antd';
+import { Avatar, Col, Empty, Row, Table, Tabs, Tag } from 'antd';
 import {
   AntDesignOutlined,
   DownloadOutlined,
@@ -9,7 +9,7 @@ import {
   SolutionOutlined,
 } from '@ant-design/icons';
 import { Typography } from 'antd';
-import { IOrderPayload } from '@/models/order.interface';
+import { IOrderPayload, StatusEnum } from '@/models/order.interface';
 
 interface IOrderItemProps {
   item: IOrderPayload;
@@ -18,7 +18,7 @@ interface IOrderItemProps {
 const OrderItem: React.FC<IOrderItemProps> = (props) => {
   const { Title } = Typography;
   const { TabPane } = Tabs;
-  const { amount, tickets, event } = props.item;
+  const { amount, tickets, event, status } = props.item;
 
   const columns = [
     {
@@ -92,7 +92,14 @@ const OrderItem: React.FC<IOrderItemProps> = (props) => {
             />
           </Col>
           <Col className="order-item__info" span={20}>
-            <Title level={2}>{event.name}</Title>
+            <Title level={2}>
+              {event.name}{' '}
+              <span>
+                <Tag color={status === StatusEnum.Progress ? 'processing' : 'success'}>
+                  {status === StatusEnum.Progress ? 'processing' : 'success'}
+                </Tag>
+              </span>
+            </Title>
             <div className="order-item__info__item">
               <FieldTimeOutlined />
               <span className="order-item__info__item__description">{event.eventStartDate}</span>
