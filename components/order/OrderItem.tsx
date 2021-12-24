@@ -1,12 +1,14 @@
 import React from 'react';
-import { Avatar, Col, Empty, Row, Table, Tabs, Tag } from 'antd';
+import { Avatar, Col, Row, Table, Tabs, Tag } from 'antd';
 import {
   AntDesignOutlined,
+  CheckCircleOutlined,
   DownloadOutlined,
   EnvironmentFilled,
   FieldTimeOutlined,
   ProfileOutlined,
   SolutionOutlined,
+  SyncOutlined,
 } from '@ant-design/icons';
 import { Typography } from 'antd';
 import { IOrderPayload, StatusEnum } from '@/models/order.interface';
@@ -71,14 +73,21 @@ const OrderItem: React.FC<IOrderItemProps> = (props) => {
     },
   ];
 
-  const dataTicket = tickets.map((ticket, index) => ({
-    key: index + 1,
-    number: index + 1,
-    ticket,
-    download: <DownloadOutlined />,
-  }));
-
-  if (false) return <Empty />;
+  const dataTicket = tickets
+    ? tickets.map((ticket, index) => ({
+        key: index + 1,
+        number: index + 1,
+        ticket,
+        download: <DownloadOutlined />,
+      }))
+    : [
+        {
+          key: 0,
+          number: 0,
+          ticket: '',
+          download: <></>,
+        },
+      ];
 
   return (
     <>
@@ -95,7 +104,12 @@ const OrderItem: React.FC<IOrderItemProps> = (props) => {
             <Title level={2}>
               {event.name}{' '}
               <span>
-                <Tag color={status === StatusEnum.Progress ? 'processing' : 'success'}>
+                <Tag
+                  color={status === StatusEnum.Progress ? 'processing' : 'success'}
+                  icon={
+                    status === StatusEnum.Progress ? <SyncOutlined spin /> : <CheckCircleOutlined />
+                  }
+                >
                   {status === StatusEnum.Progress ? 'processing' : 'success'}
                 </Tag>
               </span>

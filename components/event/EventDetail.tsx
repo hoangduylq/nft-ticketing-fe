@@ -410,15 +410,15 @@ const EventDetail: React.FC<IEventDetailProps> = (props) => {
                 <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
               </Form.Item>
               <Form.Item name="saleStartDate" label="Sale start date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" />
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
               </Form.Item>
             </Col>
             <Col offset={2} span={8}>
               <Form.Item name="eventEndDate" label="Event end date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" />
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
               </Form.Item>
               <Form.Item name="saleEndDate" label="Sale end date" rules={[{ required: true }]}>
-                <DatePicker format="DD-MM-YYYY" />
+                <DatePicker format="DD-MM-YYYY" disabledDate={disabledDate} />
               </Form.Item>
             </Col>
           </Row>
